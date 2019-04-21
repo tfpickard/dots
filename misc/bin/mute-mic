@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+for s in $(pamixer --list-sources | grep -v Source| awk '{print $1}'); do \
+    pactl set-source-mute $s toggle; done

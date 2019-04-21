@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+pb=$(which polybar) || exit 1
+# Terminate already running bar instances
+killall -q polybar
+
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+for m in $(xrandr | grep connected | grep -v discon | awk '{print $1}'); do
+MONITOR=$m polybar -r bar > /tmp/polybar 2>&1 &
+#MONITOR=$m polybar -r bottom >> /tmp/polybar 2>&1 &
+done
+exit $?
+
+mons=$($pb -m | cut -d':' -f1)
+ii=0
+for m in $mons; do
+    $pb bar$ii >/dev/null 2>&1 &
+    let ii=ii+1
+done
+#polybar bar2 &
+
+echo "Bars launched..."

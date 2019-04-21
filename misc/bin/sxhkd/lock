@@ -1,0 +1,3 @@
+#!/bin/bash
+#pgrep xscreensaver || xscreensaver
+xscreensaver-command -lock

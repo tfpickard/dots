@@ -1,0 +1,90 @@
+#!/bin/bash
+#[[ -f ~/.profile ]] && . ~/.profile
+#[[ -z "$SCALING" ]] && SCALING=1
+#[[ -z "$DPI" ]] && DPI=96
+#xrandr_laptop_options="--scale $SCALINGx$SCALING --dpi $DPI"
+[[ "x" != "x$1" ]] && sleep $1
+#screens=$(bspc query -M --names
+screens=$(xrandr | grep -E " connected (primary )?[1-9]+" | \
+    sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+echo $screens
+for scr in $screens; do
+    echo $scr
+    if [ "DP1" == $scr ]; then
+        cmd="xrandr --output DP1 --auto --primary"
+        cmd="$cmd --output DP2-2 --auto --right-of DP1"
+        cmd="$cmd --output DP2-1 --auto --right-of DP2-2"
+        break
+    elif [ "DP2" == $scr ]; then
+        cmd="xrandr --output DP2 --auto --primary"
+        cmd="$cmd --output DP1-1 --auto --right-of DP2"
+        cmd="$cmd --output DP1-2 --auto --right-of DP1-1"
+        break
+    fi
+#    cmd="$cmd --output $scr --auto $pscr"
+#    pscr="--right-of $scr"
+done
+echo $cmd
+$cmd
+exit 0
+
+
+
+
+
+monitors=$(xrandr | grep " connected" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+echo $monitors
+echo $monitors  | grep DP1
+if [ 0 -eq $? ]; then
+    cmd1="xrandr --output DP1 --primary --auto --output DP2-1 --right-of DP1 --auto \
+        --output DP2-2 --right-of DP2-1 --auto"
+    cmd2="xrandr --output DP1 --primary --auto --output DP1-1 --right-of DP1 --auto \
+        --output DP2-2 --right-of DP2-1 --auto"
+
+fi
+exit 1
+
+export NMONITORS=${#monitors[@]}
+
+echo $monitors
+
+echo $NMONITORS
+if [  "$monitors" =~ "DP2" ]; then echo 1; fi
+cmd="xrandr"
+exit 1
+for m in ${monitors[@]}; do
+    cmd="$cmd --output $m --scale 1x1"
+    case $m in
+        #eDP1) cmd="$cmd --primary --auto" ;;
+        #DP1-1) cmd="$cmd --right-of eDP1 --auto" ;;
+        #DP1-2) cmd="$cmd --right-of DP1-1 --auto" ;1
+    esac
+done
+$cmd
+
+exit 0
+
+export monitors=$(xrandr | grep ' connected' | awk '{print $1}')
+export NMONITORS=$(xrandr | grep ' connected' | grep Monitors | awk '{print $1}')
+ii=0
+for m in $monitors; do
+    export MONITOR$ii=$m
+    echo $MONITOR$ii
+    let ii++
+done
+[[ "x" == "x$MONITOR1" ]] && export MONITOR1=$MONITOR0
+[[ "x" == "x$MONITOR2" ]] && export MONITOR2=$MONITOR0
+cmd="xrandr"
+for m in $monitors; do
+    case $m in
+        "eDP1") cmd="$cmd --output $m --auto --primary" ;; # $xrandr_laptop_options" ;;
+        "DP1-1") cmd="$cmd --output $m --auto --right-of eDP1" ;;
+        "DP1-2") cmd="$cmd --output $m --auto --right-of DP1-1" ;;
+#        "DP-1") cmd="$cmd --output $m --auto --right-of DP-2-2" ;;
+    esac
+done
+
+echo $monitors >&2
+echo $NMONITORS >&2
+echo $cmd >&2
+$cmd

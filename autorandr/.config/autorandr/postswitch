@@ -1,0 +1,7 @@
+#!/bin/bash
+lfile="/tmp/autorandr.log"
+touch $lfile
+echo "$0 at $(date)" >> $lfile
+xmodmap ~/.Xmodmap
+~/bin/wp
+~/bin/pb

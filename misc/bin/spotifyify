@@ -1,0 +1,24 @@
+#!/bin/bash
+
+start() {
+    (nohup $@ >/dev/null 2>&1 &) &!
+}
+
+bspc desktop -f 1
+pgrep cava && killall cava
+pgrep spotify && killall spotify
+#pgrep qpaeq && killall qpaeq
+start spotify
+rc=1
+while [[ 1 -eq $rc ]]; do
+    sleep .1
+    bspc node -p east
+    rc=$?
+done
+#start qpaeq
+while [[ 1 -eq $rc ]]; do
+    sleep .1
+    bspc node -p south
+    rc=$?
+done
+start alacritty -e cava

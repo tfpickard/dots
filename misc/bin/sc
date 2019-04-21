@@ -1,0 +1,4 @@
+#!/bin/bash
+synsrv=dracula.co.kelvininc.net
+pgrep synergyc && pkill synergyc
+ping -c2 $synsrv && synergyc $synsrv

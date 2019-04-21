@@ -1,0 +1,11 @@
+#!/bin/bash
+cmd="feh"
+wpfile=~/wp/$(ls ~/wp | shuf -n1)
+#wal -g -i $wpfile
+monitors=$(xrandr | grep -E " connected (primary )?[1-9]+" | \
+    sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+for m in $monitors; do
+    cmd="$cmd --bg-fill $wpfile"
+done
+$cmd
+

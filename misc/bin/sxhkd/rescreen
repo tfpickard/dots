@@ -1,0 +1,12 @@
+#!/bin/bash
+
+doit() {
+bspc config remove_disabled_monitors
+bspc config remove_unplugged_monitors
+~/bin/monitors
+~/bin/wp
+~/bin/pb
+~/bin/sc
+}
+
+doit &

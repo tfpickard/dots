@@ -1,0 +1,3 @@
+#!/bin/bash
+
+lsusb | grep 'feed:6060' || [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmp

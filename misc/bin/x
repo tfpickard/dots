@@ -1,0 +1,4 @@
+#!/bin/bash
+cmd=$(which $2 || exit 1)
+env DISPLAY=:0 XAUTHORITY=/home/$1/.Xauthority $cmd
+
