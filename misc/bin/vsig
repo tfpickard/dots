@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo pacman-key --recv-keys $@
+sudo pacman-key --lsign-key $@
+gpg --recv-keys $@

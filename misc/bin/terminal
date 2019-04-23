@@ -4,8 +4,11 @@
 
 if [[ "$(bspc query -m -M --names)" =~ "eDP" ]]; then
     alacritty -e tmux
-else
+elif [[ -f ~/.config/alacritty/alacritty.yml-bit ]]; then
     alacritty --config-file ~/.config/alacritty/alacritty.yml-big -e tmux
+else
+    alacritty -e tmux
+    notify-send "well this could have gone better :-/"
 fi
 
 exit $?
