@@ -33,11 +33,11 @@ super + shift + Return
 
 # program launcher
 super + d
-    ~/bin/sxhkd/launcher drun
+    ~/bin/launcher drun
 super + Tab
-    ~/bin/sxhkd/launcher window
+    ~/bin/launcher window
 super + r
-    ~/bin/sxhkd/launcher run
+    ~/bin/launcher run
 #    rofi -show window
 #  rofi -show drun
 #	dmenu_run

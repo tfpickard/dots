@@ -1,0 +1,73 @@
+window {
+	background-color: rgba(--rootbar-rgb-color0,1.0);
+	color: --rootbar-color15;
+	font-family: "Pixel Operator Mono";
+	font-weight: 600;
+    font-size: 12px;
+	border-top: 2px solid --rootbar-color14;
+}
+
+#center,#left,#right {
+	padding-top: 8px;
+        padding-bottom: 6px;
+}
+#left {
+	padding-left: 1px;
+}
+#right{
+	padding-right: 1px;
+}
+
+
+label {
+	padding-left: 2px;
+	padding-right: 2px;
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 10px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border: 2px solid --rootbar-color14;
+	border-top: 2px solid --rootbar-color14;
+}
+#notif{
+	margin-left: 20px;
+}
+
+.workspace {
+	margin-left: 40px;
+}
+
+#workspace-focused {
+	border-top: 2px solid --rootbar-color11;
+}
+
+#workspace-visible {
+	border-top: 2px solid --rootbar-color12;
+}
+
+#c4 {
+        margin-right: 0px;
+	margin-left:0px;
+        border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+	border-left: 0px;
+}
+#c1,#c2,#c3 {
+        margin-right: 0px;
+	margin-right:0px;
+        border-right: 0px;
+	border-left: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+#tot {
+
+        margin-right: -20px;
+        border-right: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+}
+#memory {
+}

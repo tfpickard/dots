@@ -8,4 +8,4 @@ for m in $monitors; do
     cmd="$cmd --bg-fill $wpfile"
 done
 $cmd
-
+echo $?
