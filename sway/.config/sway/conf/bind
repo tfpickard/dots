@@ -1,0 +1,69 @@
+
+bindsym XF86AudioRaiseVolume exec "amixer -q set Master 2%+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q set Master 2%- unmute"
+bindsym XF86AudioMute exec "amixer -q set Master toggle"
+bindsym XF86Tools exec "$term -e mocp"
+bindsym XF86Explorer exec "$term -e nnn"
+bindsym XF86HomePage exec "env TZ=UTC qutebrowser"
+bindsym $mod+d exec "makoctl dismiss"
+
+    bindsym $mod+Return exec $term -e tmux
+    bindsym $mod+Shift+Return exec $term
+    bindsym $mod+Shift+q kill
+
+    floating_modifier $mod normal
+
+    bindsym $mod+Shift+c reload
+
+
+    bindsym $mod+tab workspace next
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+
+    bindsym $mod+1 workspace 1 $ws1
+    bindsym $mod+2 workspace 2 $ws2
+    bindsym $mod+3 workspace 3 $ws3
+    bindsym $mod+4 workspace 4 $ws4
+    bindsym $mod+5 workspace 5 $ws5
+    bindsym $mod+6 workspace 6 $ws6
+    bindsym $mod+7 workspace 7 $ws7
+    bindsym $mod+8 workspace 8 $ws8
+    bindsym $mod+9 workspace 9 $ws9
+    bindsym $mod+0 workspace 10 $ws10
+
+    bindsym $mod+Shift+1 move container to workspace 1 $ws1
+    bindsym $mod+Shift+2 move container to workspace 2 $ws2
+    bindsym $mod+Shift+3 move container to workspace 3 $ws3
+    bindsym $mod+Shift+4 move container to workspace 4 $ws4
+    bindsym $mod+Shift+5 move container to workspace 5 $ws5
+    bindsym $mod+Shift+6 move container to workspace 6 $ws6
+    bindsym $mod+Shift+7 move container to workspace 7 $ws7
+    bindsym $mod+Shift+8 move container to workspace 8 $ws8
+    bindsym $mod+Shift+9 move container to workspace 9 $ws9
+    bindsym $mod+Shift+0 move container to workspace 10 $ws10
+
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    bindsym $mod+f fullscreen
+
+    bindsym $mod+Shift+space floating toggle; resize set 666 px 666 px
+
+    bindsym $mod+space focus mode_toggle
+
+    bindsym $mod+a focus parent
+
+    bindsym $mod+Shift+minus move scratchpad
+
+    bindsym $mod+minus scratchpad show
