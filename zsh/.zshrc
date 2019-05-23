@@ -10,6 +10,37 @@ export ZSH=$HOME/.oh-my-zsh
 alias rvm-prompt="echo > /dev/null"
 ZSH_THEME="fino-time"
 ZSH_THEME="ys"
+ZSH_THEME="spaceship"
+ZSH_THEME="gnzh"
+
+
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  golang        # Go section
+  rust          # Rust section
+  julia         # Julia section
+  docker        # Docker section
+  venv          # virtualenv section
+  pyenv         # Pyenv section
+  terraform     # Terraform workspace section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+SPACESHIP_CHAR_SYMBOL=👉
+PACESHIP_CHAR_SUFFIX="  "
+SPACESHIP_USER_SHOW=always
+SPACESHIP_HOST_SHOW_FULL=always
+SPACESHIP_DIR_SHOW=always
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of

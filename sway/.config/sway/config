@@ -29,12 +29,18 @@ bar {
 	position       top
 }
 
-default_border pixel 3
+#default_border pixel 3
 default_floating_border pixel
 
 # Variables
 set $term alacritty
-set $menu bemenu-run -b -l 10 --fn Hack12
+#set $menu bemenu-run -b -l 10 --fn Hack12
+#set $menu j4-dmenu-desktop --dmenu="bemenu -i" --no-generic --term=kitty
+bindsym mod4+d exec --no-startup-id bash -c \
+    '~/.config/sway/alacritty_menu commands | xargs -r swaymsg -t command exec'\
+    for_window [app_id="alacritty-menu"] floating enable
+    #, \ resize set width 1000 px height 250 px
+for_window [app_id="alacritty-menu"] floating enable, resize set width 1000 px
 
 set $up k
 set $down j
@@ -42,12 +48,12 @@ set $left h
 set $right l
 
 set $mod Mod4
-floating_modifier Mod1
+floating_modifier Mod4
 
 # Shortcuts
 bindsym $mod+Return exec $term -e tmux
 bindsym $mod+Shift+Return exec $term
-bindsym $mod+d exec $menu
+#bindsym $mod+d exec $menu
 
 bindsym $mod+Shift+x kill
 
@@ -145,6 +151,7 @@ bindsym $mod+Shift+0 move container to workspace 10:
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r exec swaymsg reload
 bindsym $mod+Ctrl+e exec "swaynag -t warning -m 'You pressed the exit shortcut.' -b 'Yes, exit sway' 'swaymsg exit'"
+bindsym $mod+Escape exec swaylock -i ~/wp/universe-seen-through-hubble-space-telescope-2560x1440_75476-mm-90.jpg -F
 
 mode "resize" {
     bindsym $left       resize shrink width 10 px or 10 ppt
@@ -176,13 +183,8 @@ input 1:1:AT_Translated_Set_2_keyboard {
 
 # Autostart
 exec --no-startup-id kitty -e tmux new -s std
-exec --no-startup-id dropbox
-exec --no-startup-id /usr/lib/kdeconnectd
-exec --no-startup-id kdeconnect-indicator
-exec --no-startup-id mpd
-exec --no-startup-id redshift
 exec --no-startup-id mako
+exec --no-startup-id redshift
 exec swayidle  \
     timeout 300 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
-
