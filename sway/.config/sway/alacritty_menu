@@ -10,10 +10,14 @@ elif [[ $MODE == "pass" ]]; then
 else
     exit 1
 fi
-
 TMP=$(mktemp)
 
 alacritty --class "alacritty-menu" -e bash -c "$COMMAND > $TMP"
 
-cat "$TMP"
-rm "$TMP"
+$(cat "$TMP")
+#swaymsg -t command exec "$TMP"
+#$TMP
+
+
+
+#rm "$TMP"

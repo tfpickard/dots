@@ -1,0 +1,14 @@
+#!/bin/bash
+
+errout() {
+    rc=$?
+    [[ 0 -ne $rc ]] || rc=1
+    echo "ERROR[$rc]: $1"
+    exit $rc
+}
+
+bar=$(which waybar) || errout "can't find waybar"
+killall $(basename $bar)
+for config in $(ls ~/.config/waybar/config*); do
+    $bar -c $config &
+done

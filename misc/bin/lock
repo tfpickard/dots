@@ -1,0 +1,63 @@
+#!/bin/bash
+
+ht="7e"
+
+img=$(ls ~/wp/*.png | shuf -n1)
+options=" -i $img -F -s fill --font \"Fantasque Sans Mono\" \
+    --indicator-radius 400 --indicator-thickness 10 -F"
+if [ -f ~/.gruvbox ]; then
+    . ~/.gruvbox
+    options="$options \
+        --bs-hl-color $neutral_orange$ht \
+   --inside-color $neutral_purple$ht \
+  --line-color "$light1"$ht \
+  --line-clear-color $light0_hard$ht \
+  --line-caps-lock-color $light2$ht \
+  --line-ver-color $bright_green$ht \
+  --line-wrong-color $bright_red$ht \
+  --ring-color $light3$ht \
+  --ring-clear-color $light0_soft$ht \
+  --ring-caps-lock-color $light2$ht \
+  --ring-ver-color $bright_green$ht \
+  --ring-wrong-color $bright_red$ht \
+  --key-hl-color $neutral_yellow$ht \
+ --inside-ver-color $neutral_orange$ht \
+   --text-wrong-color $bright_red$ht "
+
+ fi
+ echo $options
+ swaylock $options
+#  --inside-clear-color <color>     Sets the color of the inside of the indicator when cleared.
+#  --inside-caps-lock-color <color> Sets the color of the inside of the indicator when Caps Lock is active.
+#  --inside-wrong-color <color>     Sets the color of the inside of the indicator when invalid.
+#  --layout-bg-color <color>        Sets the background color of the box containing the layout text.
+#  --layout-border-color <color>    Sets the color of the border of the box containing the layout text.
+#  --layout-text-color <color>      Sets the color of the layout text.
+#  -n, --line-uses-inside           Use the inside color for the line between the inside and ring.
+#  -r, --line-uses-ring             Use the ring color for the line between the inside and ring.
+#  --separator-color <color>        Sets the color of the lines that separate highlight segments.
+#  --text-color <color>             Sets the color of the text.
+#  --text-clear-color <color>       Sets the color of the text when cleared.
+#  --text-caps-lock-color <color>   Sets the color of the text when Caps Lock is active.
+#  --text-ver-color <color>         Sets the color of the text when verifying.
+#
+
+#Usage: swaylock [options...]
+#
+#  -C, --config <config_file>       Path to the config file.
+#  -c, --color <color>              Turn the screen into the given color instead of white.
+#  -d, --debug                      Enable debugging output.
+#  -e, --ignore-empty-password      When an empty password is provided, do not validate it.
+#  -F, --show-failed-attempts       Show current count of failed authentication attempts.
+#  -f, --daemonize                  Detach from the controlling terminal after locking.
+#  -h, --help                       Show help message and quit.
+#  -i, --image [[<output>]:]<path>  Display the given image.
+#  -k, --show-keyboard-layout       Display the current xkb layout while typing.
+#  -K, --hide-keyboard-layout       Hide the current xkb layout while typing.
+#  -L, --disable-caps-lock-text     Disable the Caps Lock text.
+#  -l, --indicator-caps-lock        Show the current Caps Lock state also on the indicator.
+#  -s, --scaling <mode>             Scaling mode: stretch, fill, fit, center, tile.
+#  -t, --tiling                     Same as --scaling=tile.
+#  -u, --no-unlock-indicator        Disable the unlock indicator.
+#  -v, --version                    Show the version number and quit.
+#All <color> options are of the form <rrggbb[aa]>.

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+wb=$(which waybar) || exit 1
+echo cool

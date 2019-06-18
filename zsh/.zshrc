@@ -97,6 +97,7 @@ plugins=(
   common-aliases
   compleat
   docker
+  fzf
   git-extras
   git
   glassfish
@@ -146,7 +147,8 @@ if [[ -n ${LAUNCHER} ]]; then
             bindkey -s "^[" "; exit \n"
                 return
             fi
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/bin:/usr/lib/jvm/default/bin
+export JAVA_HOME=/usr/lib/jvm/default
 
 
 alias purg="tsh ssh --insecure --user $tuser --proxy $tproxy \

@@ -1,3 +1,6 @@
+
+
+
 # Appereance
 
 font pango:FontAwesome 10
@@ -5,9 +8,10 @@ include ~/.config/sway/$(hostname)/*
 output eDP-1 scale 1.25
 output * bg ~/.config/sway/wall.png fill
 
-gaps outer 20
-gaps inner 4
-smart_gaps on
+
+gaps outer 16
+gaps inner 16
+smart_gaps off
 
 #set $bg 	#b16286
 set $bg 	#689d6a
@@ -25,8 +29,8 @@ client.focused_inactive $bg-inactive  $bg-inactive $text-inactive $bar $bar
 client.urgent           $bg-urgent    $bg-urgent   $text          $bar $bar
 
 bar {
-	swaybar_command waybar
-	position       top
+	swaybar_command "~/.config/sway/bars"
+#	position       top
 }
 
 #default_border pixel 3
@@ -37,10 +41,10 @@ set $term alacritty
 #set $menu bemenu-run -b -l 10 --fn Hack12
 #set $menu j4-dmenu-desktop --dmenu="bemenu -i" --no-generic --term=kitty
 bindsym mod4+d exec --no-startup-id bash -c \
-    '~/.config/sway/alacritty_menu commands | xargs -r swaymsg -t command exec'\
+    '~/.config/sway/alacritty_menu commands' # | xargs -r swaymsg -t command exec'\
     for_window [app_id="alacritty-menu"] floating enable
     #, \ resize set width 1000 px height 250 px
-for_window [app_id="alacritty-menu"] floating enable, resize set width 1000 px
+for_window [app_id="alacritty-menu"] floating enable, resize set width 100 ppt, move position 0 0
 
 set $up k
 set $down j
@@ -114,44 +118,80 @@ bindsym $mod+Shift+s   layout splitv;\
                        split v;\
                        layout stacking
 
-# Workspaces
-workspace 1: output  DVI-I-1
-workspace 2: output HDMI-A-1
-workspace 3: output  DVI-I-1
-workspace 4: output HDMI-A-1
-workspace 5: output  DVI-I-1
-workspace 6: output HDMI-A-1
-workspace 7: output  DVI-I-1
-workspace 8:♪ output HDMI-A-1
-workspace 9 output  DVI-I-1
-workspace 10: output HDMI-A-1
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 0
+workspace $ws1
+workspace $ws2
+workspace $ws3
+workspace $ws4
+workspace $ws5
+workspace $ws6
+workspace $ws7
+workspace $ws8
+workspace $ws9
+workspace $ws10
+#  workspace 1:
+#  workspace 2:
+#  workspace 3:
+#  workspace 4:
+#  workspace 5:
+#  workspace 6:
+#  workspace 7:
+#  workspace 8:♪
+#  workspace 9
+#  workspace 10:
+#
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
-bindsym $mod+1 workspace 1:
-bindsym $mod+2 workspace 2:
-bindsym $mod+3 workspace 3:
-bindsym $mod+4 workspace 4:
-bindsym $mod+5 workspace 5:
-bindsym $mod+6 workspace 6:
-bindsym $mod+7 workspace 7:
-bindsym $mod+8 workspace 8:♪
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10:
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+# capture all screens to file
+bindsym Print exec grim $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
 
-bindsym $mod+Shift+1 move container to workspace 1:
-bindsym $mod+Shift+2 move container to workspace 2:
-bindsym $mod+Shift+3 move container to workspace 3:
-bindsym $mod+Shift+4 move container to workspace 4:
-bindsym $mod+Shift+5 move container to workspace 5:
-bindsym $mod+Shift+6 move container to workspace 6:
-bindsym $mod+Shift+7 move container to workspace 7:
-bindsym $mod+Shift+8 move container to workspace 8:♪
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10:
+# capture the specified screen area to file
+bindsym Alt+Print exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim-slurp.png')
 
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r exec swaymsg reload
+# capture the focused monitor to file
+bindsym Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+
+# capture all screens to clipboard
+bindsym Shift+Print exec grim - | wl-copy
+
+# capture the specified screen area to clipboard
+bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
+
+# capture the focused monitor to clipboard
+bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
+
+bindsym $mod+Control+v exec "pavucontrol"
+bindsym $mod+Shift+r exec "swaymsg reload; ~/.config/sway/bars"
 bindsym $mod+Ctrl+e exec "swaynag -t warning -m 'You pressed the exit shortcut.' -b 'Yes, exit sway' 'swaymsg exit'"
-bindsym $mod+Escape exec swaylock -i ~/wp/universe-seen-through-hubble-space-telescope-2560x1440_75476-mm-90.jpg -F
+bindsym $mod+Escape exec ~/bin/lock
 
 mode "resize" {
     bindsym $left       resize shrink width 10 px or 10 ppt
@@ -182,9 +222,9 @@ input 1:1:AT_Translated_Set_2_keyboard {
 
 
 # Autostart
-exec --no-startup-id kitty -e tmux new -s std
+exec --no-startup-id ~/.config/sway/barsm
 exec --no-startup-id mako
 exec --no-startup-id redshift
 exec swayidle  \
-    timeout 300 'swaymsg "output * dpms off"' \
+    timeout 300 '' \
     resume 'swaymsg "output * dpms on"' \
