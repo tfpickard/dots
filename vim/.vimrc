@@ -1,9 +1,29 @@
-set nocompatible              " be iMproved, required
 filetype off                  " required
+set encoding=utf-8
 " install vundle if it isn't vundle
 " from: https://github.com/VundleVim/Vundle.vim/issues/769
 " thanks dude! ^^^
+ execute pathogen#infect()
+
+"colors lucid
+if has('nvim') || has('termguicolors')
+  set termguicolors
+endif
+
+
+call plug#begin('~/.vim/plugged')
+Plug 'nightsense/vimspectr'
+Plug 'ajmwagar/vim-deus'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'tomasr/molokai'
+Plug 'fmoralesc/molokayo'
+"Plug 'edkolev/tmuxline.vim'
+call plug#end()
+
+"colorscheme deus
+colorscheme challenger_deep
 "
+"colorscheme vim-
 " START - Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
@@ -35,13 +55,17 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
 Plugin 'vim-scripts/indentpython.vim'
-
+Plugin 'YorickPeterse/happy_hacking.vim'
+Plugin 'christophermca/meta5'
+Plugin 'cseelus/vim-colors-lucid'
+Plugin 'chrisbra/csv.vim'
+ Plugin 'itchyny/lightline.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
+Plugin 'itchyny/vim-gitbranch'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -72,23 +96,23 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'SirVer/ultisnips'
 endif
 Plugin 'morhetz/gruvbox'
-" Plugin 'axiaoxin/favorite-vim-colorscheme'
-"Plugin 'junegunn/vim-emoji'
+ Plugin 'axiaoxin/favorite-vim-colorscheme'
+Plugin 'junegunn/vim-emoji'
 Plugin 'mhinz/vim-startify'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'honza/vim-snippets'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'bling/vim-airline'
-"Plugin 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'conradirwin/vim-bracketed-paste'
 Plugin 'rip-rip/clang_complete'
 Plugin 'tmhedberg/simpylfold'
-Plugin 'kovetskiy/sxhkd-vim'
+"Plugin 'kovetskiy/sxhkd-vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -116,6 +140,8 @@ set noundofile
 "
 set laststatus=2
 syntax enable
+"colorscheme tender
+
 syntax on
 autocmd! bufwritepost .vimrc source %
 set autoread
@@ -126,7 +152,7 @@ set ignorecase
 set smartcase
 set guifont=Hack:h12
 " colorscheme Tomorrow-Night-Bright
-colorscheme gruvbox
+"colorscheme gruvbox
 "colorscheme elflord
 set background=dark
 set showcmd
@@ -208,28 +234,39 @@ cmap <F7> <C-r><C-o>z
 "copy register
 
 autocmd FocusGained * let @z=@+
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 """"""""""""""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""""""""
 " NerdCommenter
 let g:NERDSpaceDelims=1
 "
 " " CtrlP
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_cmd = 'CtrlPMixed'
 "
 "Ctrl-X Ctrl-U emoji
 set completefunc=emoji#complete
-"
-
-"
-" " airline
-let g:airline_section_y = '%{strftime("%H:%M")}'
-" tabline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#formatter = 'default'
+
+let g:promptline_theme = 'jelly'
+
+
+"
+
+"
+" tabline
 "
 " " jedi
 autocmd FileType python setlocal completeopt-=preview
@@ -260,7 +297,6 @@ let g:rbpt_colorpairs = [
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle= 0
 
-
 "
 let g:vcoolor_map = '<leader>cp'
 let g:vcool_ins_rgb_map = '<leader>cpr'
@@ -271,7 +307,13 @@ let g:vcool_ins_rgba_map = '<leader>cpra'
 
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-"let g:airline_theme='tomorrow'
-let g:airline_theme='gruvbox'
-
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }

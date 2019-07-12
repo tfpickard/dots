@@ -1,214 +1,9 @@
-
-
-
-# Appereance
-
-font pango:FontAwesome 10
-include ~/.config/sway/$(hostname)/*
-output eDP-1 scale 1.25
-output * bg ~/.config/sway/wall.png fill
-
-
-gaps outer 16
-gaps inner 16
-smart_gaps off
-
-#set $bg 	#b16286
-set $bg 	#689d6a
-set $bg-inactive   #3c3836
-set $bg-urgent     #fb4934
-set $text          #ebdbb2
-set $text-inactive #bdae93
-
-set $bar           #3c3836
-set $statusline    #ebdbb2
-
-client.focused          $bg           $bg          $text          $bg $bg
-client.unfocused        $bg-inactive  $bg-inactive $text-inactive $bar $bar
-client.focused_inactive $bg-inactive  $bg-inactive $text-inactive $bar $bar
-client.urgent           $bg-urgent    $bg-urgent   $text          $bar $bar
-
-bar {
-	swaybar_command "~/.config/sway/bars"
-#	position       top
-}
-
-#default_border pixel 3
-default_floating_border pixel
-
-# Variables
-set $term alacritty
-#set $menu bemenu-run -b -l 10 --fn Hack12
-#set $menu j4-dmenu-desktop --dmenu="bemenu -i" --no-generic --term=kitty
-bindsym mod4+d exec --no-startup-id bash -c \
-    '~/.config/sway/alacritty_menu commands' # | xargs -r swaymsg -t command exec'\
-    for_window [app_id="alacritty-menu"] floating enable
-    #, \ resize set width 1000 px height 250 px
-for_window [app_id="alacritty-menu"] floating enable, resize set width 100 ppt, move position 0 0
-
-set $up k
-set $down j
-set $left h
-set $right l
-
-set $mod Mod4
-floating_modifier Mod4
-
-# Shortcuts
-bindsym $mod+Return exec $term -e tmux
-bindsym $mod+Shift+Return exec $term
-#bindsym $mod+d exec $menu
-
-bindsym $mod+Shift+x kill
-
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
-
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-bindsym $mod+b split h
-bindsym $mod+v split v
-bindsym $mod+f fullscreen toggle
-
-bindsym $mod+s layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+c layout toggle split
-
-bindsym $mod+Shift+space floating toggle
-
-bindsym $mod+Shift+Tab move scratchpad
-bindsym $mod+Tab scratchpad show
-
-bindsym $mod+m exec kitty -e ranger
-bindsym $mod+Shift+m exec ~/.scripts/mount.sh
-bindsym $mod+Shift+b exec ~/.scripts/umount.sh
-bindsym $mod+Ctrl+a exec ~/.scripts/Audio.sh
-
-
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
-bindsym XF86MonBrightnessDown exec light -U 1%
-bindsym XF86MonBrightnessUp exec light -A +1%
-#bindsym $mod+Shift+g exec mpc next
-#bindsym $mod+Shift+h exec mpc prev
-bindsym $mod+n exec kitty -e ncmpcpp
-bindsym $mod+p exec passmenu -i -l 10
-bindsym $mod+Space exec mpc toggle
-
-bindsym $mod+Shift+s   layout splitv;\
-                       move left;\
-                       split v;\
-                       layout stacking
-
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
-set $ws10 0
-workspace $ws1
-workspace $ws2
-workspace $ws3
-workspace $ws4
-workspace $ws5
-workspace $ws6
-workspace $ws7
-workspace $ws8
-workspace $ws9
-workspace $ws10
-#  workspace 1:
-#  workspace 2:
-#  workspace 3:
-#  workspace 4:
-#  workspace 5:
-#  workspace 6:
-#  workspace 7:
-#  workspace 8:♪
-#  workspace 9
-#  workspace 10:
+# Import colors from pywal
+# This will allow $color# in this config
+include "$HOME/.cache/wal/colors-sway"
 #
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
-
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-# capture all screens to file
-bindsym Print exec grim $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
-
-# capture the specified screen area to file
-bindsym Alt+Print exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim-slurp.png')
-
-# capture the focused monitor to file
-bindsym Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
-
-# capture all screens to clipboard
-bindsym Shift+Print exec grim - | wl-copy
-
-# capture the specified screen area to clipboard
-bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
-
-# capture the focused monitor to clipboard
-bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
-
-bindsym $mod+Control+v exec "pavucontrol"
-bindsym $mod+Shift+r exec "swaymsg reload; ~/.config/sway/bars"
-bindsym $mod+Ctrl+e exec "swaynag -t warning -m 'You pressed the exit shortcut.' -b 'Yes, exit sway' 'swaymsg exit'"
-bindsym $mod+Escape exec ~/bin/lock
-
-mode "resize" {
-    bindsym $left       resize shrink width 10 px or 10 ppt
-    bindsym $down       resize grow height 10 px or 10 ppt
-    bindsym $up         resize shrink height 10 px or 10 ppt
-    bindsym $right      resize grow width 10 px or 10 ppt
-
-    bindsym Left        resize shrink width 10 px or 10 ppt
-    bindsym Down        resize grow height 10 px or 10 ppt
-    bindsym Up          resize shrink height 10 px or 10 ppt
-    bindsym Right       resize grow width 10 px or 10 ppt
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-
+# Source .Xresources if needed.
+# exec_always xrdb ~/.Xresources
 input * {
   tap enabled
   natural_scroll enable
@@ -221,10 +16,268 @@ input 1:1:AT_Translated_Set_2_keyboard {
 
 
 
-# Autostart
-exec --no-startup-id ~/.config/sway/barsm
-exec --no-startup-id mako
-exec --no-startup-id redshift
-exec swayidle  \
-    timeout 300 '' \
-    resume 'swaymsg "output * dpms on"' \
+
+# Apply pywal gtk themes, this requires pywal to be run as: (wal -i #IMAGE -g)
+exec_always gsettings set org.gnome.desktop.interface gtk-theme FlatColor
+
+#for_window [title="Secure email: Protonmail is free encrypted email. - Mozilla Firefox"] move to workspace 10
+exec swayidle -w timeout 300 '~/bin/lock' timeout 1200 'swaymsg "output eDP-1 dpms off"' resume 'swaymsg "output * dpms on"' before-sleep '~/bin/lock'
+#exec syncthing -no-browser
+exec redshift-gtk  &
+# Execute udiskie to automount usb
+#exec udiskie &
+# No follow the mousey
+focus_follows_mouse yes
+
+# keepassxc to start as floating
+# for_window [title="KeePassXC"] floating enable
+# Set Decorations 		border		background	text		indicator	child border
+client.focused 			$color12 	#080808 	$color9 	$color3 	$color12
+client.focused_inactive	$color10 	#000000 	$color9 	$color3 	#000000
+client.urgent 			$color4 	#080808 	$color9 	$color3 	#080808
+
+### Variables
+# Logo key. Use Mod1 for Alt or Mod4 for Window/cmd key
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term alacritty
+# Your preferred application launcher
+set $menu rofi -show run
+### Wallpaper configuration
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# Use pywal wallpaper variable
+
+### Monitor setup
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+# Setup multi-monitor and rotate display. YOU NEED TO CHANGE THIS
+#
+output eDP-1 scale 1.25
+output eDP-1 pos 0 0 res 2560x1440
+output DP-6 pos 2048 0 res 2560x1440
+output DP-5 pos 4608 0 res 2560x1440
+#output DVI-D-1 mode 1920x1080@144.001007Hz position 0,0 bg $wallpaper fill
+#output HDMI-A-2 resolution 1366x768 position 0,0 transform 270 bg $wallpaper fill
+#output HDMI-A-2 resolution 1366x768 position 1920,0 transform 270 bg $wallpaper fill
+#output DVI-D-1 mode 1920x1080@144.001007Hz position 0,0 bg $wallpaper fill
+#output HDMI-A-2 resolution 1366x768 position 350,1080 transform 180 bg $wallpaper fill
+#output HDMI-A-1 resolution 1366x768 position 220,1080 bg $wallpaper fill
+#output HDMI-A-1 resolution 1366x768 position 1920,0 transform 0 bg $wallpaper fill
+output * bg $wallpaper fill
+#
+### Key bindings
+bindsym $mod+Escape exec swaylock
+#
+# Basics:
+#
+    bindsym XF86MonBrightnessUp exec light -A 1
+    bindsym XF86MonBrightnessDown exec light -U 1
+    bindsym $mod+XF86MonBrightnessUp exec light -A 5
+    bindsym $mod+XF86MonBrightnessDown exec light -U 5
+
+
+    # start a terminal
+    bindsym $mod+Shift+Return exec export LC_CTYPE=C && $term -e tmux -u
+    bindsym $mod+Return exec export LC_CTYPE=C && $term
+    # start firefox
+    #bindsym $mod+w exec chromium
+    # start ranger with pywal colors
+    #for_window [title="file"] floating enable
+    bindsym $mod+g exec export LC_CTYPE=C && $term --title file -e ~/.config/scripts/ranger
+    # start wiki
+    #for_window [title="wiki"] floating enable
+    #bindsym $mod+i exec export LC_CTYPE=C && $term --title wiki -e ~/.config/scripts/wiki
+    # start Windows 10 virtual machine
+    #bindsym $mod+grave exec sudo virsh start win10
+    #bindsym $mod+equal exec xhost +si:localuser:root && sudo virsh start arch-linux-grubdub && sleep 20s && sudo virt-viewer --attach arch-linux-grubdub
+    #bindsym $mod+Shift+i exec xhost +si:localuser:root && sudo virsh start workwin && sleep 20s && sudo virt-viewer --attach workwin
+    # screenshot capture
+
+    # capture all screens to file
+    bindsym Print exec grim $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+
+    # capture the specified screen area to file
+    bindsym Shift+Print exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim-slurp.png')
+
+### capture the focused monitor to file
+#
+##    bindsym Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') $(xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')
+##
+### capture all screens to clipboard
+##    bindsym Shift+Print exec grim - | wl-copy
+##
+### capture the specified screen area to clipboard
+##    bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
+##
+### capture the focused monitor to clipboard
+##    bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
+##
+##
+
+
+    # copy from xclip to wl-copy
+    bindsym $mod+Shift+x exec bash ~/.config/scripts/xcliptowlcopy.sh
+    bindsym $mod+Shift+v exec wl-paste
+    # volume down
+    bindsym $mod+n exec bash ~/.config/scripts/audiodown.sh
+    # volume up
+    bindsym $mod+m exec bash ~/.config/scripts/audio.sh
+    bindsym $mod+Control+v exec "pavucontrol"
+    # output hdmi
+    # kill hdmi
+    #bindsym $mod+o exec swaymsg output HDMI-A-1 resolution 1366x768 position 220,1080 bg $wallpaper fill
+    #bindsym $mod+Shift+o exec swaymsg output HDMI-A-2 disable
+    # kill focused window
+    bindsym $mod+Shift+q kill
+    bindsym $mod+Shift+Semicolon exec ~/bin/swaycmd
+    # set focus window transparent
+
+    # start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    ## exit sway (logs you out of your Wayland session)
+    # This will not work if you autologin. It just gets you right back in
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'oh, you leaving? you have something better to do? i bet you off to blow a nice man like hitler or bill gates :-/. i hope that goes really great.' -b 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # _move_ the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # switch to workspace
+    bindsym $mod+1 workspace 1
+    bindsym $mod+2 workspace 2
+    bindsym $mod+3 workspace 3
+    bindsym $mod+4 workspace 4
+    bindsym $mod+5 workspace 5
+    bindsym $mod+6 workspace 6
+    bindsym $mod+7 workspace 7
+    bindsym $mod+8 workspace 8
+    bindsym $mod+9 workspace 9
+    bindsym $mod+0 workspace 10
+    # move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace 1
+    bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+4 move container to workspace 4
+    bindsym $mod+Shift+5 move container to workspace 5
+    bindsym $mod+Shift+6 move container to workspace 6
+    bindsym $mod+Shift+7 move container to workspace 7
+    bindsym $mod+Shift+8 move container to workspace 8
+    bindsym $mod+Shift+9 move container to workspace 9
+    bindsym $mod+Shift+0 move container to workspace 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # move focus to the parent container
+    # bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+p move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+p scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10 px or 10 ppt
+    bindsym $down resize grow height 10 px or 10 ppt
+    bindsym $up resize shrink height 10 px or 10 ppt
+    bindsym $right resize grow width 10 px or 10 ppt
+
+    # ditto, with arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+   swaybar_command waybar
+}
+# Get those gaps
+default_border normal
+default_floating_border pixel
+gaps inner 8
+gaps outer 12
+include /etc/sway/config.d/*
+
+# Swaylock when logged in. Sleep is added to fix some crashes.
+# exec swaylock -i $wallpaper

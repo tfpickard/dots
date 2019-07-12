@@ -1,0 +1,7 @@
+bf	~/.bmfiles
+bd	~/.bmdirs
+b	~/.bmdirs
+cz	~/.zshrc
+cv	~/.config/nvim/init.vim
+cs	~/.config/sway/config
+

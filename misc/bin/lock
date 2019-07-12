@@ -2,7 +2,7 @@
 
 ht="7e"
 
-img=$(ls ~/wp/*.png | shuf -n1)
+img=$(ls ~/Pictures/wp/*.png | shuf -n1)
 options=" -i $img -F -s fill --font \"Fantasque Sans Mono\" \
     --indicator-radius 400 --indicator-thickness 10 -F"
 if [ -f ~/.gruvbox ]; then
@@ -25,6 +25,7 @@ if [ -f ~/.gruvbox ]; then
    --text-wrong-color $bright_red$ht "
 
  fi
+ options="$options --scaling fill -g 30"
  echo $options
  swaylock $options
 #  --inside-clear-color <color>     Sets the color of the inside of the indicator when cleared.
