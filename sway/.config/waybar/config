@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     // "modules-center": ["sway/window"],
-    "modules-center": ["custom/clk"],
+    "modules-center": ["clock"],
     "modules-right": ["cpu", "custom/temp", "memory", "custom/root",
     "custom/home", "custom/main", "custom/backup", "custom/scratch",
     "pulseaudio", "battery", "network", "tray"],
@@ -35,7 +35,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": "SIC SEMPER TEMPUS {:%T ET HODIE %d %B %Y ANNO DOMINI EST}"
+        "format": "{:%T %d %B %Y ANNO DOMINI }"
     },
     "cpu": {
         "format": "  {usage}% "

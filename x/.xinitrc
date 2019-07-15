@@ -29,7 +29,7 @@ fi
 . ~/.profile
 
 
-~/bin/kb
+#~/bin/kb
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 #autorandr --change --force --debug >> $lfile 2>&1
 #xset +fp /usr/share/fonts/local &
@@ -51,7 +51,7 @@ xscreensaver -nosplash &
 #exec herbstluftwm --locked
 #~/bin/monitors 5 >> $lfile 2>&1 &
 #~/bin/wp >> $lfile 2>&1
-exec i3 > /tmp/i3.log 2>&1
+#exec i3 > /tmp/i3.log 2>&1
 #exec xmonad > /tmp/xmonad.log 2>&1
 exec herbstluftwm
 

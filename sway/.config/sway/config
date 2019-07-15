@@ -70,7 +70,7 @@ output DP-5 pos 4608 0 res 2560x1440
 output * bg $wallpaper fill
 #
 ### Key bindings
-bindsym $mod+Escape exec swaylock
+bindsym $mod+Escape exec ~/bin/lock
 #
 # Basics:
 #
@@ -81,8 +81,8 @@ bindsym $mod+Escape exec swaylock
 
 
     # start a terminal
-    bindsym $mod+Shift+Return exec export LC_CTYPE=C && $term -e tmux -u
-    bindsym $mod+Return exec export LC_CTYPE=C && $term
+    bindsym $mod+Return exec  $term -e tmux -u
+    bindsym $mod+Shift+Return exec export LC_CTYPE=C && $term
     # start firefox
     #bindsym $mod+w exec chromium
     # start ranger with pywal colors
