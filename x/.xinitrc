@@ -52,4 +52,6 @@ xscreensaver -nosplash &
 #~/bin/monitors 5 >> $lfile 2>&1 &
 #~/bin/wp >> $lfile 2>&1
 exec i3 > /tmp/i3.log 2>&1
+#exec xmonad > /tmp/xmonad.log 2>&1
+#exec xmonad > /tmp/xmonad.log 2>&1
 
