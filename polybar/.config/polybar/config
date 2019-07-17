@@ -3,7 +3,7 @@
 ; If unspecified, the application will pick the first one it finds.
 ; $ polybar -m | cut -d ':' -f 1
 ; $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor = eDP1
+monitor = ${env:MONITOR:eDP1}
 
 ; Use the specified monitor as a fallback if the main one is not found.
 ; monitor-fallback =
@@ -14,17 +14,13 @@ monitor = eDP1
 
 ; Tell the Window Manager not to configure the window.
 ; Use this to detach the bar if your WM is locking its size/position.
-<<<<<<< Updated upstream
-; Note: With this most WMs will no longer reserve space for 
-=======
 ; Note: With this most WMs will no longer reserve space for
->>>>>>> Stashed changes
 ; the bar and it will overlap other windows. You need to configure
 ; your WM to add a gap where the bar will be placed.
 override-redirect = false
 
 ; Put the bar at the bottom of the screen
-bottom = true
+bottom = false
 
 ; Prefer fixed center position for the `modules-center` block
 ; When false, the center position will be based on the size of the other blocks.
@@ -38,11 +34,7 @@ height = 40
 
 ; Offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
 ; the percentage can optionally be extended with a pixel offset like so:
-<<<<<<< Updated upstream
-; 50%:-10, this will result in an offset in the x or y direction 
-=======
 ; 50%:-10, this will result in an offset in the x or y direction
->>>>>>> Stashed changes
 ; of 50% minus 10 pixels
 offset-x = 0
 offset-y = 0
@@ -55,19 +47,11 @@ foreground = #000
 
 ; Background gradient (vertical steps)
 ;   background-[0-9]+ = #aarrggbb
-<<<<<<< Updated upstream
-; background-0 = 
-
-; Value used for drawing rounded corners
-; Note: This shouldn't be used together with border-size because the border 
-; doesn't get rounded. For this to work you may also need to enable 
-=======
 ; background-0 =
 
 ; Value used for drawing rounded corners
 ; Note: This shouldn't be used together with border-size because the border
 ; doesn't get rounded. For this to work you may also need to enable
->>>>>>> Stashed changes
 ; pseudo-transparency or use a compositor like compton.
 ; Individual top/bottom values can be defined using:
 ;   radius-{top,bottom}
@@ -106,13 +90,14 @@ module-margin = 1
 ; Fonts are defined using <font-name>;<vertical-offset>
 ; Font names are specified using a fontconfig pattern.
 ;   font-0 = NotoSans-Regular:size=8;2
-;   font-1 = MaterialIcons:size=10
 ;   font-2 = Termsynu:size=8;-1
 ;   font-3 = FontAwesome:size=10
 ; See the Fonts wiki page for more details
-font-0 = Inconsolata for Powerline:bold:size=10;3
+;font-0 = Inconsolata for Powerline:bold:size=10;3
+font-0 = Fantasque Sans Mono:bold:size=10;3
 font-1 = FontAwesome5Free:style=Solid:size=10;3
 font-2 = unifont:size=10;3
+font-3 = MaterialIcons:size=10
 
 ; Modules are added to one of the available blocks
 ;   modules-left = cpu ram
@@ -123,11 +108,7 @@ modules-center =
 modules-right = wireless-network sep memory sep cpu sep battery sep date
 
 ; The separator will be inserted between the output of each module
-<<<<<<< Updated upstream
-separator = 
-=======
 separator =
->>>>>>> Stashed changes
 
 ; This value is used to add extra spacing between elements
 ; @deprecated: This parameter will be removed in an upcoming version
@@ -167,11 +148,7 @@ tray-maxsize = 16
 ; background color is defined using `tray-background`
 tray-transparent = false
 
-<<<<<<< Updated upstream
-; Background color for the tray container 
-=======
 ; Background color for the tray container
->>>>>>> Stashed changes
 ; ARGB color (e.g. #f00, #ff992a, #ddff1023)
 ; By default the tray container will use the bar
 ; background color.
@@ -201,11 +178,7 @@ tray-scale = 1.0
 ; Set a DPI values used when rendering text
 ; This only affects scalable fonts
 ; Set this to 0 to let polybar calculate the dpi from the screen size.
-<<<<<<< Updated upstream
-; dpi = 
-=======
 ; dpi =
->>>>>>> Stashed changes
 dpi-x = 135
 dpi-y = 135
 
@@ -247,15 +220,6 @@ enable-scroll = false
 ; Default: true
 wrapping-scroll = false
 
-<<<<<<< Updated upstream
-; Set the scroll cycle direction 
-; Default: true
-reverse-scroll = false
-
-; Use fuzzy (partial) matching on labels when assigning 
-; icons to workspaces
-; Example: code;♚ will apply the icon to all workspaces 
-=======
 ; Set the scroll cycle direction
 ; Default: true
 reverse-scroll = false
@@ -263,7 +227,6 @@ reverse-scroll = false
 ; Use fuzzy (partial) matching on labels when assigning
 ; icons to workspaces
 ; Example: code;♚ will apply the icon to all workspaces
->>>>>>> Stashed changes
 ; containing 'code' in the label
 ; Default: false
 fuzzy-match = true
@@ -302,11 +265,7 @@ label-foreground = #fff
 
 [module/wireless-network]
 type = internal/network
-<<<<<<< Updated upstream
-interface = wlp3s0
-=======
 interface = wlp2s0
->>>>>>> Stashed changes
 
 label-connected = %essid%
 format-connected = <ramp-signal>
@@ -373,11 +332,7 @@ type = internal/temperature
 interval = 0.5
 
 ; Thermal zone to use
-<<<<<<< Updated upstream
-; To list all the zone types, run 
-=======
 ; To list all the zone types, run
->>>>>>> Stashed changes
 ; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
 ; Default: 0
 thermal-zone = 0
@@ -515,8 +470,4 @@ margin = 0
 
 [module/sep]
 inherit = module/decor-glyph
-<<<<<<< Updated upstream
 content = "⋮"
-=======
-content = "⋮"
->>>>>>> Stashed changes
