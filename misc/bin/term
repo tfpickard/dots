@@ -1,3 +1,7 @@
 #!/bin/bash
-
-WINIT_HIDPI_FACTOR=1.25 alacritty -e tmux
+s="1"
+mon=$(i3-msg -s $(i3 --get-socketpath) -t get_workspaces | \
+    jq '.[] | select(.focused == true) | .output')
+#echo $mon
+[[ "\"eDP1\"" == $mon ]] && s="1.25"
+WINIT_HIDPI_FACTOR=$s alacritty -e tmux

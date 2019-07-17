@@ -79,8 +79,8 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'honza/vim-snippets'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'bling/vim-airline'
 "Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
@@ -224,12 +224,12 @@ set completefunc=emoji#complete
 
 "
 " " airline
-let g:airline_section_y = '%{strftime("%H:%M")}'
+"let g:airline_section_y = '%{strftime("%H:%M")}'
 " tabline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#tabline#buffer_nr_show = 1
 "
 " " jedi
 autocmd FileType python setlocal completeopt-=preview
@@ -272,6 +272,6 @@ let g:vcool_ins_rgba_map = '<leader>cpra'
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-"let g:airline_theme='tomorrow'
-let g:airline_theme='gruvbox'
+""let g:airline_theme='tomorrow'
+"let g:airline_theme='gruvbox'
 
