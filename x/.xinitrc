@@ -47,7 +47,7 @@ kil redshift >> $lfile 2>&1
 #lxpolkit &
 #parcellite &
 #urxvtd -q -o -f
-xscreensaver -nosplash &
+#xscreensaver -nosplash &
 #exec herbstluftwm --locked
 #~/bin/monitors 5 >> $lfile 2>&1 &
 #~/bin/wp >> $lfile 2>&1

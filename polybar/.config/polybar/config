@@ -14,7 +14,6 @@ monitor = ${env:MONITOR:eDP1}
 
 ; Tell the Window Manager not to configure the window.
 ; Use this to detach the bar if your WM is locking its size/position.
-; Note: With this most WMs will no longer reserve space for
 ; the bar and it will overlap other windows. You need to configure
 ; your WM to add a gap where the bar will be placed.
 override-redirect = false
@@ -34,7 +33,6 @@ height = 40
 
 ; Offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
 ; the percentage can optionally be extended with a pixel offset like so:
-; 50%:-10, this will result in an offset in the x or y direction
 ; of 50% minus 10 pixels
 offset-x = 0
 offset-y = 0
@@ -301,7 +299,6 @@ type = internal/memory
 ; Default: 1
 interval = 0.5
 format = <label>
-
 ; Available tokens:
 ;   %percentage_used% (default)
 ;   %percentage_free%
@@ -347,7 +344,6 @@ hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
 ; Threshold temperature to display warning label (in degrees celsius)
 ; Default: 80
 warn-temperature = 80
-
 format = <label>
 
 ; Available tags:
