@@ -1,8 +1,24 @@
+[colors]
+background = ${xrdb:background}
+foreground = ${xrdb:foreground}
+blk = ${xrdb:color0}
+red = ${xrdb:color1}
+grn = ${xrdb:color2}
+ylw = ${xrdb:color3}
+blu = ${xrdb:color4}
+mag = ${xrdb:color5}
+cyn = ${xrdb:color6}
+wht = ${xrdb:color7}
+bblk = ${xrdb:color8}
+bred = ${xrdb:color9}
+bgrn = ${xrdb:color10}
+bylw = ${xrdb:color11}
+bblu = ${xrdb:color12}
+bmag = ${xrdb:color13}
+bcyn = ${xrdb:color14}
+bwht = ${xrdb:color15}
+
 [bar/mybar]
-; Use either of the following command to list available outputs:
-; If unspecified, the application will pick the first one it finds.
-; $ polybar -m | cut -d ':' -f 1
-; $ xrandr -q | grep " connected" | cut -d ' ' -f1
 monitor = ${env:MONITOR:eDP1}
 
 ; Use the specified monitor as a fallback if the main one is not found.
@@ -38,10 +54,10 @@ offset-x = 0
 offset-y = 0
 
 ; Background ARGB color (e.g. #f00, #ff992a, #ddff1023)
-background = #2B303B
+background = ${colors.background}
 
 ; Foreground ARGB color (e.g. #f00, #ff992a, #ddff1023)
-foreground = #000
+foreground = ${colors.foreground}
 
 ; Background gradient (vertical steps)
 ;   background-[0-9]+ = #aarrggbb
@@ -60,7 +76,7 @@ radius = 0
 ;   {overline,underline}-size
 ;   {overline,underline}-color
 line-size = 2
-line-color = #fff
+line-color = ${colors.foreground}
 
 ; Values applied to all borders
 ; Individual side values can be defined using:
@@ -96,13 +112,15 @@ font-0 = Fantasque Sans Mono:bold:size=10;3
 font-1 = FontAwesome5Free:style=Solid:size=10;3
 font-2 = unifont:size=10;3
 font-3 = MaterialIcons:size=10
+font-4 = DejaVu Sans Bold:size=8;2
+font-5 = Termsynu:size=8;-1
 
 ; Modules are added to one of the available blocks
 ;   modules-left = cpu ram
 ;   modules-center = xwindow xbacklight
 ;   modules-right = ipc clock
 modules-left = i3
-modules-center =
+modules-center = xwindow
 modules-right = wireless-network sep memory sep cpu sep battery sep date
 
 ; The separator will be inserted between the output of each module
