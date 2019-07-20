@@ -11,33 +11,61 @@
 
 set $mod Mod4
 
-# Gaps
-for_window [class=".*"] border pixel 0
-gaps outer 15
-gaps inner 30
+for_window [class="^.*"] border pixel 4
 
-# autostart
-## exec --no-startup-id xrandr --dpi 135
-## exec --no-startup-id systemctl start dhcpcd@wlp3s0
-exec --no-startup-id feh --bg-fill ~/Pictures/wp/bh.png
-exec --no-startup-id ~/bin/kb
-exec --no-startup-id redshift
-exec --no-startup-id compton -b --respect-prop-shadow
-exec_always ~/bin/pb
-## exec --no-startup-id setxkbmap -layout us,ru
-## exec --no-startup-id setxkbmap -option 'grp:alt_shift_toggle'
+gaps inner 16
+gaps outer 8
 
-# Menu
-bindsym $mod+d exec rofi -show drun -sidebar-mode -columns
+exec_always xrdb ~/.Xresources
+set_from_resource $color15 i3wm.color15 "#d1dbed"
+set_from_resource $split i3wm.color10 "#6B93CE"
+set_from_resource $colorurg i3wm.color9 "#6B93CE"
+set_from_resource $coloract i3wm.color8 "#6B93CE"
+set_from_resource $colorina i3wm.color0 "#6B93CE"
+set_from_resource $color0 i3wm.color1 "#06070B"
+set_from_resource $color1 i3wm.color2 "#06070B"
+set_from_resource $color2 i3wm.color3 "#06070B"
+set_from_resource $color3 i3wm.color4 "#06070B"
+set_from_resource $color4 i3wm.color5 "#06070B"
+set_from_resource $color8 i3wm.color6 "#9299a5"
 
-bindsym XF86MonBrightnessUp exec light -A 1
-bindsym XF86MonBrightnessDown exec light -U 1
-bindsym $mod+XF86MonBrightnessUp exec light -A 5
-bindsym $mod+XF86MonBrightnessDown exec light -U 5
 
+######### COLORS ##########
+#
+# class                 border    backgr    text    indicator child_border
+client.focused          $coloract $coloract $color15 $split  $coloract
+client.focused_inactive $color1 $color1 $color15 $split  $colorina
+client.unfocused        $colorina  $colorina  $color15 $split  $colorina
+client.urgent           $colorurg   $colorurg   $color15 $colorurg $colorurg
+client.placeholder      $color1   $color8   $color15 $color1 $color8
+client.background       $color0
+
+
+
+# Composite manager:
+exec_always "pkill compton; compton --config ~/.config/compton.conf"
+# Unclutter makes the mouse invisible after a brief period
+exec --no-startup-id unclutter
+
+#Network-manager-applet
+exec --no-startup-id nm-applet
+
+
+exec --no-startup-id dunst
+exec --no-startup-id blueberry-tray
+# Polkit
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+#mpDris2
+exec --no-startup-id mpDris2
+
+# Redshift
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
+exec --no-startup-id redshift-gtk
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango: SauceCodePro Nerd Font 8
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -53,12 +81,25 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Shift+Return exec alacritty -e tmux
 bindsym $mod+Return exec ~/bin/term
+bindsym $mod+Shift+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec rofi -show drun -show-icons
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+#bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -70,31 +111,34 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+
+# move focused workspace
+bindsym $mod+control+h move workspace to output left
+bindsym $mod+control+j move workspace to output down
+bindsym $mod+control+k move workspace to output up
+bindsym $mod+control+l move workspace to output right
 
 # split in horizontal orientation
-bindsym $mod+b split h
+bindsym $mod+minus split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+Shift+minus split v
+bindsym $mod+space split toggle
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+control+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Shift+s layout tabbed
+
+bindsym $mod+Shift+space layout toggle all
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+f focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -104,14 +148,14 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
+set $ws1 "Music"
+set $ws2 "Web"
+set $ws3 "Term"
+set $ws4 "File"
+set $ws5 "Code"
+set $ws6 "Virt"
+set $ws7 "Chat"
+set $ws8 "Game"
 set $ws9 "9"
 set $ws10 "10"
 
@@ -139,6 +183,16 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+#assign [class="Firefox"] $ws2
+##assign [class="Thunar"] $ws4
+#assign [class="Slack"] $ws8
+#assign [class="code"] $ws1
+#assign [class="VirtualBox Manager"] $ws6
+for_window [class="Spotify"] move to workspace $ws1
+for_window [class="Slack"] move to workspace $ws7
+#assign [class="Audacious"] $ws3
+#assign [class="TelegramDesktop"] $ws7
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -154,9 +208,11 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize grow height 1 px or 10 ppt
-        bindsym k resize shrink height 1 px or 10 ppt
-        bindsym l resize grow width 1 px or 10 ppt
+        bindsym h resize shrink width 1 px or 1 ppt
+        bindsym j resize grow height 1 px or 1 ppt
+        bindsym k resize shrink height 1 px or 1 ppt
+        bindsym l resize grow width 1 px or 1 ppt
+
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
@@ -173,25 +229,48 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+#bar {
+#	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#	position top
+#}
 
-# #2f343f
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# set colors
-set $bg-color            #000000
-set $inactive-bg-color   #000000
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
+#bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse sset Master '5%+'"
+#bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse sset Master '5%-'"
+#bindsym XF86AudioMute exec --no-startup-id "amixer set Master toggle"
+
+# Playerctl controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec light -A 1 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 1 # decrease screen brightness
+
+#My configs
+#exec xautolock -corner -time 10 -locker betterlockscreen -l blur
+bindsym $mod+v exec pavucontrol
+bindsym control+mod1+l exec i3lock-fancy -t "don't touch me!!" -f Source-Code-Pro
+bindsym control+mod1+Delete exec ~/bin/lock
+bindsym Print exec --no-startup-id scrot
+#bindsym $mod+Shift+f exec --no-startup-id thunar
+bindsym $mod+i exec --no-startup-id bash ~/.config/rofi/rofi-wifi.sh
+bindsym $mod+x exec --no-startup-id bash ~/.config/rofi/rofi-power.sh
+#exec_always feh --bg-fill ~/Pictures/Walls/rabbit.jpg
+exec_always feh --bg-fill $(find ~/Pictures/wp | shuf -n1)
+for_window [class="Blueberry.py"] floating enable
+for_window [class="pavucontrol"] floating enable
+workspace_auto_back_and_forth yes
+force_display_urgency_hint 500 ms
+focus_on_window_activation urgent
 
 
 
-# window rules, you can find the window class using xpropc
-## assign [class=URxvt] 1
-## assign [class=Firefox|Transmission-gtk] 2
-## assign [class=Thunar|File-roller] 3
-## assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*] 4
-## assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
-## assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
-for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
-for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
-for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
+bindsym $mod+control+w exec "feh --bg-fill $(find ~/Pictures/wp | shuf -n1)"
+

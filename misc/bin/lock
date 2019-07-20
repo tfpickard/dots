@@ -2,6 +2,46 @@
 
 ht="7e"
 
+
+wmctrl -m | grep -qio sway
+if [[ 0 -ne $? ]]; then
+    cmd="i3lock  \
+        --force-clock \
+        --blur=4 \
+        --greetertext \"no.\" \
+        --greetersize 100 \
+        --greeter-font  Source-Code-Pro \
+        --datesize 48 \
+        --date-font  Source-Code-Pro \
+        --timesize 48 \
+        --time-font  Source-Code-Pro \
+        --radius 400 \
+        --ring-width 10"
+
+    if [ -f ~/.gruvbox ]; then
+        . ~/.gruvbox
+        cmd="$cmd \
+        --bshlcolor $neutral_orange$ht \
+        --datecolor $light1$ht \
+        --timecolor $light1$ht \
+        --linecolor $light1$ht \
+        --ringcolor $light3$ht \
+        --ringvercolor $bright_green$ht \
+        --ringwrongcolor $bright_red$ht \
+        --keyhlcolor $neutral_yellow$ht \
+        --insidevercolor $neutral_orange$ht \
+        --insidecolor $neutral_purple$ht \
+        --wrongcolor $bright_red$ht "
+        #--timestr \"%s\" \
+    fi
+    cmd=$(echo $cmd | tr -d '#')
+    cmd=$cmd
+    echo $cmd
+    $cmd --datestr "dont even think about it"
+
+else
+
+
 img=$(ls ~/wp/*.png | shuf -n1)
 options=" -i $img -F -s fill --font \"Fantasque Sans Mono\" \
     --indicator-radius 400 --indicator-thickness 10 -F"
@@ -61,3 +101,4 @@ if [ -f ~/.gruvbox ]; then
 #  -u, --no-unlock-indicator        Disable the unlock indicator.
 #  -v, --version                    Show the version number and quit.
 #All <color> options are of the form <rrggbb[aa]>.
+fi
