@@ -54,7 +54,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id dunst
 exec --no-startup-id blueberry-tray
 # Polkit
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 #mpDris2
 exec --no-startup-id mpDris2
@@ -64,7 +64,7 @@ exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango: SauceCodePro Nerd Font 8
+font pango:Source Code Pro 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -117,7 +117,7 @@ bindsym $mod+control+h move workspace to output left
 bindsym $mod+control+j move workspace to output down
 bindsym $mod+control+k move workspace to output up
 bindsym $mod+control+l move workspace to output right
-
+bindsym $mod+control+0 move workspace to output primary
 # split in horizontal orientation
 bindsym $mod+minus split h
 
@@ -149,12 +149,12 @@ bindsym $mod+a focus parent
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "Music"
-set $ws2 "Web"
+set $ws7 "Web"
 set $ws3 "Term"
 set $ws4 "File"
 set $ws5 "Code"
 set $ws6 "Virt"
-set $ws7 "Chat"
+set $ws2 "Chat"
 set $ws8 "Game"
 set $ws9 "9"
 set $ws10 "10"
@@ -185,13 +185,13 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 #assign [class="Firefox"] $ws2
 ##assign [class="Thunar"] $ws4
-#assign [class="Slack"] $ws8
+assign [class="Slack"] $ws2
 #assign [class="code"] $ws1
 #assign [class="VirtualBox Manager"] $ws6
 for_window [class="Spotify"] move to workspace $ws1
-for_window [class="Slack"] move to workspace $ws7
+for_window [class="Slack"] move to workspace $ws2
 #assign [class="Audacious"] $ws3
-#assign [class="TelegramDesktop"] $ws7
+#assign [class="TelegramDesktop"] $ws2
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

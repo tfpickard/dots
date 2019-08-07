@@ -37,7 +37,7 @@ fi
 xsetroot -cursor_name left_ptr >> $lfile 2>&1
 #. "${HOME}/.cache/wal/colors.sh"
 #kil compton >> $lfile 2>&1
-kil redshift >> $lfile 2>&1
+#kil redshift >> $lfile 2>&1
 
 
 #numlockx &

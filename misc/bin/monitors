@@ -3,3 +3,5 @@
 xrandr | grep "eDP1 con" && sleep 1 && xrandr --output eDP1 --auto --primary
 xrandr | grep "DP1-2 con" && xrandr --output DP1-2 --auto --right-of eDP1
 xrandr | grep "DP1-1 con" && xrandr --output DP1-1 --auto --right-of DP1-2
+feh --bg-fill $(find ~/Pictures/wp | shuf -n1)
+~/.config/polybar/launch.sh

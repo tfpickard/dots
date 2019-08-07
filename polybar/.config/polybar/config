@@ -209,12 +209,12 @@ wrapping-scroll = false
 pin-workspaces = true
 
 ws-icon-0 = Music;1 
-ws-icon-1 = Web; 2
+ws-icon-1 = Chat; 2
 ws-icon-2 = Term; 3
 ws-icon-3 = File; 4
 ws-icon-4 = Code; 5
 ws-icon-5 = Virt; 6
-ws-icon-6 = Chat; 7
+ws-icon-6 = Web; 7
 ws-icon-7 = Util; 8
 ; ws-icon-default = 
 ws-icon-default = 

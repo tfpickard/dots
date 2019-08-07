@@ -12,6 +12,7 @@ ZSH_THEME="fino-time"
 ZSH_THEME="ys"
 ZSH_THEME="spaceship"
 ZSH_THEME="gnzh"
+ZSH_THEME="gallifrey"
 
 
 SPACESHIP_PROMPT_ORDER=(
