@@ -5,39 +5,51 @@ ht="7e"
 
 wmctrl -m | grep -qio sway
 if [[ 0 -ne $? ]]; then
-    cmd="i3lock  \
-        --force-clock \
-        --blur=4 \
-        --greetertext \"no.\" \
-        --greetersize 100 \
-        --greeter-font  Source-Code-Pro \
-        --datesize 48 \
-        --date-font  Source-Code-Pro \
-        --timesize 48 \
-        --time-font  Source-Code-Pro \
-        --radius 400 \
-        --ring-width 10"
+    scrot '/tmp/current.png'
+    i3lock -i /tmp/current.png &
+    i3lock-fancy -t "$(fortune disclaimer)"
+    pkill i3lock
+    exit $?
 
-    if [ -f ~/.gruvbox ]; then
-        . ~/.gruvbox
-        cmd="$cmd \
-        --bshlcolor $neutral_orange$ht \
-        --datecolor $light1$ht \
-        --timecolor $light1$ht \
-        --linecolor $light1$ht \
-        --ringcolor $light3$ht \
-        --ringvercolor $bright_green$ht \
-        --ringwrongcolor $bright_red$ht \
-        --keyhlcolor $neutral_yellow$ht \
-        --insidevercolor $neutral_orange$ht \
-        --insidecolor $neutral_purple$ht \
-        --wrongcolor $bright_red$ht "
-        #--timestr \"%s\" \
-    fi
-    cmd=$(echo $cmd | tr -d '#')
-    cmd=$cmd
-    echo $cmd
-    $cmd --datestr "dont even think about it"
+    caption="$(fortune disclaimer)"
+    image=$(find $HOME/Pictures/wp/ | grep -i jpg |  shuf -n1)
+#     convert $image -gravity Center  -pointsize 30 -annotate 0 'Love you mom' \
+convert -font helvetica -background black -fill white -pointsize 60 -gravity center -draw "text
+100,400 \"$caption\"" $image -resize 2560x1440 /tmp/lock.jpg
+
+    cmd="i3lock  \
+        --image=/tmp/lock.jpg
+
+    --greetertext \"$(fortune disclaimer)\" \
+         --greetersize 100 \
+         --greeter-font  Source-Code-Pro \
+         --datesize 48 \
+         --date-font  Source-Code-Pro \
+         --timesize 48 \
+         --time-font  Source-Code-Pro \
+         --radius 400 \
+         --ring-width 10"
+
+     if [ -f ~/.gruvbox ]; then
+         . ~/.gruvbox
+         cmd="$cmd \
+         --bshlcolor $neutral_orange$ht \
+         --datecolor $light1$ht \
+         --timecolor $light1$ht \
+         --linecolor $light1$ht \
+         --ringcolor $light3$ht \
+         --ringvercolor $bright_green$ht \
+         --ringwrongcolor $bright_red$ht \
+         --keyhlcolor $neutral_yellow$ht \
+         --insidevercolor $neutral_orange$ht \
+         --insidecolor $neutral_purple$ht \
+         --wrongcolor $bright_red$ht "
+         #--timestr \"%s\" \
+     fi
+     cmd=$(echo $cmd | tr -d '#')
+     cmd=$cmd
+     echo $cmd
+     $cmd --datestr "i dare you to try..."
 
 else
 

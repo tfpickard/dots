@@ -10,6 +10,6 @@ lfile="/tmp/pb.log"
 touch $lfile
 for m in $(polybar -m | cut -d':' -f1); do
     MONITOR=$m polybar top -r >> $lfile 2>&1 & disown
-    MONITOR=$m polybar bottom -r >> $lfile 2>&1 & disown
+#    MONITOR=$m polybar bottom -r >> $lfile 2>&1 & disown
 done
 

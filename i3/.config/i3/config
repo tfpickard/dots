@@ -51,13 +51,15 @@ exec --no-startup-id unclutter
 exec --no-startup-id nm-applet
 
 
-exec --no-startup-id dunst
+exec_always "pkill dunst; dunst -conf $HOME/.config/dunst/dunstrc"
 exec --no-startup-id blueberry-tray
 # Polkit
 # exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 #mpDris2
-exec --no-startup-id mpDris2
+#exec --no-startup-id mpDris2
+exec_always "kill $(pgrep python -a | grep alternating_layouts | awk '{print \
+$1}');  /usr/bin/alternating_layouts.py"
 
 # Redshift
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
@@ -99,6 +101,7 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+bindsym $mod+u [urgent=latest] focus
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -118,13 +121,11 @@ bindsym $mod+control+j move workspace to output down
 bindsym $mod+control+k move workspace to output up
 bindsym $mod+control+l move workspace to output right
 bindsym $mod+control+0 move workspace to output primary
+
 # split in horizontal orientation
 bindsym $mod+minus split h
-
 # split in vertical orientation
 bindsym $mod+Shift+minus split v
-bindsym $mod+space split toggle
-
 # enter fullscreen mode for the focused container
 bindsym $mod+control+f fullscreen toggle
 
@@ -132,17 +133,41 @@ bindsym $mod+control+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+Shift+s layout tabbed
 
-bindsym $mod+Shift+space layout toggle all
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+f focus mode_toggle
+bindsym $mod+f exec wmfocus
 
+mode "layout" {
+    bindsym h split h
+    bindsym j split v
+    bindsym Tab split toggle
+    bindsym space fullscreen toggle, mode "default"
+
+    bindsym 4 layout stacking
+    bindsym 3 layout tabbed
+    bindsym 2 layout splith
+    bindsym 1 layout splitv
+    bindsym a layout toggle all
+    bindsym f floating toggle, mode "default"
+
+    bindsym $mod+f focus mode_toggle, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+backslash mode "default"
+}
+
+bindsym $mod+backslash mode "layout"
+bindsym $mod+Tab exec rofi -show window
 # focus the parent container
 bindsym $mod+a focus parent
 
+bindsym $mod+Shift+space move scratchpad
+bindsym $mod+space scratchpad show
+#bindsym mod4+s [title="^Sup ::"] scratchpad show
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -186,12 +211,21 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 #assign [class="Firefox"] $ws2
 ##assign [class="Thunar"] $ws4
 assign [class="Slack"] $ws2
+assign [class="kitty"] $ws3
+assign [class="Telegram"] $ws9
+assign [class="Signal"] $ws9
 #assign [class="code"] $ws1
 #assign [class="VirtualBox Manager"] $ws6
 for_window [class="Spotify"] move to workspace $ws1
 for_window [class="Slack"] move to workspace $ws2
+for_window [class="TelegramDesktop"] move to workspace $ws9
+for_window [class="Signal"] move to workspace $ws9
 #assign [class="Audacious"] $ws3
 #assign [class="TelegramDesktop"] $ws2
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="Preferences$"] floating enable
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -227,6 +261,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+mode "unlock" {
+    bindsym h exec "date > /tmp/unlock"
+    bindsym l exec "kitty -e bin/unlock"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym control+Shift+Escape mode "unlock"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -239,6 +280,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 0 toggle # mute sound
 
 #bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse sset Master '5%+'"
 #bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse sset Master '5%-'"
@@ -250,14 +292,17 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 1 # increase screen brightness
-bindsym XF86MonBrightnessDown exec light -U 1 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 2 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 2 # decrease screen brightness
+bindsym Shift+XF86MonBrightnessUp exec light -S 100% # increase screen brightness
+bindsym Shift+XF86MonBrightnessDown exec light -S 2 # decrease screen brightness
 
 #My configs
 #exec xautolock -corner -time 10 -locker betterlockscreen -l blur
 bindsym $mod+v exec pavucontrol
-bindsym control+mod1+l exec i3lock-fancy -t "don't touch me!!" -f Source-Code-Pro
-bindsym control+mod1+Delete exec ~/bin/lock
+#bindsym control+mod1+l exec i3lock-fancy -t "don't touch me!!" -f Source-Code-Pro
+bindsym control+Escape exec ~/bin/autolock.sh lock
+bindsym control+mod1+Delete exec ~/bin/autolock.sh lock
 bindsym Print exec --no-startup-id scrot
 #bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+i exec --no-startup-id bash ~/.config/rofi/rofi-wifi.sh
@@ -271,6 +316,8 @@ force_display_urgency_hint 500 ms
 focus_on_window_activation urgent
 
 
+#exec_always xautolock -time 5 -locker ~/bin/lock
+exec_always xautolock
 
 bindsym $mod+control+w exec "feh --bg-fill $(find ~/Pictures/wp | shuf -n1)"
-
+# vim:filetype=i3
