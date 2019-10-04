@@ -64,7 +64,6 @@ $1}');  /usr/bin/alternating_layouts.py"
 # Redshift
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
-exec_always --no-startup-id $HOME/bin/chat
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Source Code Pro 10
@@ -82,12 +81,10 @@ font pango:Source Code Pro 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-bindsym Mod1+space exec i3lastc
-bindsym Mod1+Tab exec "/usr/bin/i3wins -kb-row-down 'Down,Control+n,Alt+Tab' -kb-accept-entry '!Alt+Tab,!Alt_L,!Alt+Alt_L,Return'"
 
 # start a terminal
 bindsym $mod+Return exec ~/bin/term
-bindsym $mod+Shift+Return exec ". ~/.slack && kitty --class weechat --title weechat weechat"
+bindsym $mod+Shift+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -176,18 +173,16 @@ bindsym $mod+space scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set_from_resource $ws1 ws1 "1"
-set_from_resource $ws2 ws2 "2"
-set_from_resource $ws3 ws3 "3"
-set_from_resource $ws4 ws4 "4"
-set_from_resource $ws5 ws5 "5"
-set_from_resource $ws6 ws6 "6"
-set_from_resource $ws7 ws7 "7"
-set_from_resource $ws8 ws8 "8"
-set_from_resource $ws9 ws9 "9"
-set_from_resource $ws10 ws10 "10"
-set_from_resource $ws11 ws11 "11"
-set_from_resource $ws1 ws1 "1"
+set $ws1 "Music"
+set $ws7 "Web"
+set $ws3 "Term"
+set $ws4 "File"
+set $ws5 "Code"
+set $ws6 "Virt"
+set $ws2 "Chat"
+set $ws8 "Game"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -200,7 +195,6 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
-bindsym $mod+control+space workspace $ws11
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -213,16 +207,13 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
-bindsym $mod+control+Shift+space move container to workspace $ws11
 
 #assign [class="Firefox"] $ws2
 ##assign [class="Thunar"] $ws4
 assign [class="Slack"] $ws2
 assign [class="kitty"] $ws3
-assign [class="chromium"] $ws7
-
-assign [class="Telegram"] $ws11
-assign [class="Signal"] $ws11
+assign [class="Telegram"] $ws9
+assign [class="Signal"] $ws9
 #assign [class="code"] $ws1
 #assign [class="VirtualBox Manager"] $ws6
 for_window [class="Spotify"] move to workspace $ws1
@@ -279,10 +270,7 @@ mode "unlock" {
 bindsym control+Shift+Escape mode "unlock"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/bin/monitors
-exec --no-startup-id "i3lasts -kb-row-down 'Down,Control+n,Alt+space,space' -kb-accept-entry '!Alt+space,!Alt_L,!Alt+Alt_L,Return'"
-
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 #bar {
 #	status_command i3blocks -c ~/.config/i3/i3blocks.conf
 #	position top
@@ -307,7 +295,7 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86MonBrightnessUp exec light -A 2 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 2 # decrease screen brightness
 bindsym Shift+XF86MonBrightnessUp exec light -S 100% # increase screen brightness
-bindsym Shift+XF86MonBrightnessDown exec light -r -S 2 # decrease screen brightness
+bindsym Shift+XF86MonBrightnessDown exec light -S 2 # decrease screen brightness
 
 #My configs
 #exec xautolock -corner -time 10 -locker betterlockscreen -l blur
@@ -315,8 +303,7 @@ bindsym $mod+v exec pavucontrol
 #bindsym control+mod1+l exec i3lock-fancy -t "don't touch me!!" -f Source-Code-Pro
 bindsym control+Escape exec ~/bin/autolock.sh lock
 bindsym control+mod1+Delete exec ~/bin/autolock.sh lock
-bindsym Print exec --no-startup-id ~/bin/scrotter
-
+bindsym Print exec --no-startup-id scrot
 #bindsym $mod+Shift+f exec --no-startup-id thunar
 bindsym $mod+i exec --no-startup-id bash ~/.config/rofi/rofi-wifi.sh
 bindsym $mod+x exec --no-startup-id bash ~/.config/rofi/rofi-power.sh
