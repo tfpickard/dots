@@ -188,7 +188,7 @@ set_from_resource $ws9 ws9 "9"
 set_from_resource $ws10 ws10 "10"
 set_from_resource $ws11 ws11 "11"
 set_from_resource $ws1 ws1 "1"
-
+exec_always notify-send $ws2
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2

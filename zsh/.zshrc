@@ -160,3 +160,18 @@ alias '$'=' '
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# capture command and output
+function capture {
+  local PROMPT=${1-$}
+  echo -n "${PROMPT} "
+  echo -n "${history[$HISTCMD]}" | perl -pe 's/\s*\|\s*capture.*$//;s/\\\n/\\\n  /g'
+  echo -ne "\n\n"
+  cat
+}
+myshit=("$HOME/.profile" "$HOME/.slack"); for f in $myshit; do
+    echo $f
+    [[ -f $f ]] && . $f
+done
+setopt extendedglob
+

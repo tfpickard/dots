@@ -1,0 +1,8 @@
+#!/bin/bash
+
+scdir="$HOME/Pictures/Screenshots"
+[[ -d $scdir ]] || mkdir -p $scdir
+scname=$(date +%Y-%m-%d_%H-%M-%S)
+cmd="scrot $scdir/%Y-%m-%d_%H%M%S_\$wx\$h_scrot.png"
+echo $cmd
+$cmd

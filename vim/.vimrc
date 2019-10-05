@@ -50,11 +50,15 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'Yggdroot/indentLine'
 " Plugin 'nvie/vim-flake8'
 if has('python')
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 "Plugin 'axiaoxin/vim-json-line-format'
 Plugin 'SirVer/ultisnips'
 endif
+Plugin 'valloric/youcompleteme'
 Plugin 'morhetz/gruvbox'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+
+
 " Plugin 'axiaoxin/favorite-vim-colorscheme'
 "Plugin 'junegunn/vim-emoji'
 Plugin 'mhinz/vim-startify'
@@ -70,7 +74,11 @@ Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'conradirwin/vim-bracketed-paste'
 Plugin 'rip-rip/clang_complete'
-Plugin 'tmhedberg/simpylfold'
+"Plugin 'tmhedberg/simpylfold'
+Plugin 'fatih/vim-go'
+Plugin 'PotatoesMaster/i3-vim-syntax'
+Plugin 'yaasita/edit-slack.vim'
+
 "Plugin 'kovetskiy/sxhkd-vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -254,7 +262,14 @@ let g:vcool_ins_rgba_map = '<leader>cpra'
 
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+let g:ycm_key_invoke_completion = '<C-Space>'
 
+" vim-go shit
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
 ""let g:airline_theme='tomorrow'
 "let g:airline_theme='gruvbox'
 
+let g:yaasita_slack_token = "xoxp-3722662412-243834316402-273265683716-8d5dc0bb1ca3ac6935fc8df30c462029"

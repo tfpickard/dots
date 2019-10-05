@@ -26,6 +26,20 @@ secondary = #e60053
 alert = #bd2c40
 transparent = #000000000
 
+[i3ws]
+ws1 = Misc
+ws2 = Slack
+ws3 = Browser
+ws4 = Communication
+ws5 = Virtual
+ws6 = Terminal1
+ws7 = Terminal2
+ws8 = Whatever
+ws9 = Terminal3
+ws10 = Misc2
+ws11 = Misc3
+
+
 [gruvbox]
 bg-dark = #ff1d2021
 fg-dark = #ebdbb2
@@ -69,7 +83,8 @@ module-margin-right = 0
 
 font-0 = xos4 Terminus:style=Regular:size=14;2
 font-1 = Inconsolata Nerd Font:style=Regular:size=14;2
-font-2 = Inconsolata Nerd Font:style=Regular:size=21;3
+font-2 = Font Awesome 5 Free:pixelsize=10;2
+font-3 = Inconsolata Nerd Font:style=Regular:size=21;3
 
 modules-left = i3 powermenu alsa date temperature arrow1
 modules-center = xwindow
@@ -112,6 +127,7 @@ format-foreground = ${colors.foreground}
 
 [module/i3]
 type = internal/i3
+inherit = i3ws
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
@@ -119,15 +135,16 @@ wrapping-scroll = false
 ; Only show workspaces on the same output as the bar
 pin-workspaces = true
 
-ws-icon-0 = Music;1 
-ws-icon-1 = Chat; 2
-ws-icon-2 = Term; 3
-ws-icon-3 = File; 4
-ws-icon-4 = Code; 5
-ws-icon-5 = Virt; 6
-ws-icon-6 = Web; 7
-ws-icon-7 = Util; 8
-;ws-icon-8 = 
+ws-icon-0 = Misc;
+ws-icon-1 = Slack;
+ws-icon-2 = Web;
+ws-icon-3 = IM;
+ws-icon-4 = Virt;
+ws-icon-5 = Term1;
+ws-icon-6 = Term2;
+ws-icon-7 = Misc2;
+ws-icon-8 = Term3;
+ws-icon-9 = Misc3;
 ws-icon-default = 
 
 label-mode-padding = ${general.padding}

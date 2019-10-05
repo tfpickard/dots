@@ -39,7 +39,7 @@ xsetroot -cursor_name left_ptr >> $lfile 2>&1
 #kil compton >> $lfile 2>&1
 #kil redshift >> $lfile 2>&1
 
-
+libinput-gestures-setup restart
 #numlockx &
 #unclutter &
 #xbindkeys &
@@ -51,7 +51,10 @@ xsetroot -cursor_name left_ptr >> $lfile 2>&1
 #exec herbstluftwm --locked
 #~/bin/monitors 5 >> $lfile 2>&1 &
 #~/bin/wp >> $lfile 2>&1
+#exec dwm > /tmp/dwm.log 2>&1
+#/home/tom/bin/term &
+#exec /home/tom/src/tinywm/tinywm > /tmp/tinywm.log 2>&1
 exec i3 > /tmp/i3.log 2>&1
-#exec xmonad > /tmp/xmonad.log 2>&1
+#exec wingo --log-level="4" > /tmp/wingo.log 2>&1
 #exec xmonad > /tmp/xmonad.log 2>&1
 
