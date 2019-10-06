@@ -1,0 +1,6 @@
+#! /bin/sh
+
+xsswin magic XSS_WINDOW & pid=$!
+xkeygrab | (while read l; do [ "$l" != "secret" ] && break; done)
+kill $pid
+

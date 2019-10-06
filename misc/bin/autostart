@@ -1,0 +1,18 @@
+#!/bin/bash
+
+term=$(which kitty || xterm)
+autopath="$HOME/.config/autostart"
+
+errout() {
+    echo "ERROR: $@"
+    exit 1
+}
+
+[[ -d $autopath ]] || errout "$autopath doesn't exist"
+for f in $(find $autopath); do
+    exe=$(cat $f | grep 'Exec=')
+    echo $exe
+done
+
+#redshift &
+#slack &

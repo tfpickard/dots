@@ -1,0 +1,8 @@
+#!/bin/bash
+abandon() {
+    echo $1; pgrep -a $1 && kill $(pgrep $1)
+    [[ "x" != "x$LOGIT" ]] && log=$1.log || log=/dev/null
+    $1 >$log 2>&1 & disown ; return $?
+}
+myshit=( slack telegram-desktop signal-desktop )
+for shit in ${myshit[@]}; do abandon $shit; done

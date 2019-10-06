@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+kil () {
+ killall $1 || sleep 1 && kil $1
+}
+
+killall polybar
+
+for m in $(polybar -m | cut -d':' -f1); do
+    MONITOR=$m polybar mybar -r >/tmp/pb.l 2>&1 & disown
+done
+

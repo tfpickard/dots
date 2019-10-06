@@ -1,0 +1,6 @@
+#!/bin/bash
+eval set $(getopt -o 'dD:mMuU:' -n 'brightness' -- "$@") || \
+    exit 1
+while :; do
+    case "$1" in
+        -d)

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+d=/home/$USER/Pictures/security
+[[ -d $d ]] || mkdir -p $d
+
+fpath=$d/$(date +"%m-%d-%y-%H:%M:%S").png
+fswebcam --png -r 640x480 $fpath
+echo $fpath

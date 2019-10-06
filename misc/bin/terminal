@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# tmux ls | grep -i attached | cut -d':' -f1
+
+if [[ "$(bspc query -m -M --names)" =~ "eDP" ]]; then
+    alacritty -e tmux
+else
+    alacritty --config-file ~/.config/alacritty/alacritty.yml-big -e tmux
+fi
+
+exit $?
+xt=$(which xtitle || exit 1)
+myterm="alacritty"
+
+windows=$(bspc query --desktop focused --nodes --node .window)
+for window in $windows; do
+    if [[ $myterm == $(xtitle $window| awk '{print tolower($l)}') ]]; then
+        termwindow=$window
+        break
+    fi
+done
+
+if [ ! -z $termwindow ]; then
+    echo $termwindow
+fi

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+errout() {
+    echo "idiot: $@"
+    exit 1
+}
+
+vpnon() {
+    nmcli connection up $1 || errout "there something rong with $1"
+}
+
+vpnoff() {
+    nmcli connection down $1 || errout "there something rong with $1"
+}
+
+vpntoggle() {
+    if [ "x" = "x$(nmcli con show --active $1)" ]; then
+        vpnon $1
+    else
+        vpnoff $1
+    fi
+}
+
+options=$(getopt -o "f:n:t:" -l "off:,on:,toggle:" -- "$@") || \
+    errout "you did it wrong"
+eval set -- "$options"
+while :; do
+    case $1 in
+        -f | --off) vpnoff $2 ; shift 2 ;;
+        -n | --on) vpnon $2 ; shift 2 ;;
+        -t | --toggle) vpntoggle $2 ; shift 2 ;;
+        --) shift ; break ;;
+    esac
+done
+

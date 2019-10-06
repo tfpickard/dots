@@ -1,0 +1,4 @@
+#!/bin/bash
+
+setxkbmap -model pc104 -layout us,ca -variant ,, -option \
+altwin:swap_alt_win,ctrl:nocaps,ctrl:lctrl_meta

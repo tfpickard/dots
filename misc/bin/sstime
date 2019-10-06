@@ -1,0 +1,8 @@
+#!/bin/bash
+infile=$1
+stime=$(identify -verbose $infile | identify -verbose wp/andromeda.jpg | \
+    grep -i date:cre | awk '{print $2}')
+outfile="$(dirname $infile)/$stime-$(basename $infile)"
+echo $outfile
+convert $infile -pointsize 32 -fill white -undercolor '#00000080' \
+    -gravity SouthEast -annotate +10+15 $stime $outfile

@@ -1,0 +1,16 @@
+#!/bin/bash
+[[ -f ~/.teleport ]] && . ~/.teleport || exit 1
+user=$(echo $@ | cut -d'@' -f1)
+host=$(echo $@ | cut -d'@' -f2)
+echo $host
+#entry=$(tsh ls | grep $host)
+hosts=$(tsh ls) || (tsh login --insecure --user $tpuser --proxy $tpproxy && \
+    $0 $@ || exit $?)
+#entry=$(echo $hosts | grep $host)
+entry=$(tsh ls | grep $host)
+ipaddr=$(echo $entry | grep -oE "([0-9]{1,3}[\.]){3}[0-9]{1,3}")
+hname=$(echo $entry | grep -oE "[a-z]{3,30}-[a-z]{3,30}")
+cmd="tsh ssh $user@$ipaddr"
+echo $cmd
+$cmd
+echo $?

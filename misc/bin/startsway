@@ -1,0 +1,4 @@
+#!/bin/zsh
+export XDG_RUNTIME_DIR=/tmp
+#export SWAYSOCK=$(find /tmp -name "sway*.sock")
+sway -d > /tmp/sway.log 2>&1

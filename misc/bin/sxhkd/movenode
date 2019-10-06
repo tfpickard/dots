@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# bspc node -s $1
+
+# exit $?
+
+
+bspc config pointer_follows_focus true
+cur_win=$(bspc query -N -n)
+cur_mon=$(bspc query -M -m)
+dir=$1
+echo $dir
+bspc node -f $dir
+if [ "0" != "$?" ]; then
+    bspc node -m $dir
+    bspc monitor -f $dir
+else
+    new_mon=$(bspc query -M -m)
+    if [ "$new_mon" == "$cur_mon" ]; then
+        bspc node -s $cur_win
+    else
+        bspc node $cur_win -m ^$new_mon
+    fi
+    bspc node -f $cur_win
+fi
+bspc config pointer_follows_focus false

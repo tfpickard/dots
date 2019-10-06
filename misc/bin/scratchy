@@ -1,0 +1,15 @@
+#!/bin/bash
+
+id=$(xdo id -n scratchy);
+if [ -z "$id" ]; then
+    alacritty --class scratchy --title scratchy \
+        -e zsh -c "bspc node --state fullscreen; \
+        alias exit=~/bin/scratchy; tmux new-session -A -s dummy";
+else
+    action='hide';
+    if [[ $(xprop -id $id | \
+        awk '/window state: / {print $3}') == 'Withdrawn' ]]; then
+        action='show';
+    fi
+    xdo $action -n scratchy
+fi

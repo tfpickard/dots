@@ -1,0 +1,25 @@
+#!/bin/bash
+
+dir=$1
+nclr=$(bspc config normal_border_color)
+fclr=$(bspc config focused_border_color)
+bspc config normal_border_color $fclr
+cur_win=$(bspc query -N -n)
+cur_mon=$(bspc query -M -m)
+bspc node -f $dir
+new_win=$(bspc query -N -n)
+new_mon=$(bspc query -M -m)
+bspc node -f $cur_win
+bspc config normal_border_color $nclr
+
+bspc config pointer_follows_focus true
+if [ "$new_mon" == "$cur_mon" ]; then
+    bspc node -s $dir
+else
+    bspc node -m $dir
+fi
+
+bspc config pointer_follows_focus false
+
+exit $?
+

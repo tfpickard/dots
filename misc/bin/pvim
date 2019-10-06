@@ -1,0 +1,15 @@
+#!/usr/bin/python3
+
+import vimrunner
+
+vim = vimrunner.Server()
+
+# start GVIM as server and get a client connected to it
+client = vim.start_gvim()
+client.edit('any_file')
+client.source('path/to/vim/plugin')
+
+# start Vim editor in a terminal; it should work for Debian, Ubuntu, etc.
+# that have a desktop installed
+client = vim.start_in_other_terminal()
+

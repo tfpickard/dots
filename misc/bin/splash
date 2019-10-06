@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+killall gotop
+killall dmesg
+bspc desktop -f \~
+bspc rule -a Alacritty -o desktop=\~ && alacritty -e gotop &
+bspc rule -a Alacritty -o desktop=\~ && alacritty -e dmesg -w &
+
