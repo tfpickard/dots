@@ -16,7 +16,6 @@ for_window [class="^.*"] border pixel 4
 gaps inner 16
 gaps outer 8
 
-exec_always xrdb ~/.Xresources
 set_from_resource $color15 i3wm.color15 "#d1dbed"
 set_from_resource $split i3wm.color10 "#6B93CE"
 set_from_resource $colorurg i3wm.color9 "#6B93CE"
@@ -43,28 +42,21 @@ client.background       $color0
 
 
 # Composite manager:
-exec_always "pkill compton; compton --config ~/.config/compton.conf"
 # Unclutter makes the mouse invisible after a brief period
-exec --no-startup-id unclutter
 
-#Network-manager-applet
-exec --no-startup-id nm-applet
-
-
-exec_always "pkill dunst; dunst -conf $HOME/.config/dunst/dunstrc"
 exec --no-startup-id blueberry-tray
 # Polkit
 # exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 #mpDris2
 #exec --no-startup-id mpDris2
-exec_always "kill $(pgrep python -a | grep alternating_layouts | awk '{print \
-$1}');  /usr/bin/alternating_layouts.py"
+exec_always "kill $(pgrep python -a | grep alternating_layouts | \
+    awk '{print $1}');  /usr/bin/alternating_layouts.py"
 
 # Redshift
-exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
-exec --no-startup-id redshift-gtk
-exec_always --no-startup-id $HOME/bin/chat
+#exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
+#exec --no-startup-id redshift-gtk
+#exec_always --no-startup-id $HOME/bin/chat
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Source Code Pro 10
@@ -280,7 +272,7 @@ bindsym control+Shift+Escape mode "unlock"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/bin/monitors
+#exec_always --no-startup-id $HOME/bin/monitors
 exec --no-startup-id "i3lasts -kb-row-down 'Down,Control+n,Alt+space,space' -kb-accept-entry '!Alt+space,!Alt_L,!Alt+Alt_L,Return'"
 
 #bar {
@@ -321,7 +313,7 @@ bindsym Print exec --no-startup-id ~/bin/scrotter
 bindsym $mod+i exec --no-startup-id bash ~/.config/rofi/rofi-wifi.sh
 bindsym $mod+x exec --no-startup-id bash ~/.config/rofi/rofi-power.sh
 #exec_always feh --bg-fill ~/Pictures/Walls/rabbit.jpg
-exec_always feh --bg-fill $(find ~/Pictures/wp | shuf -n1)
+#exec_always feh --bg-fill $(find ~/Pictures/wp | shuf -n1)
 for_window [class="Blueberry.py"] floating enable
 for_window [class="pavucontrol"] floating enable
 workspace_auto_back_and_forth yes
@@ -330,7 +322,9 @@ focus_on_window_activation urgent
 
 
 #exec_always xautolock -time 5 -locker ~/bin/lock
-exec_always xautolock
+#exec_always xautolock
 
-bindsym $mod+control+w exec "feh --bg-fill $(find ~/Pictures/wp | shuf -n1)"
+bindsym $mod+control+w exec "~/bin/wp"
 # vim:filetype=i3
+exec_always autorandr --force -c
+exec_always ~/bin/run_startup

@@ -151,7 +151,7 @@ if [[ -n ${LAUNCHER} ]]; then
 export PATH=$PATH:$HOME/bin:/usr/lib/jvm/default/bin
 export JAVA_HOME=/usr/lib/jvm/default
 
-
+alias xev="xev -event keyboard"
 alias purg="tsh ssh --insecure --user $tuser --proxy $tproxy \
     --cluster $tcluster $tuser@$purghost"
 alias '$'=' '
@@ -170,7 +170,7 @@ function capture {
   cat
 }
 myshit=("$HOME/.profile" "$HOME/.slack"); for f in $myshit; do
-    echo $f
+#    echo $f
     [[ -f $f ]] && . $f
 done
 setopt extendedglob

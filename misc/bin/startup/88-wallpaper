@@ -1,0 +1,31 @@
+#!/bin/bash
+# set wallpaper for screens
+errout() {
+    rc=$?
+    [[ 0 -eq $rc ]] && rc=1
+    echo "ERROR[$rc]: $1"
+    exit $rc
+}
+
+wpbin=$(which feh) || errout "can't find feh"
+wpdir="$HOME/Pictures/wp" ; [[ -d $wpdir/ ]] || errout "can't find $wpdir"
+wppath=$(find $wpdir/ -type f | shuf -n1)
+[[ -n $wppath ]] || errout "no files"
+case $1 in
+    start)
+        echo start
+        compton --config ~/.config/compton.conf > /tmp/compton.log 2>&1 &
+        cmd="$wpbin --bg-fill $wppath"
+        $cmd && echo $wppath | tee /tmp/current_wallpaper
+        ;;
+    stop)
+        echo stop
+        pkill compton
+        ;;
+    restart)
+        echo restart
+        $0 stop
+        $0 start
+        ;;
+esac
+exit $?
