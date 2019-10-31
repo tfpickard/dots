@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+exec 2>&1 > >(tee -i /tmp/hlwm-autostart.log)
+
+PIDS_FILE=/tmp/hlwm-autostart-pids
+
+hc() {
+    herbstclient "$@"
+}
+
+store_pid() {
+    echo $! >> $PIDS_FILE
+}
+
+OLD_PIDS=$(cat $PIDS_FILE)
+kill $(echo $OLD_PIDS)
+rm $PIDS_FILE
+
+hc emit_hook reload
+
+~/.config/herbstluftwm/bindings.sh
+~/.config/herbstluftwm/rules.sh
+~/.config/herbstluftwm/styling.sh
+
+hc set tree_style '╾│ ├└╼─┐'
+hc unlock
+hc detect_monitors
+
+panel_height=20
+statusbar_height=20
+
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    hc pad $monitor $panel_height 0 $statusbar_height 0
+    ~/.config/herbstluftwm/panel.sh $monitor & store_pid
+    ~/.config/herbstluftwm/statusbar.sh $monitor & store_pid
+done
+
+~/.config/herbstluftwm/tray.sh & store_pid
+/usr/lib/geoclue-2.0/demos/agent & store_pid
+redshift-gtk & store_pid
+$HOME/bin/chat
+#udiskie --tray & store_pid
+
+#systemctl --user restart sxhkd
+#systemctl --user restart xautolock
+#systemd-run --user --on-active=30 ~/local/bin/battery-warning.sh
+
+wmname LG3D
