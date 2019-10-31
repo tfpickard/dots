@@ -1,0 +1,24 @@
+#!/bin/bash
+kil() {
+    pgrep $1 && kill $(pgrep $1)
+}
+
+unkil() {
+    [[ "x" != "x$LOGIT" ]] && log=$1.log || log=/dev/null
+    $1 >$log 2>&1 & disown ; return $?
+}
+
+
+[[ -n $myshit ]] || \
+    myshit=( slack telegram-desktop signal-desktop unclutter nm-applet dunst )
+for shit in ${myshit[@]}; do
+    case $1 in
+        start) unkil $shit ;;
+        stop) kil $shit ;;
+        restart) kil $shit ; unkil $shit ;;
+        *)
+            echo "restarting $shit"
+            myshit=$shit $0 restart
+            ;;
+    esac
+done

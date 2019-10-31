@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+kil () {
+ killall $1 #&& pgrep $1 && sleep 1 ; kil $1
+}
+
+
+pbpath="$HOME/.config/polybar"
+pb="$pbpath/launch.sh"
+
+case $1 in
+    start)
+        if [[ -x $pb ]]; then
+            echo $pb
+            $pb
+        else
+            killall polybar
+            for m in $(polybar -m | cut -d':' -f1); do
+                MONITOR=$m polybar mybar -r >/tmp/pb.l 2>&1 & disown
+                [[ 0 -eq $? ]] && cat /tmp/pb.l
+            done
+        fi
+        ;;
+    stop) kil polybar ;;
+    restart) $0 stop ; $0 start ;;
+    *)
+        echo "$1: i guess i should just restart polybar"
+        $0 restart
+        ;;
+esac
+

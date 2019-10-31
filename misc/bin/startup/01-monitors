@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+for m in $(xrandr | grep discon); do
+    xrandr --output $m --off
+done
+
+[[ -n $1 ]] && [[ "start" != "$1" ]] || exit 0
+
+xrandr | grep "eDP1 con" && sleep 1 && xrandr --output eDP1 --mode 2048x1152 --primary
+xrandr | grep "DP1-2 con" && xrandr --output DP1-2 --auto --right-of eDP1
+xrandr | grep "DP1-1 con" && xrandr --output DP1-1 --auto --right-of DP1-2
+
+exit $?

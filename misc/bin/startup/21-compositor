@@ -1,0 +1,51 @@
+#!/bin/bash
+kil() {
+    echo $iii
+    pgrep -af $1 && for p in $(pgrep -f $1); do kill $p; done
+    pgrep -af $1
+    if [[ 0 == $? ]]; then
+        sleep 1
+        kil $1
+    fi
+}
+
+unkil() {
+    [[ "x" != "x$LOGIT" ]] && log=$1.log || log=/dev/null
+    cmd=$@
+    args=""
+    echo "running cmd args: -->|$cmd|<-- -->|$args|<--"
+    $1 $@ >$log 2>&1 & disown ; return $?
+}
+
+
+#[[ -n $myshit ]] || myshit=( geoclue redshift-gtk )
+[[ -n $myshit ]] || myshit=( redshift )
+for shit in ${myshit[@]}; do
+case $1 in
+    start)
+        unkil $shit -P ;;
+    stop)
+        if [[ "redshift" == $shit ]]; then
+            pkill redshift
+            iii=1
+            while [[ -n "$(pgrep redshift)" ]]; do
+                let iii++
+                pkill redshift
+                echo "attemp $iii"
+                sleep 1
+            done
+            redshift -x
+        else
+            kil $shit
+        fi
+        ;;
+    restart)
+        myshit=$shit $0 stop
+        myshit=$shit $0 start
+        ;;
+    *)
+        echo "restarting $shit"
+        myshit=$shit $0 restart
+        ;;
+esac
+done

@@ -3,7 +3,7 @@ kil () {
  killall $1 || sleep 1 && kil $1
 }
 
-killall polybar
+pgrep polybar && killall polybar
 
 lfile="/tmp/pb.log"
 [[ -f $lfile ]] && rm -f $lfile

@@ -1,2 +1,5 @@
 misc/bin/typer
+*.jpg
+*.jpeg
+*.png
 
