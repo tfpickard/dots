@@ -1,0 +1,84 @@
+#!/usr/bin/bash
+out=/dev/null
+out=/dev/stdout
+mydir=$(cd $(dirname "$0") && pwd);
+myname="$mydir/$(basename $0)"
+realname="$mydir/$(test -L "$0" && readlink "$0" || echo "$0")"
+[[ -e $realname ]] || realname=$myname
+echo "cmd $0 $@" > $out
+echo "realname $realname" > $out
+echo "myname $myname" > $out
+echo "mydir $mydir" > $out
+rc=0
+errout() {
+    rc=$?
+    [[ 0 -eq $rc ]] && rc=1
+    echo "ERROR[$rc]: $1"
+    exit $rc
+}
+
+arandr_items=( color wallpaper bar layout )
+#[[ -n $items ]] || items=${arandr_items[@]}
+
+echo "*********************************************" > $out
+echo $items > $out
+echo "${items[@]}" > $out
+echo "*********************************************" > $out
+
+lfile='/tmp/autorandr.log'
+sspath="$HOME/bin/startup"
+[[ -d $sspath ]] || errout 'cannot find startup scripts'
+if [[ -z $1 ]]; then
+    case $(basename $myname) in
+        'postswitch') items="${arandr_items[@]}" $realname restart ;;
+        'preswitch') items="${arandr_items[@]}" $realname stop ;;
+        $(basename $realname))
+            $realname info
+            #items=($(ls $sspath)
+            items=$(ls $sspath) $realname restart
+            ;;
+        *)
+            $realname info
+            echo 'cycling. you have 10 seconds to ctrl-c'
+            sleep 10
+            $realname restart
+            ;;
+    esac
+    exit $?
+fi
+
+case $1 in
+    startup)
+        ls $sspath
+        exit 1
+        ;;
+    start) action='start' ;;
+    stop) action='stop' ;;
+    restart)
+        $myname 'stop'
+        $myname 'start'
+        exit $?
+        ;;
+    *)
+        echo "logfile: $lfile"
+        echo "startup script directory: $sspath..."
+        echo "run items matching (${items[@]}) in:"
+        find $sspath/
+        exit 255
+        ;;
+esac
+
+
+
+touch $lfile || lfile='/dev/null'
+touch $lfile
+
+echo "$0 $@ at $(date)" 2>&1 | tee -a $lfile > $out
+for item in ${items[@]}; do
+    x=$(find $sspath -name "*$item*") || continue
+    [[ -e $x ]] || continue
+    cmd="$x $action"
+    echo "cmd ---->|$cmd|<----"
+    [[ -x $x ]] && $cmd 2>&1 | tee -a $lfile > $out
+done
+exit $?

@@ -8,5 +8,7 @@ for m in $(xrandr | grep discon); do
     xrandr --output $m --off
 done
 
-feh --bg-fill $(find ~/Pictures/wp | shuf -n1)
-~/.config/polybar/launch.sh
+~/bin/startup/02-wallpaper
+#feh --bg-fill $(find ~/Pictures/wp | shuf -n1)
+
+~/bin/startup/99-polybar
