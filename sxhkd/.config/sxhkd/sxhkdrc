@@ -5,10 +5,12 @@
 # terminal emulator
 super + Return
     $HOME/bin/term
+super + space
+    tdrop -ma -w 70% -h 70% -y 15% -x 15% -s scratch -f '-e tmux' kitty
 
 # program launcher
-super + d
-    rofi -show drun
+super + {d,r,w}
+    rofi -show {drun,run,window}
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -23,7 +25,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }w
+super + {_,shift + }q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -119,3 +121,34 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+XF86AudioRaiseVolume
+    pactl -- set-sink-volume 0 +5% #increase sound volume
+XF86AudioLowerVolume
+    pactl -- set-sink-volume 0 -5% #decrease sound volume
+XF86AudioMute
+    pactl set-sink-mute 0 toggle # mute sound
+XF86AudioMicMute
+    pactl set-source-mute 0 toggle # mute sound
+
+#bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse sset Master '5%+'"
+#bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse sset Master '5%-'"
+#bindsym XF86AudioMute exec --no-startup-id "amixer set Master toggle"
+
+XF86AudioPlay
+    playerctl play-pause
+XF86AudioNext
+    playerctl next
+XF86AudioPrev
+    playerctl previous
+
+# Sreen brightness controls
+XF86MonBrightnessUp
+    light -A 2 # increase screen brightness
+XF86MonBrightnessDown
+    light -U 2 # decrease screen brightness
+shift + XF86MonBrightnessUp
+    light -S 100% # increase screen brightness
+shift + XF86MonBrightnessDown
+    light -r -S 2 # decrease screen brightness
+

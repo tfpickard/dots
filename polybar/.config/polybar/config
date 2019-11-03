@@ -86,7 +86,7 @@ font-1 = Inconsolata Nerd Font:style=Regular:size=14;2
 font-2 = Font Awesome 5 Free:pixelsize=10;2
 font-3 = Inconsolata Nerd Font:style=Regular:size=21;3
 
-modules-left = i3 powermenu alsa date temperature arrow1
+modules-left = bspwm powermenu alsa date temperature arrow1
 modules-center = xwindow
 modules-right = arrow2 wlan battery backlight memory time
 
@@ -103,11 +103,11 @@ override-redirect = false
 ;wm-restack = bspwm
 ;wm-restack = i3
 
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+#scroll-up = i3wm-wsnext
+#scroll-down = i3wm-wsprev
 
 separator =
 
@@ -124,6 +124,67 @@ format-prefix-font = 2
 format-background = #282828
 format-foreground = ${colors.foreground}
 
+[module/bspwm]
+type = internal/bspwm
+
+; Only show workspaces defined on the same output as the bar
+; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
+; Default: true
+pin-workspaces = true
+
+; Output mode flags after focused state label
+; Default: false
+inline-mode = false
+
+; Create click handler used to focus workspace
+; Default: true
+enable-click = true
+
+; Create scroll handlers used to cycle workspaces
+; Default: true
+enable-scroll = true
+
+; Set the scroll cycle direction
+; Default: true
+reverse-scroll = false
+
+; Use fuzzy (partial) matching on labels when assigning
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces
+; containing 'code' in the label
+; Default: false
+fuzzy-match = true
+;label-focused = 綠
+label-focused-padding = 1
+;label-occupied = 祿
+label-occupied-padding = 1
+;label-urgent-padding = 1
+ws-icon-default = 祿
+;label-empty-foreground = ${xrdb:color8}
+;label-empty-padding = 1
+label-monitor = %name%
+ws-icon-0 = "1;"
+ws-icon-1 = "Terminal;"
+ws-icon-2 = "Code;"
+ws-icon-3 = "Messaging;"
+ws-icon-4 = "Mail;"
+ws-icon-5 = "Music;"
+ws-icon-6 = "Games;"
+ws-icon-7 = "Reader;"
+label-focused = %name% %icon%
+label-occupied = %name% %icon%
+label-urgent =  %name% %icon%
+label-empty =  %name% %icon%
+
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${gruvbox.green}
+
+label-empty-padding = ${self.label-focused-padding}
+label-empty-foreground = ${colors.foreground}
+label-empty-background = #282828
+
+label-urgent-background = ${colors.alert}
+label-urgent-padding = ${self.label-focused-padding}
 
 [module/i3]
 type = internal/i3

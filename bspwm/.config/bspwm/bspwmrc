@@ -1,10 +1,21 @@
-#! /bin/sh
+#!/bin/zsh
 
 pgrep sxhkd && pkill sxhkd
 sxhkd &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
-
+n=9
+m=$(xrandr | grep " connected" | awk '{print $1}' | wc -l)
+d=1
+i=0
+for s in $(xrandr | grep " connected" | awk '{print $1}'); do
+    desktops=""
+    for i in $(seq 1 $(($n/$m))); do
+        desktops="$desktops $d"
+        d=$(($d+1))
+    done
+    cmd="bspc monitor $s -d $desktops"
+    zsh -c $cmd
+done
 bspc config border_width         2
 bspc config window_gap          12
 
@@ -12,11 +23,23 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
+
+bspc config focus_follows_pointer true
+bspc config pointer_follows_monitor true
+
+for r in $(bspc rule --list | awk '{print $1}'); do
+    bspc rule --remove $r
+done
+
+pgrep -f scratchpad && pkill -f scratchpad
+bspc rule -a 'scratchpad:*' state=fullscreen sticky=on hidden=on \
+    follow=on
+
+bspc rule -a Slack desktop='^2' follow=on
+bspc rule -a Chromium desktop='^3'
 bspc rule -a mplayer2 state=floating
+bspc rule -a xeyes state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-autorandr --force -c
-$HOME/bin/run_startup
+[[ "-r" != "$1" ]] && $HOME/bin/run_startup
