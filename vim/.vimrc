@@ -30,12 +30,26 @@ let g:clang_library_path='/usr/lib/libclang.so'
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+let code  = { 'for' : ['c', 'cpp', 'haskell', 'lua', 'ruby', 'sh', 'snippets', 'vim'] }
+let prose = { 'for' : ['draft', 'mail', 'markdown', 'note', 'wiki', 'html'] }
 
+Plugin 'Shougo/vimproc.vim', { 'do' : 'make' }
+Plugin 'simnalamburt/vim-mundo', { 'on' : 'MundoToggle' }  " undo
+Plugin 'vim-scripts/YankRing.vim'                 " paste (yank)
+
+Plugin 'w0rp/ale'                       " asynchronous lint engine
+
+Plugin 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy finder
+Plugin 'Alok/notational-fzf-vim'        " fzf note search
+
+Plugin 'junegunn/limelight.vim'         " hyperfocus highlighting
+Plugin 'machakann/vim-highlightedyank'  " yank highlghting
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'chrisbra/unicode.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plugin 'nathanaelkane/vim-indent-guides', { 'on' : 'IndentGuidesToggle' } " colourized indent columns
 
 Plugin 'tpope/vim-fugitive'
 
@@ -54,7 +68,17 @@ if has('python')
 "Plugin 'axiaoxin/vim-json-line-format'
 Plugin 'SirVer/ultisnips'
 endif
+
+" ............................................... Completion
+" Plugin 'mattn/emmet-vim'              " html
+Plugin 'jiangmiao/auto-pairs'           " insert/delete pairs
+Plugin 'Shougo/neocomplete.vim'         " required by snippets
+Plugin 'Shougo/neosnippet.vim'          " snippets
+Plugin 'tpope/vim-endwise', code        " add 'end' statement
+Plugin 'reedes/vim-litecorrect', prose  " autocorrections
 Plugin 'valloric/youcompleteme'
+
+
 Plugin 'morhetz/gruvbox'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 
@@ -69,9 +93,15 @@ Plugin 'honza/vim-snippets'
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'bling/vim-airline'
-"Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'lvht/tagbar-markdown'
+
+
+" ............................................... Formatting
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'junegunn/vim-easy-align'        " align text objects
+Plugin 'reedes/vim-pencil'              " dynamic paragraph formatting
+
 Plugin 'conradirwin/vim-bracketed-paste'
 Plugin 'rip-rip/clang_complete'
 "Plugin 'tmhedberg/simpylfold'
@@ -82,7 +112,10 @@ Plugin 'yaasita/edit-slack.vim'
 "Plugin 'kovetskiy/sxhkd-vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
+unlet code prose
+filetype plugin on
+filetype indent on    " required
+filetype on
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
@@ -98,18 +131,145 @@ filetype plugin indent on    " required
 "
 "
 """""""""""""""""""""""BASE CONFIG"""""""""""""""""""""""
+set mouse=a
+set mousehide               " hide mouse when typing
 
-
+set shell=/bin/sh           " required for plugin system call dependencies
+set title                   " change the terminal's title
+set ttyfast
+set timeout timeoutlen=1000 ttimeoutlen=100
 set nobackup
+set directory=~/tmp,/tmp    " keep swap files in one location
 set noswapfile
 set noundofile
-"
+silent !mkdir ~/.vim/undo 2>/dev/null
+set history=1000            " store lots of :cmdline history
+set undodir=~/.vim/undo
+set undofile
+set undolevels=1000         " maximum number of changes that can be undone
+set undoreload=10000        " maximum number lines to save for undo
+set nowritebackup
+set wrap                    " wrap lines for viewing
+set noerrorbells            " don't beep
+set shortmess+=filmnrxoOtT  " abbrev. of messages (avoids "hit enter")
+set visualbell              " no sounds
+
+" ...................................... White space markers
+set nolist  " display tabs and trailing spaces visually
+set listchars="tab:▸\<Space>"
+
+" set listchars+=trail:_
+set listchars+=trail:·
+set listchars+=nbsp:.
+set listchars+=extends:>
+set listchars+=precedes:<
+" set listchars+=eol:¬
+
+" ......................................................... Trailing white space
+nmap <silent><leader><Space> :ToggleWhiteSpace<CR>
+
+
+" split shit
+set splitbelow
+set splitright
+" horizontal / vertical split
+noremap <leader>Z  <C-w>v<C-w>l
+noremap <leader>z  <C-w>s<C-w>l
+" maximize left:right / top:bottom
+noremap <leader>ZZ <C-w><Bar>
+noremap <leader>zz <C-w>_
+" adjust all splits to the same size
+noremap <leader>=  <C-w>=
+
+nnoremap <C-Up>    :resize +5<CR>
+nnoremap <C-Down>  :resize -5<CR>
+nnoremap <C-Left>  :vertical resize -5<CR>
+nnoremap <C-Right> :vertical resize +5<CR>
+
+" ............................................................... Switch windows
+" switch to left / right split
+noremap <Left>     <C-w>h
+noremap <Right>    <C-w>l
+" switch to top / bottom split
+noremap <Up>       <C-w>k
+noremap <Down>     <C-w>j
+
 "
 set laststatus=2
 syntax enable
 syntax on
 autocmd! bufwritepost .vimrc source %
+
+" buffers
 set autoread
+set hidden       " allow hidden background buffers
+augroup buffer | autocmd! | augroup END
+
+" .....................................................................
+" Filetype
+let g:filetype = 'sh'  " for new filenames (with no file .extension)
+
+" Diff buffer
+" __________________________________________________________________
+"
+" " .................................................................... Open
+" diff
+" " go to left window in case a diff window is already open and close it
+nmap <silent><leader>dd :silent OpenDiff<CR>
+"
+" " File actions
+" _________________________________________________________________
+"
+" " .......................................................... Buffer close /
+" save
+" " save buffers
+nmap <silent><leader>w  :silent write!<CR>
+nmap <leader>W          :silent write !sudo tee % >/dev/null<CR>
+nmap <silent><leader>ww :silent wqall!<CR>
+"
+" " close buffers
+nmap <silent><leader>d  :silent CloseUnique<CR>
+nmap <silent><leader>DD :CloseDiff<CR>:%bdelete!<CR>
+nmap <leader>D          :silent Singleton<CR>
+" " discard quit
+nmap <silent><leader>qq :quitall!<CR>
+
+
+" Buffer handling
+" ______________________________________________________________
+"
+" " ...............................................................
+" Initialization
+" " always switch to the current file directory, unless uri
+autocmd buffer BufEnter    * if bufname('') !~ '^[A-Za-z0-9]*://' | lcd %:p:h | echo | endif
+" " return to last edit position when opening files (You want this!)
+autocmd buffer BufReadPost * if line("'\"") > 0 && line("'\"") <= line('$') | execute 'normal! g`"' | endif
+"
+" " ...................................................................
+" Modifiable
+" " toggle modifiable attribute
+nmap <silent><leader>- :let &modifiable = (&modifiable == 0 ? 1 : 0)<CR>
+
+" ................................................................ Switch buffer
+nmap <leader>B   :echo '[' . bufnr('%') . '] ' . expand('%:p')<CR>
+
+" beakl si layout specific buffer navigation key assignments, note silent -> silent
+if $BEAKL > ''
+  " don't wait for statusline refresh to set split colors, see ui.vim s:showInfo()
+  nmap <silent><Delete> :CloseDiff<CR>:silent bprevious<CR>:SplitColors<CR>
+  nmap <silent><Enter>  :Enter<CR>
+else
+  nmap <silent>-        :CloseDiff<CR>:silent bprevious<CR>:SplitColors<CR>
+  nmap <silent>+        :CloseDiff<CR>:silent bnext<CR>:SplitColors<CR>
+endif
+" switch to previously edited/viewed buffer
+nmap <silent><BS>       :CloseDiff<CR>:silent edit #<CR>:SplitColors<CR>
+
+
+
+
+
+
 "set clipboard=unnamed
 set hlsearch
 set incsearch
@@ -199,15 +359,139 @@ cmap <F7> <C-r><C-o>z
 "copy register
 
 autocmd FocusGained * let @z=@+
+" Keyboard shortcuts ___________________________________________________________
+
+" ................................................................. Copy / paste
+" prevent cascading paste insert
+set pastetoggle=<F3>
+
+" yank from the cursor to the end of the line, to be consistent with C and D.
+" yank from the cursor to the end of the line, to be consistent with C and D.
+" see yankring for plugin equivalent
+nnoremap Y  y$
+nnoremap vv V
+nnoremap V  <C-v>$
+
+" reselect/reyank text just pasted
+nnoremap <leader>v gv
+nnoremap <leader>V gvy
+map      <leader>p pgvy
+
+" highlight last inserted text
+nnoremap <leader>i `[v`]
+
 
 
 """"""""""""""""""""""""""""""PLUGIN CONFIG""""""""""""""""""""""""""
-" NerdCommenter
-let g:NERDSpaceDelims=1
+" .......................................................................... Fzf
+let g:fzf_colors =
+  \{
+  \  'fg'      : ['fg', 'Normal']
+  \, 'bg'      : ['bg', 'Normal']
+  \, 'hl'      : ['fg', 'Directory']
+  \, 'fg+'     : ['fg', 'CursorLine']
+  \, 'bg+'     : ['bg', 'CursorLine']
+  \, 'hl+'     : ['fg', 'Directory']
+  \, 'border'  : ['fg', 'Ignore']
+  \, 'gutter'  : ['bg', 'CursorLine']
+  \, 'header'  : ['fg', 'Normal']
+  \, 'info'    : ['fg', 'Special']
+  \, 'marker'  : ['fg', 'Special']
+  \, 'pointer' : ['fg', 'Special']
+  \, 'prompt'  : ['fg', 'Directory']
+  \, 'spinner' : ['fg', 'Special']
+  \}
+
+" close any diff buffer before leaving buffer
+nmap <silent><leader>b :CloseDiff<CR>:Buffers<CR>
+nmap <silent><leader>l :Lines<CR>
+nmap <silent><leader>m :Marks<CR>
+" nmap <leader>f       :FZF<CR>  " see notational-fzf for extended content search
+
+
+" ........................................... Graphical undo
+let g:mundo_width           = 40
+let g:mundo_preview_bottom  = 1
+let g:mundo_preview_height  = 20
+let g:mundo_close_on_revert = 1  " automatically close windows
+let g:mundo_right           = 1  " side
+let g:mundo_verbose_graph   = 0  " condensed tree
+let g:mundo_mirror_graph    = 0  " left align tree
+
+function! s:toggleUndo()
+  let l:filetype = &filetype  " mundo alters markdown filetype to conf (autocmd buffer side-effect?)
+  MundoToggle
+  let &filetype = l:filetype
+endfunction
+
+" nmap <silent><leader>u :MundoToggle<CR>
+nmap <silent><leader>u :call <SID>toggleUndo()<CR>
+
+"autocmd plugin BufEnter  __Mundo__         setlocal numberwidth=3 foldcolumn=0
+" for instance when mundo window is orphaned (trap timing conflict)
+"autocmd plugin BufHidden __Mundo_Preview__ Quiet bdelete!\ __Mundo_Preview__
+
+" ......................................... Highlighted yank
+let g:highlightedyank_highlight_duration = 500
+
+" ............................................ Indent guides
+let g:indent_guides_auto_colors = 0  " highlight even indents, see gui:ToggleColumn, theme:Guides()
+
+nmap <silent><leader><Bar> :IndentGuidesToggle<CR>
+
+" ............................................ Nerdcommenter
+let g:NERDSpaceDelims            = 1  " space after comment delimiter
+let g:NERDCompactSexyComs        = 1  " prettify multi-line
+let g:NERDDefaultAlign           = 'left'
+let g:NERDCustomDelimiters       = { 'c' : { 'left' : '//', 'right' : '' } }
+let g:NERDCommentEmptyLines      = 1  " comment blank lines
+let g:NERDTrimTrailingWhitespace = 1  " trim trailing whitespace
+
+" <leader>cs to force commenting of first line comment
+map  <leader>c <Plug>NERDCommenterToggle
+imap ,c        <C-o>:execute "normal \<Plug>NERDCommenterToggle"<CR>
+
+" ........................................... Notational-fzf
+" buffers load after plugins so parse command line for filename
+function! s:argFile()
+  if argc() > 0 | return argv(0) | endif
+  return ''
+endfunction
+
+let g:nv_create_note_window  = 'edit'
+let g:nv_default_extension   = ''
+let g:nv_expect_keys         = []
+let g:nv_main_directory      = './'    " create new notes in current directory
+let g:nv_preview_direction   = 'right'
+let g:nv_preview_width       = 55
+let g:nv_search_paths        = ['./']  " default search from current directory
+let g:nv_show_preview        = 1       " alt-p to toggle preview
+let g:nv_use_short_pathnames = 1
+let g:nv_wrap_preview_text   = 1
+
+" notational path rules: [regex, rootpath, ext]
+" note: regex magic is not enabled at this stage so force with '\v'
+let s:set_notational = [['.wiki$',                          ['~/vimwiki', '~/drafts'],  'wiki' ]
+  \,                   ['.draft$',                          ['~/drafts'],               'draft']
+  \,                   ['.note$',                           ['~/notes'],                'note' ]
+  \,                   ['\v([~]|' . $HOME . '|/stow)/bin/', ['~/bin'],                  ''     ]
+  \,                   ['.vim/',                            ['~/.vim/config'],          'vim'  ]
+  \,                   ['herbstluftwm/',                    ['~/.config/herbstluftwm'], ''     ]
+  \,                   ['archlinux/',                       ['~/build/archlinux'],      ''     ]]
+
+" dynamically setup notational-fzf :)
+for i in s:set_notational
+  if s:argFile() =~ i[0]
+    let g:nv_search_paths      = i[1]
+    let g:nv_default_extension = i[2]
+    break
+  endif
+endfor
+
+nnoremap <silent><leader>f :NV<CR>
+
+
 "
-" " CtrlP
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_cmd = 'CtrlPMixed'
 "
 "Ctrl-X Ctrl-U emoji
 set completefunc=emoji#complete

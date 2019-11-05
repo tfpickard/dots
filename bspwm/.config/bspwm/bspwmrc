@@ -18,14 +18,13 @@ for s in $(xrandr | grep " connected" | awk '{print $1}'); do
 done
 bspc config border_width         2
 bspc config window_gap          12
-
+bspc config auto_alternate              true
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
-
-
 bspc config focus_follows_pointer true
 bspc config pointer_follows_monitor true
+
 
 for r in $(bspc rule --list | awk '{print $1}'); do
     bspc rule --remove $r
