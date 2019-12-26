@@ -3,18 +3,25 @@
 #
 
 # terminal emulator
-super + Return
+super + shift + Return
     $HOME/bin/term
+super + Return
+    $HOME/bin/to_current myterm
+super + alt + Return
+    $HOME/bin/to_current Slack
 super + space
     tdrop -ma -w 70% -h 70% -y 15% -x 15% -s scratch -f '-e tmux' kitty
 
 # program launcher
-super + {d,r,w}
+super + {d,r,Tab}
     rofi -show {drun,run,window}
-
+super + x
+    rofi-autrandr
 # make sxhkd reload its configuration files:
-super + Escape
+super + shift + Escape
 	pkill -USR1 -x sxhkd
+super + Escape
+    xscreensaver-command -lock
 
 super + v
     pavucontrol
@@ -23,6 +30,8 @@ super + v
 #
 
 # quit/restart bspwm
+super + ctrl + Escape
+    ~/.config/bspwm/bspwmrc -r
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
@@ -153,4 +162,19 @@ shift + XF86MonBrightnessUp
     light -S 100% # increase screen brightness
 shift + XF86MonBrightnessDown
     light -r -S 2 # decrease screen brightness
+ctrl + alt + {_,shift + }p
+    fname={'%Y-%m-%d_%H-%M-%S_$wx$h.png',$(zenity --entry --text "s")} ; \
+    echo $fname ; \
+    cmd="scrot -s '$fname' -e 'mv \$f ~/Pictures/Screenshots/'" ; \
+    echo $cmd ; \
+    bash -c $cmd
+#ctrl + shift + p
+#    scrot -s zenity --entry --text="ENTER A FILENAME"
 
+#super + {_,shift + }
+
+# super + Print
+#     scrot -s '%Y-%m-%d_%h-%m-%s_$wx$h_scrot.png' \
+#     -e 'mv $f ~/Pictures/Screenshots/'
+# super + ctrl + Print
+#     zenity --question --text="Do you wish to continue/?"

@@ -10,6 +10,7 @@ echo "realname $realname" > $out
 echo "myname $myname" > $out
 echo "mydir $mydir" > $out
 rc=0
+exit 0
 errout() {
     rc=$?
     [[ 0 -eq $rc ]] && rc=1

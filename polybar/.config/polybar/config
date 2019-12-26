@@ -17,15 +17,41 @@
 ;==========================================================
 
 [colors]
+xcolor0 = ${xrdb:color0}
+xcolor1 = ${xrdb:color1}
+xcolor2 = ${xrdb:color2}
+xcolor3 = ${xrdb:color3}
+xcolor4 = ${xrdb:color4}
+xcolor5 = ${xrdb:color5}
+xcolor6 = ${xrdb:color6}
+xcolor7 = ${xrdb:color7}
+xcolor8 = ${xrdb:color8}
+xcolor9 = ${xrdb:color9}
+xcolor10 = ${xrdb:color10}
+xcolor11 = ${xrdb:color11}
+xcolor12 = ${xrdb:color12}
+xcolor13 = ${xrdb:color13}
+xcolor14 = ${xrdb:color14}
+xcolor15 = ${xrdb:color15}
+;background = xcolor0
+;foreground = xcolor15
+shade1 = ${xrdb:color3}
+shade2 = ${xrdb:color6}
+alert = xcolor1
+volume-min = #a3be8c
+volume-med = #ebcb8b
+volume-max = #bf616a
+
+;
 background = ${gruvbox.bg-dark}
 background-alt = ${gruvbox.bg-light}
 foreground = ${gruvbox.fg-dark}
 foreground-alt = ${gruvbox.fg-light}
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
-transparent = #000000000
-
+; primary = #ffb52a
+; secondary = #e60053
+; alert = #bd2c40
+; transparent = #000000000
+;
 [i3ws]
 ws1 = Misc
 ws2 = Slack
@@ -58,35 +84,45 @@ padding = 2
 
 [bar/top]
 monitor = ${env:MONITOR:}
-width = 100%
-height = 27
+width = 99%
+height = 30
 bottom = false
-offset-x = 0
-offset-y = 0
+offset-x = 0.5%
+offset-y = 10
 radius = 0.0
 fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 1
-line-color = #eee
+line-size = 2
+line-color = ${colors.xcolor9}
 
-border-size = 3
-border-color = ${colors.background}
+border-left-size = 1
+border-right-size = 1
+border-top-size = 1
+border-bottom-size = 1
+border-color = ${colors.xcolor13}
 
 padding-left = 1
 padding-right = 1
 
 module-margin-left = 0
 module-margin-right = 0
-
-font-0 = xos4 Terminus:style=Regular:size=14;2
-font-1 = Inconsolata Nerd Font:style=Regular:size=14;2
-font-2 = Font Awesome 5 Free:pixelsize=10;2
-font-3 = Inconsolata Nerd Font:style=Regular:size=21;3
-
-modules-left = bspwm powermenu alsa date temperature arrow1
+font-0 = "UbuntuMono Nerd Font:size=13;1"
+font-1 = "UbuntuMono Nerd Font:size=16;3"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=12;1"
+font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=12;1"
+font-4 = "Font Awesome 5 Brands:pixelsize=10;1"
+font-5 = "Noto Sans Symbols2:pixelsize=12;1"
+;
+;
+; font-0 = xos4 Terminus:style=Regular:size=14;2
+; font-1 = Inconsolata Nerd Font:style=Regular:size=14;2
+; font-2 = Font Awesome 5 Free:pixelsize=10;2
+; font-3 = Inconsolata Nerd Font:style=Regular:size=21;3
+;
+modules-left = bspwm alsa date temperature arrow1
 modules-center = xwindow
 modules-right = arrow2 wlan battery backlight memory time
 
@@ -100,7 +136,7 @@ tray-detached = false
 
 override-redirect = false
 
-;wm-restack = bspwm
+wm-restack = bspwm
 ;wm-restack = i3
 
 scroll-up = bspwm-desknext
@@ -127,65 +163,98 @@ format-foreground = ${colors.foreground}
 [module/bspwm]
 type = internal/bspwm
 
-; Only show workspaces defined on the same output as the bar
-; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
-; Default: true
 pin-workspaces = true
-
-; Output mode flags after focused state label
-; Default: false
-inline-mode = false
-
-; Create click handler used to focus workspace
-; Default: true
 enable-click = true
+enable-scroll = false
 
-; Create scroll handlers used to cycle workspaces
-; Default: true
-enable-scroll = true
+; label-focused = ""
+; label-occupied = ""
+; label-urgent = 
+;⭕
+label-focused = 🞕
+label-occupied = ◈
+label-urgent = ◈
+label-empty = 🞜
 
-; Set the scroll cycle direction
-; Default: true
-reverse-scroll = false
+format = <label-state>
 
-; Use fuzzy (partial) matching on labels when assigning
-; icons to workspaces
-; Example: code;♚ will apply the icon to all workspaces
-; containing 'code' in the label
-; Default: false
-fuzzy-match = true
-;label-focused = 綠
-label-focused-padding = 1
-;label-occupied = 祿
-label-occupied-padding = 1
-;label-urgent-padding = 1
-ws-icon-default = 祿
-;label-empty-foreground = ${xrdb:color8}
-;label-empty-padding = 1
+
 label-monitor = %name%
-ws-icon-0 = "1;"
-ws-icon-1 = "Terminal;"
-ws-icon-2 = "Code;"
-ws-icon-3 = "Messaging;"
-ws-icon-4 = "Mail;"
-ws-icon-5 = "Music;"
-ws-icon-6 = "Games;"
-ws-icon-7 = "Reader;"
-label-focused = %name% %icon%
-label-occupied = %name% %icon%
-label-urgent =  %name% %icon%
-label-empty =  %name% %icon%
+label-focused-foreground = ${colors.xcolor3}
+label-occupied-foreground = ${colors.xcolor6}
+;label-occupied-foreground = ${color.shade7}
+label-urgent-foreground = ${colors.xcolor2}
+label-empty-foreground = ${colors.xcolor6}
 
-label-focused-foreground = ${colors.foreground}
-label-focused-background = ${gruvbox.green}
+label-focused-padding = 1
+label-urgent-padding = 1
+label-occupied-padding = 1
+label-empty-padding = 1
 
-label-empty-padding = ${self.label-focused-padding}
-label-empty-foreground = ${colors.foreground}
-label-empty-background = #282828
-
-label-urgent-background = ${colors.alert}
-label-urgent-padding = ${self.label-focused-padding}
-
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+; [module/bspwm]
+; type = internal/bspwm
+;
+; ; Only show workspaces defined on the same output as the bar
+; ; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
+; ; Default: true
+; pin-workspaces = true
+;
+; ; Output mode flags after focused state label
+; ; Default: false
+; inline-mode = false
+;
+; ; Create click handler used to focus workspace
+; ; Default: true
+; enable-click = true
+;
+; ; Create scroll handlers used to cycle workspaces
+; ; Default: true
+; enable-scroll = true
+;
+; ; Set the scroll cycle direction
+; ; Default: true
+; reverse-scroll = false
+;
+; ; Use fuzzy (partial) matching on labels when assigning
+; ; icons to workspaces
+; ; Example: code;♚ will apply the icon to all workspaces
+; ; containing 'code' in the label
+; ; Default: false
+; fuzzy-match = true
+; ;label-focused = 綠
+; label-focused-padding = 1
+; ;label-occupied = 祿
+; label-occupied-padding = 1
+; ;label-urgent-padding = 1
+; ws-icon-default = 祿
+; ;label-empty-foreground = ${xrdb:color8}
+; ;label-empty-padding = 1
+; label-monitor = %name%
+; ws-icon-0 = "1;"
+; ws-icon-1 = "Terminal;"
+; ws-icon-2 = "Code;"
+; ws-icon-3 = "Messaging;"
+; ws-icon-4 = "Mail;"
+; ws-icon-5 = "Music;"
+; ws-icon-6 = "Games;"
+; ws-icon-7 = "Reader;"
+; label-focused = %name% %icon%
+; label-occupied = %name% %icon%
+; label-urgent =  %name% %icon%
+; label-empty =  %name% %icon%
+;
+; label-focused-foreground = ${colors.foreground}
+; label-focused-background = ${gruvbox.green}
+;
+; label-empty-padding = ${self.label-focused-padding}
+; label-empty-foreground = ${colors.foreground}
+; label-empty-background = #282828
+;
+; label-urgent-background = ${colors.alert}
+; label-urgent-padding = ${self.label-focused-padding}
+;
 [module/i3]
 type = internal/i3
 inherit = i3ws
@@ -452,8 +521,8 @@ format-padding = ${general.padding}
 format-warn-padding = ${self.format-padding}
 format-background = #282828
 
-label = %temperature-c%
-label-warn = %temperature-c%
+label = %temperature-f%
+label-warn = %temperature-f%
 label-warn-foreground = ${gruvbox.red}
 
 ramp-0 = 
