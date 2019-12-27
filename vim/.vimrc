@@ -64,6 +64,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'Yggdroot/indentLine'
 " Plugin 'nvie/vim-flake8'
 if has('python')
+endif
+if has('python3')
+"elif has('python3')
 "Plugin 'davidhalter/jedi-vim'
 "Plugin 'axiaoxin/vim-json-line-format'
 Plugin 'SirVer/ultisnips'
@@ -96,7 +99,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'majutsushi/tagbar'
 Plugin 'lvht/tagbar-markdown'
 
-
+Plugin 'christoomey/vim-system-copy'
 " ............................................... Formatting
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'junegunn/vim-easy-align'        " align text objects
@@ -107,6 +110,7 @@ Plugin 'rip-rip/clang_complete'
 "Plugin 'tmhedberg/simpylfold'
 Plugin 'fatih/vim-go'
 Plugin 'PotatoesMaster/i3-vim-syntax'
+Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'yaasita/edit-slack.vim'
 
 "Plugin 'kovetskiy/sxhkd-vim'
@@ -345,25 +349,26 @@ vmap <C-c> "+y
 "inoremap <C-V> <ESC> "*pa
 cmap w!! w !sudo tee >/dev/null %:p
 nnoremap <F2> :set nonu!<CR>:set foldcolumn=0<CR>
-nmap <silent> <F3> :NERDTreeToggle<CR>
-nmap <silent> <F4> :TagbarToggle<CR>
-
-"copy
-vmap <F7> "+ygv"zy`>
-"paste (Shift-F7 to paste after normal cursor, Ctrl-F7 to paste over visual selection)
-nmap <F7> "zgP
-nmap <S-F7> "zgp
-imap <F7> <C-r><C-o>z
-vmap <C-F7> "zp`]
-cmap <F7> <C-r><C-o>z
-"copy register
-
+" nmap <silent> <F3> :NERDTreeToggle<CR>
+" nmap <silent> <F4> :TagbarToggle<CR>
+"
+" "copy
+" vmap <F7> "+ygv"zy`>
+" paste (Shift-F7 to paste after normal cursor, Ctrl-F7 to paste over visual selection)
+" nmap <F7> zgP
+" nmap <S-F7> zgp
+" imap <F7> <C-r><C-o>z
+" vmap <C-F7> zp`]
+" cmap <F7> <C-r><C-o>z
+" copy register
+"
 autocmd FocusGained * let @z=@+
 " Keyboard shortcuts ___________________________________________________________
 
 " ................................................................. Copy / paste
 " prevent cascading paste insert
 set pastetoggle=<F3>
+
 
 " yank from the cursor to the end of the line, to be consistent with C and D.
 " yank from the cursor to the end of the line, to be consistent with C and D.
