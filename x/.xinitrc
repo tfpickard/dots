@@ -30,7 +30,6 @@ fi
 
 
 #~/bin/kb
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 #autorandr --change --force --debug >> $lfile 2>&1
 #xset +fp /usr/share/fonts/local &
 #xset fp rehash &
@@ -39,7 +38,6 @@ xsetroot -cursor_name left_ptr >> $lfile 2>&1
 #kil compton >> $lfile 2>&1
 #kil redshift >> $lfile 2>&1
 
-libinput-gestures-setup restart
 #numlockx &
 #unclutter &
 #xbindkeys &
@@ -47,8 +45,6 @@ libinput-gestures-setup restart
 #lxpolkit &
 #parcellite &
 #urxvtd -q -o -f
-pgrep xscreensaver && pkill xscreensaver
-xscreensaver -nosplash >/dev/null 2>&1 & disown
 #exec herbstluftwm --locked
 #~/bin/monitors 5 >> $lfile 2>&1 &
 #~/bin/wp >> $lfile 2>&1
@@ -57,7 +53,6 @@ xscreensaver -nosplash >/dev/null 2>&1 & disown
 #exec /home/tom/src/tinywm/tinywm > /tmp/tinywm.log 2>&1
 #exec i3 > /tmp/i3.log 2>&1
 #autorandr --force -c
-[[ -e ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 exec bspwm | tee /tmp/bspwm.log 2>&1
 #exec wingo --log-level="4" > /tmp/wingo.log 2>&1
 #exec xmonad > /tmp/xmonad.log 2>&1

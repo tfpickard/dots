@@ -122,9 +122,9 @@ font-5 = "Noto Sans Symbols2:pixelsize=12;1"
 ; font-2 = Font Awesome 5 Free:pixelsize=10;2
 ; font-3 = Inconsolata Nerd Font:style=Regular:size=21;3
 ;
-modules-left = bspwm alsa date temperature arrow1
+modules-left = bspwm alsa date time arrow1
 modules-center = xwindow
-modules-right = arrow2 wlan battery backlight memory time
+modules-right = arrow2 wlan battery temperature backlight memory
 
 tray-position = right
 tray-background = #282828

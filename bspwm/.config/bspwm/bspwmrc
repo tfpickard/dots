@@ -1,8 +1,5 @@
 #!/bin/zsh
-
-pgrep sxhkd && pkill sxhkd
-sxhkd &
-
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 n=9
 m=$(xrandr | grep " connected" | awk '{print $1}' | wc -l)
 d=1
@@ -60,9 +57,15 @@ bspc rule -a xeyes state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-[[ -e ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+. ~/.profile
+kil sxhkd
+kil dunst
+kil blueberry-tray
 pgrep xcape && killall xcape
-xcape -t 250 \ -e 'Alt_L=F12; ALT_R=F12' >/dev/null 2>&1 &
+xcape -t 250 -e 'Shift_L=F12' >/dev/null 2>&1 &
+xcape -t 250 -e 'Shift_R=F10' >/dev/null 2>&1 &
+#xcape -t 250  -e 'Super_L=Super_L|d' >/dev/null 2>&1 &
+#xcape -t 250 -e 'Super_R=Super_R|r' >/dev/null 2>&1 &
 #[[ "-r" != "$1" ]] && $HOME/bin/run_startup
 startup_dir="$HOME/bin/startup"
 log_dir="/tmp/bspwm-$USER"
@@ -71,3 +74,6 @@ for s in $startup_dir/*; do
     [[ -x $s ]] && $s restart > $log_dir/$(basename $s).log 2>&1
 done
 
+libinput-gestures-setup restart
+pgrep xscreensaver && pkill xscreensaver
+xscreensaver -nosplash >/dev/null 2>&1 & disown

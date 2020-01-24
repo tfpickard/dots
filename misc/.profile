@@ -1,8 +1,33 @@
 #!/bin/zsh
+kdbg=1
 kil() {
-    killall $1 1>/dev/null 2>&1 ; $@ >/tmp/$1.log 2>&1 &
+    kcmd=killall
+    lfile=/dev/null
+    if [[ 1 -le $kdbg ]]; then
+        lfile=/tmp/kil.out
+        touch $lfile
+        echo "*******************************************************"
+        echo "$(date): kil $@"
+        echo "\trunning -->|$kcmd $1|<--"
+    fi
+    $kcmd $1 1>$lfile 2>&1
+    rc=$?
+    if [[ 1 -le $kdbg ]]; then
+        echo "\t... with status $rc"
+        echo "\tnow running -->|$@ >/tmp/$1.log 2>&1 & disown|<--"
+    fi
+    $@ >/tmp/$1.log 2>&1 & disown
+    rc=$?
+    if [[ 1 -le $kdbg ]]; then
+        echo "\t... with status $rc"
+        echo "*******************************************************"
+        echo
+    fi
 }
 
+date > /tmp/profile.out
+
+[[ -e ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 alias pd="pushd"
 alias pdh"pushd ~"
 alias ppd="popd"

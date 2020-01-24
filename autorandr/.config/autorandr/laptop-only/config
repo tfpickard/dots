@@ -15,8 +15,9 @@ off
 output VIRTUAL1
 off
 output eDP1
-gamma 1.0:0.833:0.714
+crtc 0
+gamma 0.769:0.526:0.345
 mode 2048x1152
 pos 0x0
 primary
-rate 60.01
+rate 60.00
