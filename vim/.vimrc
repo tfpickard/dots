@@ -74,7 +74,8 @@ endif
 
 " ............................................... Completion
 " Plugin 'mattn/emmet-vim'              " html
-Plugin 'jiangmiao/auto-pairs'           " insert/delete pairs
+""Plugin 'jiangmiao/auto-pairs'           " insert/delete pairs
+Plugin 'tmsvg/pear-tree'
 Plugin 'Shougo/neocomplete.vim'         " required by snippets
 Plugin 'Shougo/neosnippet.vim'          " snippets
 Plugin 'tpope/vim-endwise', code        " add 'end' statement
@@ -92,6 +93,7 @@ Plugin 'mhinz/vim-startify'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'tpope/vim-surround'
+
 Plugin 'honza/vim-snippets'
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
