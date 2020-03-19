@@ -7,9 +7,9 @@ local helpers = require("helpers")
 awful.rules.rules = {
 
   -- All clients will match this rule.
-  { 
+  {
     rule = { },
-    properties = { 
+    properties = {
       border_width = beautiful.border_width,
       border_color = beautiful.border_normal,
       focus = awful.client.focus.filter,
@@ -25,7 +25,7 @@ awful.rules.rules = {
   },
 
   -- Floating clients
-  { 
+  {
     rule_any = {
       instance = {
         "DTA",  -- Firefox addon DownThemAll.
@@ -37,8 +37,6 @@ awful.rules.rules = {
         "Blueman-manager",
         "Gpick",
         "Kruler",
-        "MessageWin",  -- kalarm.
-        "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
         "Wpa_gui",
         "pinentry",
         "veromix",
@@ -74,14 +72,14 @@ awful.rules.rules = {
   },
 
   -- Add titlebars to normal clients and dialogs
-  { 
-    rule_any = { 
+  {
+    rule_any = {
       type = { "normal", "dialog" }
     }, properties = { titlebars_enabled = true }
   },
 
   -- Titlebars OFF
-  { 
+  {
     rule_any = {
       class = {
         "Brave-browser",
@@ -105,14 +103,14 @@ awful.rules.rules = {
     }, properties = { fullscreen = true }
   },
 
-  { 
+  {
     rule = { class = "music_n" },
-    properties = helpers.like_subtle(beautiful.gravity_ncmpcpp or {4, 14, 30, 49}) 
+    properties = helpers.like_subtle(beautiful.gravity_ncmpcpp or {4, 14, 30, 49})
   },
 
-  { 
+  {
     rule = { class = "music_c" },
-    properties = helpers.like_subtle(beautiful.gravity_cava or { 4, 67, 30, 20 }) 
+    properties = helpers.like_subtle(beautiful.gravity_cava or { 4, 67, 30, 20 })
   },
 
   {
@@ -120,7 +118,7 @@ awful.rules.rules = {
     properties = helpers.like_subtle(beautiful.gravity_music_term or { 40, 67, 30, 20 })
   },
 
-  { 
+  {
     rule_any = {
       class = {
         "miniterm", -- i use this when i need to enter password with sudo
@@ -145,25 +143,21 @@ awful.rules.rules = {
   {
     rule_any = {
       class = {
-        "Zathura" 
+        "Zathura"
       },
-    }, properties = { maximized = true } 
+    }, properties = { maximized = true }
   },
 
   -- Apps by screen(s)/tag(s)
-  {
-    rule = { class = "Brave-browser" },
-    properties = { screen = 1, tag = beautiful.tagnames[2] } 
-  },
 
-  { 
+  {
     rule = { class = "music*" },
-    properties = { screen = 1, tag = beautiful.tagnames[4] } 
+    properties = { screen = 1, tag = beautiful.tagnames[4] }
   },
 
   {
     rule = { class = "Gimp" },
-    properties = { screen = 1, tag = beautiful.tagnames[5] } 
+    properties = { screen = 1, tag = beautiful.tagnames[5] }
   },
 
   {
@@ -172,16 +166,11 @@ awful.rules.rules = {
   },
 
   {
-    rule = { class = "chat" },
-    properties = { screen = 1, tag = beautiful.tagnames[6] } 
-  },
-
-  { 
     rule_any = {
       class = {
         "baldur.exe",
         "Wine"
       },
-    },properties = { screen = 1, tag = beautiful.tagnames[8] } 
+    },properties = { screen = 1, tag = beautiful.tagnames[8] }
   }
 }
