@@ -1,6 +1,8 @@
 #
 # wm independent hotkeys
 #
+XF86WakeUp; a
+    notify-send.sh yay
 
 # terminal emulator
 super + shift + Return

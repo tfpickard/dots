@@ -37,7 +37,6 @@ Plugin 'Shougo/vimproc.vim', { 'do' : 'make' }
 Plugin 'simnalamburt/vim-mundo', { 'on' : 'MundoToggle' }  " undo
 Plugin 'vim-scripts/YankRing.vim'                 " paste (yank)
 
-Plugin 'w0rp/ale'                       " asynchronous lint engine
 
 Plugin 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy finder
 Plugin 'Alok/notational-fzf-vim'        " fzf note search
@@ -74,12 +73,21 @@ endif
 
 " ............................................... Completion
 " Plugin 'mattn/emmet-vim'              " html
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'mattn/vim-lsp-settings'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+
+
 Plugin 'jiangmiao/auto-pairs'           " insert/delete pairs
 Plugin 'Shougo/neocomplete.vim'         " required by snippets
 Plugin 'Shougo/neosnippet.vim'          " snippets
 Plugin 'tpope/vim-endwise', code        " add 'end' statement
 Plugin 'reedes/vim-litecorrect', prose  " autocorrections
-Plugin 'valloric/youcompleteme'
+"Plugin 'valloric/youcompleteme'
+Plugin 'ryanolsonx/vim-lsp-python'
+
 
 
 Plugin 'morhetz/gruvbox'
@@ -549,15 +557,15 @@ let g:vcool_ins_hsl_map = '<leader>cph'
 
 let g:vcool_ins_rgba_map = '<leader>cpra'
 
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let g:ycm_key_invoke_completion = '<C-Space>'
+" let g:ycm_autoclose_preview_window_after_completion=1
+" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" let g:ycm_key_invoke_completion = '<C-Space>'
 
 " vim-go shit
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
-inoremap <C-Space> <C-x><C-o>
-inoremap <C-@> <C-Space>
+"inoremap <C-Space> <C-x><C-o>
+"inoremap <C-@> <C-Space>
 ""let g:airline_theme='tomorrow'
 "let g:airline_theme='gruvbox'
 
@@ -584,3 +592,30 @@ function! XTermPasteBegin()
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+let g:asyncomplete_auto_popup = 0
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+" imap <c-space> <Plug>(asyncomplete_force_refresh)
