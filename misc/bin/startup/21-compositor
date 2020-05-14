@@ -19,7 +19,7 @@ unkil() {
 
 
 #[[ -n $myshit ]] || myshit=( geoclue redshift-gtk )
-[[ -n $myshit ]] || myshit=( redshift )
+[[ -n $myshit ]] || myshit=( picom )
 for shit in ${myshit[@]}; do
 case $1 in
     start)
