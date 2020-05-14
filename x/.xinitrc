@@ -53,6 +53,7 @@ xsetroot -cursor_name left_ptr >> $lfile 2>&1
 #exec /home/tom/src/tinywm/tinywm > /tmp/tinywm.log 2>&1
 #exec i3 > /tmp/i3.log 2>&1
 #autorandr --force -c
+# exec spectrwm | tee /tmp/spectrwm.log 2>&1
 exec bspwm | tee /tmp/bspwm.log 2>&1
 #exec wingo --log-level="4" > /tmp/wingo.log 2>&1
 #exec xmonad > /tmp/xmonad.log 2>&1
