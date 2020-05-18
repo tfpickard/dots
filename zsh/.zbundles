@@ -13,5 +13,6 @@ zsh-users/zsh-autosuggestions
 psprint/zsh-morpho
 # these should be at last!
 sindresorhus/pure
+#dfurnes/purer
 zdharma/fast-syntax-highlighting
 zsh-users/zsh-history-substring-search

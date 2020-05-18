@@ -278,19 +278,22 @@ index-sort = true
 enable-click = true
 reverse-scroll = false
 
-label-focused = 
+label-focused = 
+; label-focused = 
 label-focused-font = 3
 label-focused-padding = 1
 label-focused-background = ${colors.background}
 label-focused-foreground = ${colors.foreground}
 label-focused-underline = 
 
-label-occupied = 
+label-occupied = 
+; label-occupied = 
 label-occupied-padding = 1
 label-occupied-background = ${colors.background}
 label-occupied-foreground = ${colors.foreground}
 
-label-empty = 
+label-empty = 
+; label-empty = 
 label-empty-padding = 1
 label-empty-background = ${colors.background}
 label-empty-foreground = ${colors.foreground}
@@ -303,11 +306,12 @@ label-empty-foreground = ${colors.foreground}
 ;label-occupied = %index%
 ;label-occupied-padding = 2
 
-;label-urgent = %index%!
-;label-urgent-background = ${colors.alert}
-;label-urgent-padding = 2
+label-urgent = %index%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+; label-empty = 
 
-;label-empty = %index%
+; label-empty = %index%
 ;label-empty-foreground = ${colors.foreground-alt}
 ;label-empty-padding = 2
 

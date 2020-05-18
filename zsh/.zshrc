@@ -15,6 +15,7 @@ alias abdy="$HOME/bin/antibody"
 
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES="$HOME/.zsh" #"dotfiles"
+DF=$DOTFILES
 [[ -d $DOTFILES ]] || mkdir $DOTFILES
 
 # your project folder that we can `c [tab]` to
@@ -28,7 +29,7 @@ export VISUAL=$EDITOR
 
 export VEDITOR='code'
 
-
+# [[ -d $DF/purer ]] || git clone https://github.com/DFurnes/purer.git $DF/purer
 # oh-my-zsh
 
 ZSH=$DOTFILES/oh-my-zsh
@@ -117,17 +118,24 @@ colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 
-zstyle ":morpho" screen-saver "zmandelbrot" 
+def_iface=$(ip route show default | grep -Po 'dev \K.*?(?= )')
+ss_bin="ncmatrix"
+ss_args="-s -b -u 10 -I $def_iface -C blue -T red -R yellow"
+alias ss="$ss_bin $ss_args"
+sss="$HOME/bin/sss"
+zstyle ":morpho" screen-saver "$sss" 
 # select screen saver "zmorpho"; available: zmorpho, zmandelbrot, zblank, pmorpho
                                         # this  can also be a command, e.g. "cmatrix"
-zstyle ":morpho" arguments "-s"         
+zstyle ":morpho" arguments "$ss_args"         
 # arguments given to screen saver program; -s - every key press ends
 
-zstyle ":morpho" delay "290"            
+zstyle ":morpho" delay "600"            
 # 5 minutes before screen saver starts
 
 zstyle ":morpho" check-interval "60"    
 # check every 1 minute if to run screen saver
 
+# autoload -U promptinit; promptinit
+# prompt purer
 
 # zprof

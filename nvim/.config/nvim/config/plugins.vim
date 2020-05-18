@@ -39,10 +39,11 @@ Plug 'davidhalter/jedi-vim'
 Plug 'jeetsukumaran/vim-pythonsense'
 "Plug 'zchee/deoplete-jedi'
 Plug 'liuchengxu/vista.vim'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 "Plug 'numirias/semshi'
 Plug 'plasticboy/vim-markdown'
 "Plug 'sbdchd/neoformat'
+Plug 'tpope/vim-surround'
 
 " utilities
 Plug 'ctrlpvim/ctrlp.vim'
@@ -51,10 +52,16 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'tmhedberg/SimpylFold'
+Plug 'thaerkh/vim-workspace'
+Plug 'farmergreg/vim-lastplace'
+
+
 " zo： Open fold in current cursor postion
 " zO： Open fold and sub-fold in current cursor postion recursively
 " zc： Close the fold in current cursor position
 " zC： Close the fold and sub-fold in current cursor position recursively
+Plug 'mbbill/undotree'
+
 Plug 'easymotion/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
@@ -75,6 +82,7 @@ Plug 'vim-airline/vim-airline-themes'
 " appearance
 "Plug 'baskerville/bubblegum'
 Plug 'morhetz/gruvbox'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-sensible'
 Plug 'lilydjwg/colorizer', { 'on': 'ColorToggle' }
