@@ -137,5 +137,12 @@ zstyle ":morpho" check-interval "60"
 
 # autoload -U promptinit; promptinit
 # prompt purer
+which direnv >/dev/null 2>&1 && source <(direnv hook zsh)
+which ksdk >/dev/null 2>&1 && source <(_KSDK_COMPLETE=source_zsh ksdk)
+which pyenv >/dev/null 2>&1 && source <(pyenv init -)
+which pyenv >/dev/null 2>&1 && source <(pyenv virtualenv-init -)
+which pyenv >/dev/null 2>&1 && source /usr/share/zsh/site-functions/_pyenv
+which pyenv >/dev/null 2>&1 && pyenv virtualenvwrapper_lazy
+
 
 # zprof
