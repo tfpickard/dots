@@ -137,110 +137,110 @@ Plug 'wavded/vim-stylus'
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
-
-" lsp
-lua << EOF
-
-  local nvim_lsp = require'nvim_lsp'
-  local ncm2 = require('ncm2')
-  local diagnostic = require'diagnostic'
-
-  local buf_set_keymap = vim.api.nvim_buf_set_keymap
-  local keymap = {
-    ["1gD"] = "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-    ["<C-s>"] = "<cmd>lua vim.lsp.buf.signature_help()<CR>",
-    ["<leader>d"] = "<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>",
-    ["gD"] = "<cmd>lua vim.lsp.buf.implementation()<CR>",
-    ["gE"] = "<cmd>lua vim.lsp.buf.declaration()<CR>",
-    ["gS"] = "<cmd>lua vim.lsp.buf.formatting()<CR>",
-    ["gd"] = "<cmd>lua vim.lsp.buf.definition()<CR>",
-    ["gh"] = "<cmd>lua vim.lsp.buf.hover()<CR>",
-    ["gr"] = "<cmd>lua vim.lsp.buf.references()<CR>",
-  }
-  local map_opts = {noremap = true, silent = true}
-
-  local on_attach = function(client, bufnr)
-    diagnostic.on_attach(client, bufnr)
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    for key, command in pairs(keymap) do
-      buf_set_keymap(bufnr, "n", key, command, map_opts)
-    end
-  end
-
-  nvim_lsp.util.default_config = vim.tbl_extend(
-    "force", nvim_lsp.util.default_config,
-    {
-      on_init = ncm2.register_lsp_source,
-      on_attach = on_attach,
-    }
-  )
-
-  local servers = {
-    "bashls",
-    "clangd",
-    "cssls",
-    "dockerls",
-    "gopls",
-    "html",
-    "jsonls",
-    "julials",
-    "rls",
-    "texlab",
-    "terraformls",
-    "tsserver",
-    "vimls",
-  }
-  for _, name in ipairs(servers) do
-    nvim_lsp[name].setup{}
-  end
-
-  nvim_lsp.pyls.setup{
-    cmd = {"pyls", "--verbose", "--log-file", "/tmp/pyls.log"},
-    settings = {
-      pyls = {
-        plugins = {
-          flake8 = {
-            enabled = false,
-          },
-          jedi = {
-            environment = os.getenv("WORKON_HOME") .. "/default-3.8",
-            enabled = true,
-          },
-          pydocstyle = {
-            enabled = true,
-            ignore = {"D202", "D203"},
-          },
-          pylint = {
-            enabled = false,
-          },
-        },
-      },
-    },
-  }
-
-  nvim_lsp.yamlls.setup{
-    settings = {
-      yaml = {
-        completion = true,
-        validate = true,
-        hover = true,
-        format = {
-          enable = true,
-        },
-        schemas = {
-          ["http://json-schema.org/draft-07/schema"] = "schema.json",
-          ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/schemas/v3.0/schema.json"] = "openapi.yaml",
-          ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/schemas/v2.0/schema.json"] = "swagger.yaml",
-          ["file://" .. os.getenv("HOME") .. "/repos/kelvin/kelvin-sdk/schema/app/schema.json"] = "app.yaml",
-          ["file://" .. os.getenv("HOME") .. "/repos/kelvin/kelvin-sdk/schema/environment/schema.json"] = "environment.yaml",
-        },
-      },
-    },
-  }
-
-EOF
-
-
+"
+" " lsp
+" lua << EOF
+"
+"   local nvim_lsp = require'nvim_lsp'
+"   local ncm2 = require('ncm2')
+"   local diagnostic = require'diagnostic'
+"
+"   local buf_set_keymap = vim.api.nvim_buf_set_keymap
+"   local keymap = {
+"     ["1gD"] = "<cmd>lua vim.lsp.buf.type_definition()<CR>",
+"     ["<C-s>"] = "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+"     ["<leader>d"] = "<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>",
+"     ["gD"] = "<cmd>lua vim.lsp.buf.implementation()<CR>",
+"     ["gE"] = "<cmd>lua vim.lsp.buf.declaration()<CR>",
+"     ["gS"] = "<cmd>lua vim.lsp.buf.formatting()<CR>",
+"     ["gd"] = "<cmd>lua vim.lsp.buf.definition()<CR>",
+"     ["gh"] = "<cmd>lua vim.lsp.buf.hover()<CR>",
+"     ["gr"] = "<cmd>lua vim.lsp.buf.references()<CR>",
+"   }
+"   local map_opts = {noremap = true, silent = true}
+"
+"   local on_attach = function(client, bufnr)
+"     diagnostic.on_attach(client, bufnr)
+"     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+"     for key, command in pairs(keymap) do
+"       buf_set_keymap(bufnr, "n", key, command, map_opts)
+"     end
+"   end
+"
+"   nvim_lsp.util.default_config = vim.tbl_extend(
+"     "force", nvim_lsp.util.default_config,
+"     {
+"       on_init = ncm2.register_lsp_source,
+"       on_attach = on_attach,
+"     }
+"   )
+"
+"   local servers = {
+"     "bashls",
+"     "clangd",
+"     "cssls",
+"     "dockerls",
+"     "gopls",
+"     "html",
+"     "jsonls",
+"     "julials",
+"     "rls",
+"     "texlab",
+"     "terraformls",
+"     "tsserver",
+"     "vimls",
+"   }
+"   for _, name in ipairs(servers) do
+"     nvim_lsp[name].setup{}
+"   end
+"
+"   nvim_lsp.pyls.setup{
+"     cmd = {"pyls", "--verbose", "--log-file", "/tmp/pyls.log"},
+"     settings = {
+"       pyls = {
+"         plugins = {
+"           flake8 = {
+"             enabled = false,
+"           },
+"           jedi = {
+"             environment = os.getenv("WORKON_HOME") .. "/default-3.8",
+"             enabled = true,
+"           },
+"           pydocstyle = {
+"             enabled = true,
+"             ignore = {"D202", "D203"},
+"           },
+"           pylint = {
+"             enabled = false,
+"           },
+"         },
+"       },
+"     },
+"   }
+"
+"   nvim_lsp.yamlls.setup{
+"     settings = {
+"       yaml = {
+"         completion = true,
+"         validate = true,
+"         hover = true,
+"         format = {
+"           enable = true,
+"         },
+"         schemas = {
+"           ["http://json-schema.org/draft-07/schema"] = "schema.json",
+"           ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/schemas/v3.0/schema.json"] = "openapi.yaml",
+"           ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/schemas/v2.0/schema.json"] = "swagger.yaml",
+"           ["file://" .. os.getenv("HOME") .. "/repos/kelvin/kelvin-sdk/schema/app/schema.json"] = "app.yaml",
+"           ["file://" .. os.getenv("HOME") .. "/repos/kelvin/kelvin-sdk/schema/environment/schema.json"] = "environment.yaml",
+"         },
+"       },
+"     },
+"   }
+"
+" EOF
+"
+"
 ": }}}
 
 "
