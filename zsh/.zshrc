@@ -36,7 +36,6 @@ ZSH=$DOTFILES/oh-my-zsh
 [[ -d $ZSH ]] || git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH
 DISABLE_AUTO_UPDATE=true
 plugins=(
-    archlinux
     catimg
     colored-man-pages
     docker
@@ -57,6 +56,7 @@ plugins=(
     vi-mode
     sudo
     systemd
+    ubuntu
 )
 # FIXME: parser error in .zcompdump
 source $ZSH/oh-my-zsh.sh
