@@ -1,4 +1,4 @@
-#include ".Xresources.d/dracula"
+#include ".Xresources.d/gruvbox"
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintslight

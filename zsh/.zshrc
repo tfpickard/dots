@@ -92,6 +92,9 @@ for f in ${${config_files:#*/path.zsh}:#*/completion.zsh}; do
   source "$f"
 done
 
+autoload bashcompinit
+bashcompinit
+source /usr/share/bash-completion/completions/aria2c
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
@@ -134,6 +137,26 @@ zstyle ":morpho" delay "600"
 
 zstyle ":morpho" check-interval "60"    
 # check every 1 minute if to run screen saver
+# make sure python is setup correctly
+py37=$(pyenv versions | grep -oE '^\s+3.7[^/]+$' | tr -d '[:space:]')
+if [[ -z $py37 ]]; then
+    py37='3.7.7'
+    pyenv install $py37
+fi
+echo $py37
+if [[ -z "$(pyenv virtualenvs | grep neovim)" ]]; then 
+    pyenv virtualenv $py37 neovim
+    echo "|-----------------------|"
+    echo "| you should run these: |"
+    echo "| pyenv activate neovim |"
+    echo "| pip install neovim    |"
+    echo "| deactivate            |"
+    echo "|-----------------------|"
+fi
+    # pyenv virtualenv $py37 neovim3
+    # pyenv activate neovim3
+    # pip install neovim
+
 
 # autoload -U promptinit; promptinit
 # prompt purer
@@ -146,3 +169,9 @@ which pyenv >/dev/null 2>&1 && pyenv virtualenvwrapper_lazy
 
 
 # zprof
+pager=/usr/share/nvim/runtime/macros/less.sh
+[[ -f $pager ]] && alias less=$pager
+alias nmcs="nmcli con show"
+alias nmc=nmcs
+alias nmcu="nmcli con up"
+alias nmcd="nmcli con down"

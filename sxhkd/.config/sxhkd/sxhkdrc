@@ -15,8 +15,8 @@ super + space
     tdrop -ma -w 70% -h 70% -y 15% -x 15% -s scratch -f '-e tmux' kitty
 
 # program launcher
-super + {d,r,Tab}
-    rofi -show {drun,run,window}
+super + {_,shift +} {d,r,Tab}
+    {_,sudo} rofi -show {drun,run,window}
 super + x
     rofi-autrandr
 # make sxhkd reload its configuration files:

@@ -135,6 +135,8 @@ Plug 'lilydjwg/colorizer', { 'on': 'ColorToggle' }
 Plug 'myusuf3/numbers.vim'
 Plug 'wavded/vim-stylus'
 Plug 'ryanoasis/vim-devicons'
+Plug 'chrisbra/unicode.vim'
+Plug 'tpope/vim-characterize'
 
 call plug#end()
 "

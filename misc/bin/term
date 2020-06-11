@@ -1,8 +1,10 @@
 #!/bin/bash
 xterm=kitty
+xterm=alacritty
 class="--class myterm"
+xflag="-e"
 cmd="tmux"
-$xterm $class $cmd
+$xterm $class $xflag $cmd
 #s="1"
 # mon=$(i3-msg -s $(i3 --get-socketpath) -t get_workspaces | \
 #     jq '.[] | select(.focused == true) | .output')

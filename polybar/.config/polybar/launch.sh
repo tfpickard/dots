@@ -1,27 +1,25 @@
-#!/usr/bin/env sh
-kil () {
- killall $1 || sleep 1 && kil $1
-}
+#!/bin/bash
 
-pgrep polybar && killall polybar
+# Terminate already running bar instances
+killall -q polybar
 
-W=$(xdpyinfo | awk -F'[ x]+' '/dimensions:/{print $3}' )
-OFFSET=10
-#W=$(echo "(0.9 * $W)/1" | bc)
-WOFFSET=$((W - 2*$OFFSET))
-echo $W
-H=$(xdpyinfo | awk -F'[ x]+' '/dimensions:/{print $4}')
-lfile="/tmp/pb.log"
-[[ -f $lfile ]] && rm -f $lfile
-touch $lfile
-for m in $(polybar -m | cut -d':' -f1); do
-    echo $OFFSET $WOFFSET
-    MONITOR=$m XOFF=$OFFSET XWIDTH=$WOFFSET YRES=$H \
-        polybar top -r >> $lfile 2>&1 & disown
-#    MONITOR=$m polybar bottom -r >> $lfile 2>&1 & disown
+# Wait until the processes have been shut down
+
+# Launch Polybar, using default config location ~/.config/polybar/config
+
+for i in $(find /sys/class/net/); do
+    echo $i
 done
-sleep 1
-bspc config top_padding 40
-bspc config left_padding 0
-bspc config right_padding 0
-bspc config window_gap 10
+WLAN=$(find /sys/class/net/*/ -name wireless)
+[[ ! -z $WLAN ]] && WLAN=$(echo $WLAN | cut -d'/' -f5)
+echo $WLAN
+ETH=$(find /sys/class/net/*/ -name carrier | grep -vE "$WLAN|lo|docker|vmn")
+[[ ! -z $ETH ]] && ETH=$(echo $ETH | cut -d'/' -f5)
+echo $ETH
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+export ETH
+export WLAN
+
+polybar -r default >/tmp/pb.log 2>&1 & 
+
+echo "Polybar launched..."
