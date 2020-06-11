@@ -10,6 +10,7 @@ rupa/z
 zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 
+srijanshetty/zsh-pip-completion
 psprint/zsh-morpho
 # these should be at last!
 sindresorhus/pure
