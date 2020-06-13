@@ -41,7 +41,7 @@ export PATH="$PATH:$gobin"
 export GOPATH="$go"
 export XDG_CONFIG_HOME="$HOME/.config"
 which dotnet && PATH="$PATH:~/.dotnet/tools"
-export VISUAL="vim"
+export VISUAL="nvim"
 export EDITOR=$VISUAL
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.

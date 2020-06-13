@@ -83,5 +83,8 @@ for s in $startup_dir/*; do
 done
 
 libinput-gestures-setup restart
-pgrep xscreensaver && pkill xscreensaver
-xscreensaver -nosplash >/dev/null 2>&1 & disown
+# pgrep xscreensaver && pkill xscreensaver
+# xscreensaver -nosplash >/dev/null 2>&1 & disown
+xset 180 120
+xss-lock -n dim-screen.sh -- ~/bin/lock &
+

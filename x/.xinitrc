@@ -33,6 +33,7 @@ fi
 #autorandr --change --force --debug >> $lfile 2>&1
 #xset +fp /usr/share/fonts/local &
 #xset fp rehash &
+pkill xsettingsd ; xsettingsd &
 xsetroot -cursor_name left_ptr >> $lfile 2>&1
 #. "${HOME}/.cache/wal/colors.sh"
 #kil compton >> $lfile 2>&1

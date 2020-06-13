@@ -320,7 +320,10 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
+" noremap <silent> <m-h> :TmuxNavigateLeft<cr>
+" noremap <silent> <m-j> :TmuxNavigateDown<cr>
+" noremap <silent> <m-k> :TmuxNavigateUp<cr>
+" noremap <silent> <m-l> :TmuxNavigateRight<cr>
 
 set bg=dark
 " colorscheme gruvbox
