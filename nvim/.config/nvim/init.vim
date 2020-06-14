@@ -46,7 +46,7 @@ call plug#begin('~/.local/nvim/plugged')
   Plug 'chrisbra/csv.vim'
   Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
   "Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
-  "Plug 'sheerun/vim-polyglot'
+  Plug 'sheerun/vim-polyglot'
   "Plug 'neo4j-contrib/cypher-vim-syntax', {'for': 'cypher'}
   "Plug 'gu-fan/riv.vim', {'for': 'rst'}
   "Plug 'Rykka/InstantRst', {'for': 'rst'}
@@ -127,6 +127,8 @@ Plug 'vim-airline/vim-airline-themes'
 " appearance
 "Plug 'baskerville/bubblegum'
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
+
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -327,7 +329,11 @@ nnoremap <C-H> <C-W><C-H>
 
 set bg=dark
 " colorscheme gruvbox
-colorscheme dracula
+" colorscheme dracula
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_enable_italic_comment = 1
+colorscheme gruvbox-material
 
 autocmd VimEnter *
     \ call MyPlugs()
@@ -516,9 +522,9 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1  " buffers at the top as tabs
 " let g:airline#extensions#tabline#show_tabs=0
 let g:airline#extensions#tabline#show_tab_type=0
-let g:airline#extensions#tmuxline#enabled=0
-let g:airline_theme = 'dracula'
-" let g:airline_theme = 'gruvbox'
+let g:airline#extensions#tmuxline#enabled=1
+" let g:airline_theme = 'dracula'
+let g:airline_theme = 'gruvbox_material'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif

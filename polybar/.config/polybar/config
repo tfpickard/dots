@@ -1,240 +1,317 @@
-; {{{color scheme
+;:set syn=dosini
+
+[global/wm]
+#margin-top = 8
+#margin-bottom = 8
+#margin-left = 8
+#margin-right = 8
+
+
 [colors]
-bg = #282828
-fg = #d4be98
-border_bg = #d4be98
-border_fg = #282828
-comment = #928374
-sys = #7daea3
-net = #a9b665
-; }}}
-; {{{mainbar
-[bar/mainbar]
-; dpi = 200
+;orange = #FF6200
+;orange = #d65d0e
+darkgray = ${xrdb:color8}
+orange = ${xrdb:color9}
+white = #ebdbb2
+gray = #585858
+black = #090909
+red = #c795ae
+blue = ${xrdb:color12:#95aec7}
+darkblue = ${xrdb:color4:#00007e}
+yellow = #c7ae95
+green = ${xrdb:color10:#aec795}
+#background = #1f222d
+background = #262626
+background-alt = #4e4e4e
+#foreground = #dfdfdf
+foreground = ${xrdb:foreground}
+foreground-alt = #4e4e4e
+primary = #1f222d
+secondary = #FF6200
+alert = #fb4934
 
+[bar/bar]
+monitor = eDP-1
 bottom = false
-
-; modules
-modules-left = appmenu telegram firefox chrome nautilus evince netspeedup mem
-modules-center = date
-modules-right = cpu netspeeddown alsa backlight bluetooth battery network 
-
-; position
-width = 98%
+wm-restack = bspwm
+width = ${env:WIDTH:98%}
 height = 32
-offset-x = 1%
-offset-y = 1%
-radius = 0
-fixed-center = true
+offset-x = ${env:XOFF:1%} 
+offset-y = ${env:YOFF:1%} 
 
-; UI
-background = ${colors.bg}
-foreground = ${colors.fg}
-line-size = 5
-line-color = ${colors.border_bg}
-; overline-size = 2
-; overline-color = ${colors.fg}
-border-bottom-size = 5
-border-color = ${colors.border_bg}
-; number of space to add at beginning/end of the bar
+locale = en_US.UTF-8
+
+enable-ipc = true
+
 padding-left = 0
 padding-right = 0
-; number of space to add between each module
-module-margin-left = 1
+
 module-margin-right = 0
-; separator between each module
-; separator =
-; system ; tray
-; left center right none
-; tray-position = right
-; tray-padding = 1
-; tray-background = ${colors.bg}
-; tray-maxsize = 22
-; tray-scale = 1.0
-; tray-offset-x = 0
-; tray-offset-y = 0
+module-margin-left = 0
 
-font-0 = "FuraCode Nerd Font:size=12"
+modules-right = cpu sep memory sep network sep volume sep battery sep date
+modules-center =  xwindow
+modules-left = bspwm
 
-;bspwm
-wm-restack = bspwm
-override-redirect = true
-scroll-up = bspwm-wsnext
-scroll-down = bspwm-wsprev
-cursor-click = pointer
-cursor-scroll = ns-resize
-; }}}
-; {{{modules
-; {{{appmenu
-[module/appmenu]
-type = custom/text
-content = 
-content-background = ${colors.border_bg}
-content-foreground = ${colors.border_fg}
-content-padding = 1
+background = ${colors.background}
+foreground = ${colors.foreground}
 
-click-left = rofi -show window
-click-middle = rofi -show ssh
-click-right = rofi -show drun
+underline-size = 0
+underline-color = ${colors.white}
 
-; scroll-up = echo scroll up
-; scroll-down = echo scroll down
-; }}}
-; firefox{{{
-[module/firefox]
-type = custom/text
-content = 
-content-background = ${colors.bg}
-content-foreground = ${colors.fg}
+tray-detached = false
+tray-position = 
+tray-offset-x = 0
+tray-offset-y = 0
+;tray-maxsize = 16
+tray-padding = 0
+tray-transparent = false
+tray-scale = 1.0
 
-click-left = firefox-developer-edition
-; }}}
-; chrome{{{
-[module/chrome]
-type = custom/text
-content = 
-content-background = ${colors.bg}
-content-foreground = ${colors.fg}
+font-0 = "FiraCode Nerd Font Mono:size=12;2"
+font-1 = "NotoEmoji Nerd Font:style=Bold:size=14;2"
 
-click-left = chromium
-; }}}
-; telegram{{{
-[module/telegram]
-type = custom/text
-content = 切
-content-background = ${colors.bg}
-content-foreground = ${colors.fg}
 
-click-left = telegram-desktop; i3-msg floating enable
-; }}}
-; evince{{{
-[module/evince]
-type = custom/text
-content = 
-content-background = ${colors.bg}
-content-foreground = ${colors.fg}
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+format-online =<icon-prev><label-song><icon-next>
+format-online-underline = ${colors.white}
+format-online-padding = 1
 
-click-left = evince
-; }}}
-; nautilus{{{
-[module/nautilus]
-type = custom/text
-content = 
-content-background = ${colors.bg}
-content-foreground = ${colors.fg}
+#label-song-font = 4
+label-song = %{A1:mpc toggle:}%artist% - %title%%{A}
+icon-play = 
+icon-pause = 
+icon-prev = 
+icon-next = 
 
-click-left = nautilus
-; }}}
-; {{{date
+icon-prev-foreground = ${colors.darkgray} 
+icon-next-foreground = ${colors.darkgray}
+
+icon-play-padding = 1
+icon-pause-padding = 1
+icon-prev-padding = 1
+icon-next-padding = 1
+label-song-padding = 1
+
+[module/bspwm]
+type = internal/bspwm
+format = <label-state> <label-mode>
+
+label-focused = 
+label-focused-font = 2
+label-focused-background = ${colors.background-alt}
+label-focused-foreground = ${colors.green}
+;label-focused-underline= ${colors.primary}
+; label-focused-underline= ${colors.white}
+label-focused-padding = 1
+
+label-occupied = 
+label-occupied-foreground = ${colors.blue}
+label-occupied-padding = 1
+label-occupied-font= 2
+
+label-urgent = 
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+label-urgent-font= 2
+
+label-empty = 
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 1
+label-empty-font= 2
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-default = 
+
+
 [module/date]
 type = internal/date
+#date-alt =   %A %H:%M 
+date = %{F#928374}%{F-} %H:%M
+interval = 5
+format-underline = ${colors.white}
+;format-background = ${colors.black}
+format-foreground = ${colors.foreground}
+format-padding = 2
+
+label-separator = |
+
+[module/volume]
+type = internal/volume
+
+format-volume = <label-volume> 
+format-volume-padding = 2
+
+format-volume-underline = ${colors.white}
+
+label-volume = %{F#928374} %{F-}%percentage:3%%
+#label-volume-foreground = ${color.white}
+
+label-muted =%{F#928374} %{F-}mute
+format-muted = <label-muted>
+format-muted-underline = ${colors.white}
+format-muted-padding = 2
+#label-muted-foreground = ${colors.gray}
+
+format-padding = 2
+
+[module/keyboard]
+type = internal/xkeyboard
+
+; Available tags:
+;   <label-layout> (default)
+;   <label-indicator> (default)
+format = %{A1:~/.bin/toggkbl:}%{F#928374} %{F-}<label-layout> <label-indicator>%{A}
+format-spacing = 0
+format-underline = ${colors.white}
+
+; Available tokens:
+;   %layout%
+;   %name%
+;   %number%
+; Default: %layout%
+label-layout = %layout%
+format-padding = 2
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-indicator = %name%
+label-indicator-padding = 0
+
+[module/network]
+type = internal/network
+interface = ${env:WLAN_IFACE:wlan0}
 
 ; Seconds to sleep between updates
-interval = 1.0
+; Default: 1
+interval = 3.0
 
-; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
-; NOTE: if you want to use syntax tags here you need to use %%{...}
-;;date = %Y-%m-%d%
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+;ping-interval = 3
 
-; Optional time format
-time =  %I:%M %p
+; @deprecated: Define min width using token specifiers (%downspeed:min% and %upspeed:min%)
+; Minimum output width of upload/download rate
+; Default: 3
 
-; if `date-alt` or `time-alt` is defined, clicking
-; the module will toggle between formats
-;;date-alt = %A, %d %B %Y
-time-alt =  %Y-%m-%d %a%
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
+
+format-connected-padding = 2
+format-disconnected-padding = 2
+format-connected-underline = ${colors.white}
+format-disconnected-underline = ${colors.white}
 
 ; Available tags:
-;   <label> (default)
-format = <label>
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = %{F#928374} %{F-}<label-connected> 
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = <label-disconnected>
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss = <animation-packetloss> <label-connected>
 
 ; Available tokens:
-;   %date%
-;   %time%
-; Default: %date%
-label = %time%
-; }}}
-;{{{battery
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: %ifname% %local_ip%
+label-connected = %signal:3%%
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+; Default: (none)
+label-disconnected = %{F#928374} %{F-}none
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %linkspeed% [wired]
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+; Only applies if <animation-packetloss> is used
+animation-packetloss-0 = ⚠
+animation-packetloss-1 = 📶
+; Framerate in milliseconds
+animation-packetloss-framerate = 500
+
+[module/sep]
+type = custom/text
+content = |
+content-foreground = #4e4e4e
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:20:...%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${xrdb:color13:#f90000}
+label =  %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${xrdb:color13:#4bffdc}
+label = %percentage_used:2%%
+
 [module/battery]
 type = internal/battery
-
-; This is useful in case the battery never reports 100% charge
-full-at = 98
-
-; Use the following command to list batteries and adapters:
-; $ ls -1 /sys/class/power_supply/
 battery = BAT0
 adapter = AC
+full-at = 98
 
-; If an inotify event haven't been reported in this many
-; seconds, manually poll for new values.
-;
-; Needed as a fallback for systems that don't report events
-; on sysfs/procfs.
-;
-; Disable polling by setting the interval to 0.
-;
-; Default: 5
-poll-interval = 2
-
-; see "man date" for details on how to format the time string
-; NOTE: if you want to use syntax tags here you need to use %%{...}
-; Default: %H:%M:%S
-time-format = %H:%M
-
-; Available tags:
-;   <label-charging> (default)
-;   <bar-capacity>
-;   <ramp-capacity>
-;   <animation-charging>
 format-charging = <animation-charging> <label-charging>
-;;format-charging-prefix = 
-; Available tags:
-;   <label-discharging> (default)
-;   <bar-capacity>
-;   <ramp-capacity>
-;   <animation-discharging>
-format-discharging = <ramp-capacity> <label-discharging>
+; format-charging-underline = ${xrdb:color6:#ffb52a}
 
-; Available tags:
-;   <label-full> (default)
-;   <bar-capacity>
-;   <ramp-capacity>
-;format-full = <ramp-capacity> <label-full>
+format-discharging = <animation-discharging> <label-discharging>
+; format-discharging-underline = ${xrdb:color9:#ff9800}
 
-; Available tokens:
-;   %percentage% (default)
-;   %time%
-;   %consumption% (shows current charge rate in watts)
+format-full =  <label-full> 
+; format-full =  <label-full>
+format-full-prefix-foreground = ${colors.foreground-alt}
+; format-full-underline = ${xrdb:color2:#719611}
 
-label-charging = %percentage%%
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
-; Available tokens:
-;   %percentage% (default)
-;   %time%
-;   %consumption% (shows current discharge rate in watts)
-label-discharging = %percentage%%
+ramp-capacity-foreground = ${colors.foreground}
 
-; Available tokens:
-;   %percentage% (default)
-label-full = 
-
-; Only applies if <ramp-capacity> is used
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-5 = 
-ramp-capacity-6 = 
-ramp-capacity-7 = 
-ramp-capacity-8 = 
-ramp-capacity-9 = 
-
-; Only applies if <bar-capacity> is used
-; bar-capacity-width = 10
-
-; Only applies if <animation-charging> is used
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
@@ -242,189 +319,23 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-5 = 
 animation-charging-6 = 
-; animation-charging-7 =
-; animation-charging-8 =
-
-; Framerate in milliseconds
+animation-charging-foreground = ${colors.foreground}
 animation-charging-framerate = 750
 
-; Only applies if <animation-discharging> is used
-;;animation-discharging-0 = 
-;;animation-discharging-1 = 
-;;animation-discharging-2 = 
-;;animation-discharging-3 = 
-;;animation-discharging-4 = 
-;;animation-discharging-5 = 
-;;animation-discharging-6 = 
-;;animation-discharging-7 = 
-;;animation-discharging-8 = 
+animation-discharging-10 = 
+animation-discharging-9 = 
+animation-discharging-8 = 
+animation-discharging-7 = 
+animation-discharging-6 = 
+animation-discharging-5 = 
+animation-discharging-4 = 
+animation-discharging-3 = 
+animation-discharging-2 = 
+animation-discharging-1 = 
+animation-discharging-0 = 
+animation-discharging-foreground = ${colors.foreground}
+animation-discharging-framerate = 750
 
-; Framerate in milliseconds
-;animation-discharging-framerate = 500
-;}}}
-; {{{network
-[module/network]
-type = custom/script
 
-; Available tokens:
-;   %counter%
-; Command to be executed (using "/usr/bin/env sh -c [command]")
-exec = ~/.config/polybar/scripts/check-network
-
-; Conditional command that, if defined, needs to exit successfully
-; before the main exec command is invoked.
-; Default: ""
-;;exec-if = ""
-
-; Will the script output continous content?
-; Default: false
-tail = true
-
-; Seconds to sleep between updates
-; Default: 2 (0 if `tail = true`)
-interval = 5
-
-; Available tags:
-;   <output> - deprecated
-;   <label> (default)
-;;format = <label>
-;;format-background = #999
-;;format-foreground = #000
-;;format-padding = 4
-
-; Available tokens:
-;   %output%
-; Default: %output%
-;;label = %output:0:15:...%
-
-; Available tokens:
-;   %counter%
-;   %pid%
-;
-; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c [command]"
-click-left = nm-connection-editor &
-; click-middle = networkmanager_dmenu &
-; click-right = networkmanager_dmenu &
-;;double-click-left = echo double left %counter%
-;;double-click-middle = echo double middle %counter%
-;;double-click-right = echo double right %counter%
-
-; Available tokens:
-;   %counter%
-;   %pid%
-;
-; "scroll-(up|down)" will be executed using "/usr/bin/env sh -c [command]"
-;;scroll-up = echo scroll up %counter%
-;;scroll-down = echo scroll down %counter%
-; }}}
-; bluetooth{{{
-[module/bluetooth]
-type = custom/text
-content = 
-content-background = ${colors.bg}
-content-foreground = ${colors.fg}
-
-click-left = blueman-manager
-; }}}
-; backlight{{{
-[module/backlight]
-type = custom/text
-content = 
-content-background = ${colors.bg}
-content-foreground = ${colors.fg}
-
-click-left = gbacklight
-; }}}
-;{{{alsa
-[module/alsa]
-type = internal/alsa
-
-format-volume = <label-volume>
-label-volume = 
-label-volume-foreground = ${colors.fg}
-
-format-muted-foreground = ${colors.comment}
-label-muted = 婢
-;}}}
-; {{{netspeedup
-[module/netspeedup]
-type = custom/script
-exec = sh ~/.config/polybar/scripts/net-speed.sh wlp2s0 lo out
-tail = true
-format-foreground = ${colors.net}
-; }}}
-; {{{netspeeddown
-[module/netspeeddown]
-type = custom/script
-exec = sh ~/.config/polybar/scripts/net-speed.sh wlp1s0 lo in
-tail = true
-format-foreground = ${colors.net}
-; }}}
-; {{{cpu
-[module/cpu]
-type = internal/cpu
-interval = 1
-label = CPU %percentage%%
-label-foreground = ${colors.sys}
-; }}}
-; {{{mem
-[module/mem]
-type = internal/memory
-interval = 1
-label = RAM %percentage_used%%
-label-foreground = ${colors.sys}
-; }}}
-
-;{{{powermenu
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.border_fg}
-label-open-background = ${colors.border_bg}
-label-open-padding = 1
-label-close = ﰸ
-label-close-foreground = ${colors.comment}
-label-close-background = ${colors.bg}
-
-menu-0-0 = 
-menu-0-0-exec = menu-open-1
-menu-0-1 = ⏼
-menu-0-1-exec = menu-open-2
-menu-0-0-margin-right = 1
-menu-0-1-margin-right = 1
-
-menu-1-0 = 
-menu-1-0-exec = reboot
-menu-1-1 = 
-menu-1-1-exec = menu-open-0
-menu-1-0-margin-right = 1
-menu-1-1-margin-right = 1
-
-menu-2-0 = 
-menu-2-0-exec = menu-open-0
-menu-2-1 = ⏼
-menu-2-1-exec = poweroff
-menu-2-0-margin-right = 1
-menu-2-1-margin-right = 1
-;}}}
-; }}}
-; {{{settings
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = false
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5
-; }}}
 
 ; vim:ft=dosini
