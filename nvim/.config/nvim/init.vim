@@ -38,7 +38,7 @@ call plug#begin('~/.local/nvim/plugged')
   Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
 
   " syntax
-  " Plug 'lervag/vimtex', {'for': 'tex'}
+  Plug 'lervag/vimtex', {'for': 'tex'}
   "Plug 'bfredl/nvim-ipy', {'for': 'python', 'do': ':UpdateRemotePlugins'}
   Plug 'fatih/vim-go', {'for': 'go'} ", 'do': ':GoUpdateBinaries'}
   Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
@@ -84,10 +84,10 @@ Plug 'davidhalter/jedi-vim'
 Plug 'jeetsukumaran/vim-pythonsense'
 "Plug 'zchee/deoplete-jedi'
 Plug 'liuchengxu/vista.vim'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 "Plug 'numirias/semshi'
 Plug 'plasticboy/vim-markdown'
-"Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-surround'
 
 " utilities
@@ -522,7 +522,7 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1  " buffers at the top as tabs
 " let g:airline#extensions#tabline#show_tabs=0
 let g:airline#extensions#tabline#show_tab_type=0
-let g:airline#extensions#tmuxline#enabled=1
+let g:airline#extensions#tmuxline#enabled=0
 " let g:airline_theme = 'dracula'
 let g:airline_theme = 'gruvbox_material'
 if !exists('g:airline_symbols')
@@ -552,16 +552,16 @@ let g:airline#extensions#virtualenv#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 
 " tmuxline config
-" let g:tmuxline_preset = {
-"         \ 'a': '#S',
-"         \ 'b': '#F',
-"         \ 'c': '#W',
-"         \ 'win': ['#I', '#W'],
-"         \ 'cwin': ['#I', '#W'],
-"         \ 'x': '#h',
-"         \ 'y': '%b %d',
-"         \ 'z': '%R'}
-"
+let g:tmuxline_preset = {
+        \ 'a': '#S',
+        \ 'b': '#F',
+        \ 'c': '#W',
+        \ 'win': ['#I', '#W'],
+        \ 'cwin': ['#I', '#W'],
+        \ 'x': '#h',
+        \ 'y': '%b %d',
+        \ 'z': '%R'}
+
 " " airline config
 " if !exists('g:airline_symbols')
 "     let g:airline_symbols = {}
