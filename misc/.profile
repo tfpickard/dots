@@ -27,10 +27,15 @@ kil() {
 
 date > /tmp/profile.out
 
-[[ -e ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+# [[ -e ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+
+
+
 alias pd="pushd"
-alias pdh"pushd ~"
+alias pdh="pushd ~"
 alias ppd="popd"
+alias less=/usr/bin/nvimpager
+
 
 go="$HOME/go"
 gosrc="$go/src"
@@ -40,9 +45,10 @@ gobin="$go/bin"
 export PATH="$PATH:$gobin"
 export GOPATH="$go"
 export XDG_CONFIG_HOME="$HOME/.config"
-which dotnet && PATH="$PATH:~/.dotnet/tools"
+which dotnet >/dev/null 2>&1 && PATH="$PATH:~/.dotnet/tools"
 export VISUAL="nvim"
 export EDITOR=$VISUAL
+export PAGER="nvimpager"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"

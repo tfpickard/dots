@@ -25,4 +25,4 @@ while read -r line ; do
 done < <(ip -oneline link)
 export WLAN_IFACE ETH_IFACE
 
-polybar --reload bar >/tmp/pb.log 2>&1 & disown
+MON=eDP1 polybar --reload bar >/tmp/pb.log 2>&1 & disown

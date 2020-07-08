@@ -1,5 +1,7 @@
 #!/bin/zsh
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+[[ -f ~/.Xmodmap  ]] && xmodmap ~/.Xmodmap
+[[ -f ~/.profile ]] && source ~/.profile
 n=9
 m=$(xrandr | grep " connected" | awk '{print $1}' | wc -l)
 d=1
@@ -15,8 +17,8 @@ for s in $(xrandr | grep " connected" | awk '{print $1}'); do
 done
 
 ## FIXME i should be so much cleverer...
-ltscr=$(xrandr | grep "eDP" | grep "connected" | awk '{print $1}')
-[[ ! -z $ltscr ]] && xrandr --output $ltscr --mode 1920x1080
+# ltscr=$(xrandr | grep "eDP" | grep "connected" | awk '{print $1}')
+# [[ ! -z $ltscr ]] && xrandr --output $ltscr --mode 1920x1080
 
 
 
@@ -55,19 +57,22 @@ bspc rule -a 'scratchpad:*' state=fullscreen sticky=on hidden=on \
     follow=on
 
 bspc rule -a Spotify desktop='^1' follow=on
-bspc rule -a Signal desktop='^2' follow=on
+# bspc rule -a Signal desktop='^2' follow=on
 bspc rule -a Slack desktop='^4' follow=on
-bspc rule -a Telegram desktop='^9' follow=on
+# bspc rule -a Telegram desktop='^9' follow=on
 bspc rule -a Chromium desktop='^7'
 bspc rule -a Firefox desktop='^7'
-bspc rule -a mplayer2 state=floating
+bspc rule -a Brave desktop='^8'
+bspc rule -a Notion desktop='^6'
+bspc rule -a googledocs-nativefier-e89b69 desktop='^5'
+# bspc rule -a mplayer2 state=floating
 bspc rule -a xeyes state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
-
+# googledocs-nativefier-e89b69
 . ~/.profile
 kil sxhkd
-kil dunst
+kil cbatticon
 kil blueberry-tray
 pgrep xcape && killall xcape
 xcape -t 250 -e 'Shift_L=F12' >/dev/null 2>&1 &
@@ -82,9 +87,9 @@ for s in $startup_dir/*; do
     [[ -x $s ]] && $s restart > $log_dir/$(basename $s).log 2>&1
 done
 
+sudo chown -R tom:tom /sys/class/backlight/intel_backlight/*
 libinput-gestures-setup restart
 # pgrep xscreensaver && pkill xscreensaver
 # xscreensaver -nosplash >/dev/null 2>&1 & disown
 xset 180 120
 xss-lock -n dim-screen.sh -- ~/bin/lock &
-

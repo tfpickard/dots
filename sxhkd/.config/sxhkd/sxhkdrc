@@ -157,13 +157,13 @@ XF86AudioPrev
 
 # Sreen brightness controls
 XF86MonBrightnessUp
-    light -A 2 # increase screen brightness
+    light  -A 2 # increase screen brightness
 XF86MonBrightnessDown
-    light -U 2 # decrease screen brightness
+    light  -U 2 # decrease screen brightness
 shift + XF86MonBrightnessUp
     light -S 100% # increase screen brightness
 shift + XF86MonBrightnessDown
-    light -r -S 2 # decrease screen brightness
+    light -S 2 # decrease screen brightness
 ctrl + alt + {_,shift + }p
     fname={'%Y-%m-%d_%H-%M-%S_$wx$h.png',$(zenity --entry --text "s")} ; \
     echo $fname ; \
