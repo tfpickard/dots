@@ -25,7 +25,8 @@ done
 xrget() {
     xrdb -query | grep $1 | awk '{print $NF}'
 }
-bspc config top_padding 40
+bspc config top_padding 30
+bspc config bottom_padding 40
 bspc config left_padding 0
 bspc config right_padding 0
 bspc config window_gap 10
@@ -77,15 +78,15 @@ kil blueberry-tray
 pgrep xcape && killall xcape
 xcape -t 250 -e 'Shift_L=F12' >/dev/null 2>&1 &
 xcape -t 250 -e 'Shift_R=F10' >/dev/null 2>&1 &
-#xcape -t 250  -e 'Super_L=Super_L|d' >/dev/null 2>&1 &
-#xcape -t 250 -e 'Super_R=Super_R|r' >/dev/null 2>&1 &
-#[[ "-r" != "$1" ]] && $HOME/bin/run_startup
-startup_dir="$HOME/bin/startup"
-log_dir="/tmp/bspwm-$USER"
-[[ -d $log_dir ]] || mkdir -p $log_dir
-for s in $startup_dir/*; do
-    [[ -x $s ]] && $s restart > $log_dir/$(basename $s).log 2>&1
-done
+xcape -t 250  -e 'Super_L=Super_L|d' >/dev/null 2>&1 &
+xcape -t 250 -e 'Super_R=Super_R|r' >/dev/null 2>&1 &
+[[ "-r" != "$1" ]] && $HOME/bin/run_startup
+# startup_dir="$HOME/bin/startup"
+# log_dir="/tmp/bspwm-$USER"
+# [[ -d $log_dir ]] || mkdir -p $log_dir
+# for s in $startup_dir/*; do
+#     [[ -x $s ]] && $s restart > $log_dir/$(basename $s).log 2>&1
+# done
 
 sudo chown -R tom:tom /sys/class/backlight/intel_backlight/*
 libinput-gestures-setup restart

@@ -136,14 +136,25 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 XF86AudioRaiseVolume
-    pactl -- set-sink-volume 0 +5% #increase sound volume
-XF86AudioLowerVolume
-    pactl -- set-sink-volume 0 -5% #decrease sound volume
-XF86AudioMute
-    pactl set-sink-mute 0 toggle # mute sound
-XF86AudioMicMute
-    pactl set-source-mute 0 toggle # mute sound
+    pactl set-sink-volume @DEFAULT_SINK@ +10%
 
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -10%
+
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+XF86AudioMicMute
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle## #
+## XF86AudioRaiseVolume
+##     pactl -- set-sink-volume 0 +5% #increase sound volume
+## XF86AudioLowerVolume
+##     pactl -- set-sink-volume 0 -5% #decrease sound volume
+## XF86AudioMute
+##     pactl set-sink-mute 0 toggle # mute sound
+## XF86AudioMicMute
+##     pactl set-source-mute 0 toggle # mute sound
+## 
 #bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse sset Master '5%+'"
 #bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse sset Master '5%-'"
 #bindsym XF86AudioMute exec --no-startup-id "amixer set Master toggle"
@@ -157,13 +168,13 @@ XF86AudioPrev
 
 # Sreen brightness controls
 XF86MonBrightnessUp
-    light  -A 2 # increase screen brightness
+    light  -A 1 # increase screen brightness
 XF86MonBrightnessDown
-    light  -U 2 # decrease screen brightness
+    light  -U 1 # decrease screen brightness
 shift + XF86MonBrightnessUp
     light -S 100% # increase screen brightness
 shift + XF86MonBrightnessDown
-    light -S 2 # decrease screen brightness
+    light -r -S 10 # decrease screen brightness
 ctrl + alt + {_,shift + }p
     fname={'%Y-%m-%d_%H-%M-%S_$wx$h.png',$(zenity --entry --text "s")} ; \
     echo $fname ; \
@@ -175,8 +186,8 @@ ctrl + alt + {_,shift + }p
 
 #super + {_,shift + }
 
-# super + Print
-#     scrot -s '%Y-%m-%d_%h-%m-%s_$wx$h_scrot.png' \
-#     -e 'mv $f ~/Pictures/Screenshots/'
-# super + ctrl + Print
+Print
+     scrot -s '%Y-%m-%d_%h-%m-%s_$wx$h_scrot.png' \
+     -e 'mv $f ~/Pictures/Screenshots/'
+#ctrl + Print
 #     zenity --question --text="Do you wish to continue/?"

@@ -31,10 +31,6 @@ date > /tmp/profile.out
 
 
 
-alias pd="pushd"
-alias pdh="pushd ~"
-alias ppd="popd"
-alias less=/usr/bin/nvimpager
 
 
 go="$HOME/go"
@@ -52,5 +48,5 @@ export PAGER="nvimpager"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
+export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
