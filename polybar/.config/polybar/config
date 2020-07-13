@@ -309,13 +309,13 @@ label = %title:0:20:...%
 type = internal/cpu
 interval = 2
 label = %percentage%%
-format-prefix = " "
+format-prefix = "﬙ "
 format-prefix-foreground = #666
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = ""
+format-prefix = " "
 format-prefix-foreground = ${colors.white1}
 format-underline = ${xrdb:color13:#4bffdc}
 label = %percentage_used:2%%
