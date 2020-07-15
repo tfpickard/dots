@@ -1,0 +1,24 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown", "yaml"],
+
+  "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "trace.server": "verbose",
+      "filetypes": ["go"]
+    },
+    "yaml": {
+      "command": "yaml-language-server",
+      "args": ["--stdio"],
+      "trace.server": "verbose",
+      "filetypes": ["yaml"],
+      "format": {
+        "singleQuote": true,
+        "bracketSpacing": false,
+        "enable": true,
+        "proseWrap": "preserve"
+      }
+    }
+  }
+}

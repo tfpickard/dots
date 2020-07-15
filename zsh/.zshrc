@@ -44,7 +44,7 @@ export CACHEDIR="$HOME/.local/share"
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
 
 # Load The Prompt System And Completion System And Initilize Them.
-autoload -Uz compinit promptinit
+ autoload -Uz compinit promptinit
 
 # Load And Initialize The Completion System Ignoring Insecure Directories With A
 # Cache Time Of 20 Hours, So It Should Almost Always Regenerate The First Time A
@@ -69,7 +69,7 @@ autoload -U colors && colors    # Load Colors.
 unsetopt case_glob              # Use Case-Insensitve Globbing.
 setopt globdots                 # Glob Dotfiles As Well.
 setopt extendedglob             # Use Extended Globbing.
-setopt autocd                   # Automatically Change Directory If A Directory Is Entered.
+# setopt autocd                   # Automatically Change Directory If A Directory Is Entered.
 
 # Smart URLs.
 autoload -Uz url-quote-magic
@@ -77,7 +77,8 @@ zle -N self-insert url-quote-magic
 
 # General.
 setopt brace_ccl                # Allow Brace Character Class List Expansion.
-setopt combining_chars          # Combine Zero-Length Punctuation Characters ( Accents ) With The Base Character.
+setopt combining_chars          # Combine Zero-Length Punctuation Characters 
+                                # ( Accents ) With The Base Character.
 setopt rc_quotes                # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
 unsetopt mail_warning           # Don't Print A Warning Message If A Mail File Has Been Accessed.
 
@@ -98,32 +99,32 @@ setopt path_dirs                # Perform Path Search Even On Command Names With
 setopt auto_menu                # Show Completion Menu On A Successive Tab Press.
 setopt auto_list                # Automatically List Choices On Ambiguous Completion.
 setopt auto_param_slash         # If Completed Parameter Is A Directory, Add A Trailing Slash.
-setopt no_complete_aliases
+# setopt no_complete_aliases
 
 setopt menu_complete            # Do Not Autoselect The First Completion Entry.
 unsetopt flow_control           # Disable Start/Stop Characters In Shell Editor.
-
-# Zstyle.
-zstyle ':completion:*:*:*:*:*' menu select
-zstyle ':completion:*:matches' group 'yes'
-zstyle ':completion:*:options' description 'yes'
-zstyle ':completion:*:options' auto-description '%d'
-zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' verbose yes
-zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
-zstyle ':completion:*' list-colors $LS_COLORS
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
-zstyle ':completion:*' rehash true
-
+#
+# # Zstyle.
+# zstyle ':completion:*:*:*:*:*' menu select
+# zstyle ':completion:*:matches' group 'yes'
+# zstyle ':completion:*:options' description 'yes'
+# zstyle ':completion:*:options' auto-description '%d'
+# zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+# zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+# zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+# zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+# zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+# zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+# zstyle ':completion:*' group-name ''
+# zstyle ':completion:*' verbose yes
+# zstyle ':completion::complete:*' use-cache on
+# zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
+# zstyle ':completion:*' list-colors $LS_COLORS
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+# zstyle ':completion:*' rehash true
+#
 # History.
 HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"
 HISTSIZE=100000
@@ -178,12 +179,6 @@ zinit wait lucid for \
 
 # Provide A Simple Prompt Till The Theme Loads
 PS1="READY >"
-bindkey -v
-PURE_PROMPT_SYMBOL=❯❯❯
-PURE_PROMPT_VICMD_SYMBOL=❮❮❮
-zstyle :prompt:pure:path color white
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
-zinit light sindresorhus/pure
 
 # - - - - - - - - - - - - - - - - - - - -
 # Annexes
@@ -202,6 +197,7 @@ zinit light-mode compile"handler" for \
 # Plugins
 # - - - - - - - - - - - - - - - - - - - -
 
+      # OMZ::plugins/pyenv/pyenv.plugin.zsh \
 zinit wait lucid light-mode for \
       OMZ::lib/compfix.zsh \
       OMZ::lib/completion.zsh \
@@ -214,39 +210,39 @@ zinit wait lucid light-mode for \
       OMZ::lib/spectrum.zsh \
       OMZ::lib/termsupport.zsh \
       OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
-  atinit"zicompinit; zicdreplay" \
-        zdharma/fast-syntax-highlighting \
       OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh \
-      OMZ::plugins/command-not-found/command-not-found.plugin.zsh \
-  atload"_zsh_autosuggest_start" \
-      zsh-users/zsh-autosuggestions \
-  as"completion" \
       OMZ::plugins/docker/_docker \
       OMZ::plugins/composer/composer.plugin.zsh \
         djui/alias-tips \
       OMZ::plugins/thefuck/thefuck.plugin.zsh \
-      OMZ::plugins/pyenv/pyenv.plugin.zsh \
       OMZ::plugins/nmap/nmap.plugin.zsh \
       OMZ::plugins/sudo/sudo.plugin.zsh \
-      OMZ::plugins/systemd/systemd.plugin.zsh
+      OMZ::plugins/systemd/systemd.plugin.zsh \
+      OMZ::plugins/command-not-found/command-not-found.plugin.zsh \
+  atload"_zsh_autosuggest_start" \
+      zsh-users/zsh-autosuggestions \
+  as"completion" \
+      zdharma/fast-syntax-highlighting 
+
+zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
+    zsh-users/zsh-completions
 
       #
       # OMZ::plugins/vi-mode/vi-mode.plugin.zsh \
 # Recommended Be Loaded Last.
-zinit ice wait blockf lucid atpull'zinit creinstall -q .'
-zinit load zsh-users/zsh-completions
+# zinit ice wait blockf lucid atpull'zinit creinstall -q .'
+# zinit load zsh-users/zsh-completions
 
 
 # pyenv
-# zinit ice has'pyenv' id-as'pyenv' atpull'%atclone' \
-#     atclone"pyenv init - --no-rehash > pyenv.plugin.zsh"
+zinit ice has'pyenv' id-as'pyenv' atpull'%atclone' \
+    atclone"pyenv init - --no-rehash > pyenv.plugin.zsh"
 # zinit load zdharma/null
 
 # Semi-graphical .zshrc editor for zinit commands
 zinit load zdharma/zui
-zinit ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]'
-zinit load zdharma/zplugin-crasis
-
+# zinit ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]'
+# zinit load zdharma/zplugin-crasis
 
 # - - - - - - - - - - - - - - - - - - - -
 # User Configuration
@@ -310,9 +306,12 @@ setopt pushd_minus              # This Reverts The +/- Operators.
 # Theme / Prompt Customization
 # - - - - - - - - - - - - - - - - - - - -
 
-# To Customize Prompt, Run `p10k configure` Or Edit `~/.p10k.zsh`.
-[[ ! -f ~/.p10k.zsh ]] || . ~/.p10k.zsh
-
+PURE_PROMPT_SYMBOL=❯❯❯
+PURE_PROMPT_VICMD_SYMBOL=❮❮❮
+zstyle :prompt:pure:path color white
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light sindresorhus/pure
+bindkey -v
 
 # - - - - - - - - - - - - - - - - - - - -
 # End Profiling Script
@@ -326,7 +325,7 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
 
 fi
 
-progs=(thefuck )
+progs=(thefuck pyenv)
 for p in ${progs[@]}; do
     which $p >/dev/null 2>&1 
     if [[ 0 -ne $? ]]; then
@@ -340,4 +339,10 @@ done
 
 eval "$(fasd --init auto)"
 
+autoload -Uz compinit
+compinit
+zinit cdreplay -q   
+zinit cdlist
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

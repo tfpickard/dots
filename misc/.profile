@@ -50,3 +50,7 @@ export PAGER="nvimpager"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/src
+source /usr/bin/virtualenvwrapper.sh

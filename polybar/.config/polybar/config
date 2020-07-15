@@ -1,374 +1,457 @@
-;:set syn=dosini
-
-[global/wm]
-#margin-top = 8
-#margin-bottom = 8
-#margin-left = 8
-#margin-right = 8
+;--------------------------------------------------------------------;
+; Common
+;--------------------------------------------------------------------;
 
 [colors]
-black1= ${xrdb:color0:#<COLOR0>}
-black2 = ${xrdb:color8:#<COLOR8>}
-red1 = ${xrdb:color1:#<COLOR1>}
-red2 = ${xrdb:color9:#<COLOR9>}
-green1 = ${xrdb:color2:#<COLOR2>}
-green2 = ${xrdb:color10:#<COLOR10>}
-yellow1 = ${xrdb:color3:#<COLOR3>}
-yellow2 = ${xrdb:color11:#<COLOR11>}
-blue1 = ${xrdb:color4:#<COLOR4>}
-blue2 = ${xrdb:color12:#<COLOR12>}
-magenta1 = ${xrdb:color5:#<COLOR5>}
-magenta2 = ${xrdb:color13:#<COLOR13>}
-cyan1 = ${xrdb:color6:#<COLOR6>}
-cyan2 = ${xrdb:color14:#<COLOR14>}
-white1 = ${xrdb:color7:#<COLOR7>}
-white2 = ${xrdb:color15:#<COLOR15>}
+black0 = #1d2821
+black1= ${xrdb:color0:#282828}
+black2 = ${xrdb:color8:#928374}
+red1 = ${xrdb:color1:#cc241d}
+red2 = ${xrdb:color9:#fb4934}
+green1 = ${xrdb:color2:#98971a}
+green2 = ${xrdb:color10:#b8bb26}
+yellow1 = ${xrdb:color3:#d79921}
+yellow2 = ${xrdb:color11:#fabd2f}
+blue1 = ${xrdb:color4:#458588}
+blue2 = ${xrdb:color12:#83a598}
+magenta1 = ${xrdb:color5:#b16286}
+magenta2 = ${xrdb:color13:#d3869b}
+cyan1 = ${xrdb:color6:#689d6a}
+cyan2 = ${xrdb:color14:#8ec07c}
+white1 = ${xrdb:color7:#a89984}
+white2 = ${xrdb:color15:#ebdbb2}
+orange1 = #d65d0e
+orange2 = #fe8019
+background = ${xrdb:background:#282828}
+foreground = ${xrdb:foreground:#ebdbb2}
+background-alt = ${xrdb:background-alt:#32302f}
+foreground-alt = ${xrdb:foreground-alt:#a89984}
+accent = ${xrdb:color14:#8ec07c}
+linecolor = background-alt
+bordercolor = black2
 
-background = ${xrdb:color0:#<COLOR0>}
-foreground = ${xrdb:color15:#<COLOR15>}
-accent = ${xrdb:color2:#<COLOR2>}
-linecolor = ${xrdb:color2:#<COLOR2>}
-bordercolor = ${xrdb:color8:#<COLOR8>}
 
-;
-; [colors]
-; ;orange = #FF6200
-; ;orange = #d65d0e
-; darkgray = ${xrdb:color8}
-; orange = ${xrdb:color9}
-; white = #ebdbb2
-; gray = #585858
-; black = #090909
-; red = #c795ae
-; blue = ${xrdb:color12:#95aec7}
-; darkblue = ${xrdb:color4:#00007e}
-; yellow = #c7ae95
-; green = ${xrdb:color10:#aec795}
-; #background = #1f222d
-; background = #262626
-; background-alt = #4e4e4e
-; #foreground = #dfdfdf
-; foreground = ${xrdb:foreground}
-; foreground-alt = #4e4e4e
-; primary = #1f222d
-; secondary = #FF6200
-; alert = #fb4934
-;
-[bar/bar]
-monitor = ${env:MON:eDP-1}
-bottom = false
-wm-restack = bspwm
-width = 100%
-;${env:WIDTH:98%}
-height = 32
-;offset-x = ${env:XOFF:1%} 
-;offset-y = ${env:YOFF:1%} 
+[common/bar]
+override-redirect = false
 
-locale = en_US.UTF-8
+width = ${env:PM_BAR_WIDTH:99%}
+height = ${env:PM_BAR_HEIGHT:3%}
+offset-x = 0.5%
+offset-y = 0.5%
+radius = 8
+fixed-center = true
 
-enable-ipc = true
-
-padding-left = 0
-padding-right = 0
-
-module-margin-right = 0
-module-margin-left = 0
-
-modules-right = cpu sep memory sep network sep volume sep battery sep date
-modules-center =  xwindow
-modules-left = bspwm
+; font-0 = "IBM Plex Sans:weight=Regular:size=12;4"
+font-0 = "SFMonoPowerline:weight=Regular:size=12;4"
+font-1 = "FontAwesome5Free:style=Solid:pixelsize=12.5;3"
+font-2 = "FontAwesome5Brands:style=Solid:pixelsize=12.5;3"
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 0
-underline-color = ${colors.white2}
+line-size = 4
+line-color = ${colors.linecolor}
 
-; tray-detached = false
-tray-position = right
-tray-offset-x = 0
-tray-offset-y = 0
-;tray-maxsize = 16
-tray-padding = 0
-tray-transparent = false
-tray-scale = 1.0
+border-size = 0
 
-font-0 = "FiraCode Nerd Font Mono:size=12;2"
-font-1 = "NotoEmoji:style=Bold:size=14;2"
+padding-left = 3
+padding-right = 3
 
+module-margin-left  = 0
+module-margin-right = 0
 
-[module/mpd]
-type = internal/mpd
-host = 127.0.0.1
-port = 6600
-format-online =<icon-prev><label-song><icon-next>
-format-online-underline = ${colors.white1}
-format-online-padding = 1
+modules-left = weather 
+modules-center = news
+modules-right = now-playing clock
 
-#label-song-font = 4
-label-song = %{A1:mpc toggle:}%artist% - %title%%{A}
-icon-play = 
-icon-pause = 
-icon-prev = 
-icon-next = 
+wm-restack = bspwm
 
-icon-prev-foreground = ${colors.white1} 
-icon-next-foreground = ${colors.white1}
+locale = en_US.UTF-8
 
-icon-play-padding = 1
-icon-pause-padding = 1
-icon-prev-padding = 1
-icon-next-padding = 1
-label-song-padding = 1
+click-left =
+click-middle =
+click-right =
+scroll-up =
+scroll-down =
+double-click-left =
+double-click-middle =
+double-click-right =
 
-[module/bspwm]
+[common/bar-secondary]
+inherit = common/bar
+
+bottom = true
+
+modules-left = bspwm-secondary gap-small title
+modules-center =
+modules-right =
+
+[common/bspwm]
 type = internal/bspwm
+
+pin-workspaces = true
+inline-mode = false
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+fuzzy-match = true
+
 format = <label-state> <label-mode>
 
-label-focused = 
-label-focused-font = 2
-label-focused-background = ${colors.black2}
-label-focused-foreground = ${colors.green2}
-;label-focused-underline= ${colors.primary}
-; label-focused-underline= ${colors.white}
+label-dimmed-foreground = ${colors.foreground-alt}
+
+label-dimmed-occupied = %icon%
+label-dimmed-occupied-foreground = ${colors.foreground-alt}
+label-dimmed-occupied-padding = 1
+
+label-dimmed-empty = %icon%
+label-dimmed-empty-foreground = ${colors.background-alt}
+label-dimmed-empty-padding = 1
+
+label-focused = %icon%
+label-focused-foreground = ${colors.accent}
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.accent}
 label-focused-padding = 1
 
-label-occupied = 
-label-occupied-foreground = ${colors.blue2}
+label-occupied = %icon%
+label-occupied-foreground = ${colors.foreground}
 label-occupied-padding = 1
-label-occupied-font= 2
 
-label-urgent = 
-label-urgent-background = ${colors.accent}
+label-urgent = %icon%
+label-urgent-foreground = ${colors.orange2}
+label-urgent-background = ${colors.black0}
 label-urgent-padding = 1
-label-urgent-font= 2
 
-label-empty = 
-label-empty-foreground = ${colors.white1}
+label-empty = %icon%
+label-empty-foreground = ${colors.blue1}
 label-empty-padding = 1
-label-empty-font= 2
 
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-default = 
+label-monocle = 
+label-monocle-foreground = ${colors.yellow1}
+label-tiled = 
+label-tiled-foreground = ${colors.yellow1}
+label-fullscreen = 
+label-fullscreen-foreground = ${colors.cyan2}
+label-floating = 
+label-floating-foreground = ${colors.cyan2}
+label-pseudotiled = P
+label-pseudotiled-foreground = ${colors.cyan2}
+label-locked = " "
+label-locked-foreground = ${colors.red1}
+label-sticky = " "
+label-sticky-foreground = ${colors.cyan1}
+label-private = " "
+label-private-foreground = ${colors.black2}
 
+[module/bspwm-secondary]
+inherit = common/bspwm
 
-[module/date]
-type = internal/date
-#date-alt =   %A %H:%M 
-date = %{F#928374}%{F-} %H:%M
-interval = 5
-format-underline = ${colors.white1}
-;format-background = ${colors.black}
-format-foreground = ${colors.foreground}
-format-padding = 2
+ws-icon-0 = terminal;
+ws-icon-1 = code;
+ws-icon-default = 
 
-label-separator = |
-
-[module/volume]
-type = internal/volume
-
-format-volume = <label-volume> 
-format-volume-padding = 2
-
-format-volume-underline = ${colors.white1}
-
-label-volume = %{F#928374} %{F-}%percentage:3%%
-#label-volume-foreground = ${color.white}
-
-label-muted =%{F#928374} %{F-}mute
-format-muted = <label-muted>
-format-muted-underline = ${colors.white1}
-format-muted-padding = 2
-#label-muted-foreground = ${colors.gray}
-
-format-padding = 2
-
-[module/keyboard]
-type = internal/xkeyboard
-
-; Available tags:
-;   <label-layout> (default)
-;   <label-indicator> (default)
-format = %{A1:~/.bin/toggkbl:}%{F#928374} %{F-}<label-layout> <label-indicator>%{A}
-format-spacing = 0
-format-underline = ${colors.white1}
-
-; Available tokens:
-;   %layout%
-;   %name%
-;   %number%
-; Default: %layout%
-label-layout = %layout%
-format-padding = 2
-
-; Available tokens:
-;   %name%
-; Default: %name%
-label-indicator = %name%
-label-indicator-padding = 0
-
-[module/network]
-type = internal/network
-interface = ${env:WLAN_IFACE:wlan0}
-
-; Seconds to sleep between updates
-; Default: 1
-interval = 3.0
-
-; Test connectivity every Nth update
-; A value of 0 disables the feature
-; NOTE: Experimental (needs more testing)
-; Default: 0
-;ping-interval = 3
-
-; @deprecated: Define min width using token specifiers (%downspeed:min% and %upspeed:min%)
-; Minimum output width of upload/download rate
-; Default: 3
-
-; Accumulate values from all interfaces
-; when querying for up/downspeed rate
-; Default: false
-accumulate-stats = true
-
-format-connected-padding = 2
-format-disconnected-padding = 2
-format-connected-underline = ${colors.white1}
-format-disconnected-underline = ${colors.white1}
-
-; Available tags:
-;   <label-connected> (default)
-;   <ramp-signal>
-format-connected = %{F#928374} %{F-}<label-connected> 
-
-; Available tags:
-;   <label-disconnected> (default)
-format-disconnected = <label-disconnected>
-
-; Available tags:
-;   <label-connected> (default)
-;   <label-packetloss>
-;   <animation-packetloss>
-format-packetloss = <animation-packetloss> <label-connected>
-
-; Available tokens:
-;   %ifname%    [wireless+wired]
-;   %local_ip%  [wireless+wired]
-;   %essid%     [wireless]
-;   %signal%    [wireless]
-;   %upspeed%   [wireless+wired]
-;   %downspeed% [wireless+wired]
-;   %linkspeed% [wired]
-; Default: %ifname% %local_ip%
-label-connected = %signal:3%%
-
-; Available tokens:
-;   %ifname%    [wireless+wired]
-; Default: (none)
-label-disconnected = %{F#928374} %{F-}none
-
-; Available tokens:
-;   %ifname%    [wireless+wired]
-;   %local_ip%  [wireless+wired]
-;   %essid%     [wireless]
-;   %signal%    [wireless]
-;   %linkspeed% [wired]
-; Default: (none)
-;label-packetloss = %essid%
-;label-packetloss-foreground = #eefafafa
-
-; Only applies if <animation-packetloss> is used
-animation-packetloss-0 = ⚠
-animation-packetloss-1 = 📶
-; Framerate in milliseconds
-animation-packetloss-framerate = 500
-
-[module/sep]
-type = custom/text
-content = |
-content-foreground = #4e4e4e
-
-[module/xwindow]
+[module/title]
 type = internal/xwindow
-label = %title:0:20:...%
+format-padding = 0
+format-foreground = ${colors.blue2}
+label = %title:0:30:...%
 
-; [module/cpu]
-; type = internal/cpu
-; interval = 2
-; format-prefix = ""
-; format-prefix-foreground = ${colors.white1}
-; format-underline = ${xrdb:color13:#f90000}
-; label =  %percentage:2%%
-;
+[module/gap-small]
+type = custom/text
+content = "  "
 
-[module/cpu]
+[module/gap]
+type = custom/text
+content = "     "
+
+[common/pulseaudio]
+type = internal/pulseaudio
+
+use-ui-max = false
+label-volume = %percentage%%
+interval = 5
+label-volume-foreground = ${colors.green2}
+format-volume = <ramp-volume> <label-volume>
+label-muted = 
+label-muted-foreground = ${colors.black2}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+click-right = pavucontrol
+click-left = amixer set Master toggle
+
+;--------------------------------------------------------------------;
+; Top panel
+;--------------------------------------------------------------------;
+
+[bar/top]
+inherit = common/bar
+
+padding-left = 3
+
+monitor = ${env:PM_NAME:eDP1}
+dpi = ${env:PM_DPI:110}
+
+modules-left = weather
+modules-center = news
+modules-right = now-playing gap clock
+
+font-3 = "Weather Icons:size=12;5"
+
+[module/apps]
+type = custom/text
+content = 
+content-foreground = ${colors.magenta2}
+content-background = ${colors.background}
+content-padding = 3
+click-left = rofi -show drun
+
+[module/news]
+type = custom/script
+label-foreground = ${colors.orange2}
+label =   %output:0:60%...
+exec = ~/.config/polybar/scripts/news
+double-click-left = firefox https://news.ycombinator.com/
+interval = 120
+
+[module/clock]
+type = custom/script
+label =   %output%
+exec = ~/.config/polybar/scripts/clock
+interval = 5
+click-left = ~/.config/polybar/scripts/calendar
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/scripts/weather -p '${colors.blue1}'
+interval = 1800
+double-click-left = ~/.config/polybar/scripts/weather -o
+label-font = 4
+
+[module/now-playing]
+type = custom/script
+label = %output:0:100%
+exec = python -u -W ignore ~/.config/polybar/scripts/now_playing -a '${colors.cyan1}' -i '${colors.blue1}'
+tail = true
+click-left = playerctl play-pause
+click-middle = playerctl next
+click-right = playerctl previous
+
+;--------------------------------------------------------------------;
+; Bottom panel
+;--------------------------------------------------------------------;
+
+[bar/bottom]
+inherit = common/bar
+
+tray-position = right
+tray-detatched = true
+tray-padding = 3
+tray-maxsize = 22
+fixed-center = true
+enable-ipc = true
+monitor = ${env:PM_NAME:eDP1}
+; dpi = ${env:PM_DPI:110}
+
+bottom = true
+padding-left = 3
+
+font-3 = "Material Icons:pixelsize=17;7"
+font-4 = "icomoon:style=Regular:pixelsize=20;2"
+font-5 = "Spy Agency:pixelsize=12;4"
+font-6 = "Spy Agency Laser:pixelsize=12;4"
+font-7 = "Geforce:style=Bold:pixelsize=12;5"
+
+modules-left = gap-small bspwm gap-small uptime 
+modules-center = title
+modules-right = cpu-usage gap-small memory gap-small network gap-small pulseaudio gap-small redshift gap-small updates gap battery gap-small
+
+[module/bspwm]
+inherit = common/bspwm
+
+ws-icon-0 = terminal;
+ws-icon-1 = code;
+ws-icon-2 = tor;
+ws-icon-3 = web;
+ws-icon-4 = music;
+ws-icon-5 = chat;
+ws-icon-6 = misc;
+ws-icon-default = 
+
+[module/uptime]
+type = custom/script
+exec = uptime -p | tr -d '[:alpha:] ' | tr ',' ':'
+interval = 60
+label =   %output%
+
+[module/cpu-brand]
+type = custom/text
+content = %{T6}RYZ%{T-}%{T7}E%{T-}%{T6}N%{T-}
+
+[module/cpu-usage]
 type = internal/cpu
-interval = 2
+interval = 5
+format-prefix = " "
 label = %percentage%%
-format-prefix = "﬙ "
-format-prefix-foreground = #666
+
 
 [module/memory]
 type = internal/memory
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.white1}
-format-underline = ${xrdb:color13:#4bffdc}
-label = %percentage_used:2%%
+interval = 5
+format-prefix = " "
+label = %percentage_used%%
+
+[module/filesystem]
+type = internal/fs
+interval = 30
+mount-0 = /
+
+format-mounted-prefix = %{A1:baobab:}  %{A}
+label-mounted = %{A1:baobab:}%percentage_used%%%{A}
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.red2}
+
+[module/network]
+type = internal/network
+interface = wlp107s0
+
+interval = 5
+ping-interval = 0
+accumulate-stats = false
+
+format-connected = <ramp-signal><label-connected>
+format-disconnected = <label-disconnected>
+format-packetloss = <label-connected>
+label-connected-foreground = ${colors.magenta2}
+label-connected = %essid%
+label-signal = %signal%
+label-disconnected =  Disconnected
+label-disconnected-foreground = ${colors.magenta1}
+
+ramp-signal-0 = %{T5}%{T-}
+ramp-signal-1 = %{T5}%{T-}
+ramp-signal-2 = %{T5}%{T-}
+ramp-signal-3 = %{T5}%{T-}
+ramp-signal-4 = %{T5}%{T-}
+
+[module/usb-audio]
+inherit = common/pulseaudio
+sink = alsa_output.usb-Focusrite_Scarlett_2i2_USB-00.analog-stereo
+
+[module/redshift]
+type = custom/script
+exec = ~/.config/polybar/scripts/rsctl -p '#626483' '#8be9fd' '#f1fa8c' '#ff5555'
+interval = 5
+click-left = ~/.config/polybar/scripts/rsctl -t
+
+[module/updates]
+type = custom/script
+label =  %output%
+exec = ~/.config/polybar/scripts/updates -p
+interval = 600
+click-left = ~/.config/polybar/scripts/updates -g
+
 
 [module/battery]
 type = internal/battery
+
+full-at = 99
 battery = BAT1
-adapter = AC
-full-at = 98
+adapter = ACAD
+poll-interval = 2
+time-format = %H:%M
 
 format-charging = <animation-charging> <label-charging>
-; format-charging-underline = ${xrdb:color6:#ffb52a}
+format-charging-padding = 1
+format-charging-foreground = ${color.magenta1}
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
 
-format-discharging = <animation-discharging> <label-discharging>
-; format-discharging-underline = ${xrdb:color9:#ff9800}
-
-format-full =  <label-full> 
-; format-full =  <label-full>
-format-full-prefix-foreground = ${colors.white1}
-; format-full-underline = ${xrdb:color2:#719611}
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-padding = 1
+format-discharging-foreground = ${color.magenta2}
+ramp-capacity-0 = 
+ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-ramp-capacity-foreground = ${colors.foreground}
+label-full =  100% 
+label-full-foreground = ${color.green2}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-5 = 
-animation-charging-6 = 
-animation-charging-foreground = ${colors.foreground}
-animation-charging-framerate = 750
+[module/power-menu]
+type = custom/text
+content-foreground = ${colors.red2}
+content = 
+click-right = mygtkmenu ~/.config/mygtkmenu/power-menu
 
-animation-discharging-10 = 
-animation-discharging-9 = 
-animation-discharging-8 = 
-animation-discharging-7 = 
-animation-discharging-6 = 
-animation-discharging-5 = 
-animation-discharging-4 = 
-animation-discharging-3 = 
-animation-discharging-2 = 
-animation-discharging-1 = 
-animation-discharging-0 = 
-animation-discharging-foreground = ${colors.foreground}
-animation-discharging-framerate = 750
+;--------------------------------------------------------------------;
+; Tray
+;--------------------------------------------------------------------;
 
+[bar/tray]
+monitor = ${env:PM_NAME:eDP1}
+dpi = ${env:PM_DPI:110}
+bottom = true
+background = ${colors.background}
 
+width = 1%
+height = ${env:PM_BAR_HEIGHT:3%}
+offset-x = 98.5%
+offset-y = 0.5%
 
-; vim:ft=dosini
+modules-left = gap
+modules-center =
+modules-right =
+
+tray-position = right
+tray-detatched = true
+tray-padding = 3
+tray-maxsize = 22
+
+;--------------------------------------------------------------------;
+; Left panel
+;--------------------------------------------------------------------;
+
+[bar/left]
+inherit = common/bar-secondary
+
+monitor = ${env:LM_NAME:eDP1}
+dpi = ${env:LM_DPI:110}
+
+height = ${env:LM_BAR_HEIGHT:2.75%}
+
+;--------------------------------------------------------------------;
+; Right panel
+;--------------------------------------------------------------------;
+
+[bar/right]
+inherit = common/bar-secondary
+
+monitor = ${env:RM_NAME:eDP1}
+dpi = ${env:RM_DPI:110}
+
+height = ${env:RM_BAR_HEIGHT:2.75%}
+
+;--------------------------------------------------------------------;
+; General
+;--------------------------------------------------------------------;
+
+[settings]
+
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
+;vim:ft=dosini
