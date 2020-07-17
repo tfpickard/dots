@@ -44,7 +44,16 @@ fixed-center = true
 ; font-0 = "IBM Plex Sans:weight=Regular:size=12;4"
 font-0 = "SFMonoPowerline:weight=Regular:size=12;4"
 font-1 = "FontAwesome5Free:style=Solid:pixelsize=12.5;3"
-font-2 = "FontAwesome5Brands:style=Solid:pixelsize=12.5;3"
+font-2 = "FontAwesome5Brands:style=Solid:pixelsize=12;3"
+font-3 = "Weather Icons:size=16;3"
+; font-3 = "Cascadia Code iCursive Cg:pixelsize=12"
+; font-3 = "Material Icons:pixelsize=17;7"
+font-4 = "icomoon:style=Regular:pixelsize=20;2"
+font-5 = "Spy Agency:pixelsize=12;4"
+font-6 = "Spy Agency Laser:pixelsize=12;4"
+font-7 = "Geforce:style=Bold:pixelsize=12;5"
+font-8 = "Cascadia Code iCursive Cg:pixelsize=24;6"
+
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -62,7 +71,7 @@ module-margin-right = 0
 
 modules-left = weather 
 modules-center = news
-modules-right = now-playing clock
+modules-right = spotify clock
 
 wm-restack = bspwm
 
@@ -197,9 +206,8 @@ dpi = ${env:PM_DPI:110}
 
 modules-left = weather
 modules-center = news
-modules-right = now-playing gap clock
+modules-right = spotify gap clock
 
-font-3 = "Weather Icons:size=12;5"
 
 [module/apps]
 type = custom/text
@@ -225,11 +233,23 @@ interval = 5
 click-left = ~/.config/polybar/scripts/calendar
 
 [module/weather]
+; label-font = 4
 type = custom/script
-exec = ~/.config/polybar/scripts/weather -p '${colors.blue1}'
-interval = 1800
-double-click-left = ~/.config/polybar/scripts/weather -o
-label-font = 4
+; exec = /usr/bin/wedder -k $(cat ~/.weather | grep KEY | cut -d\' -f2)
+label = %output%
+; exec = ~/.config/polybar/scripts/weather -p '${colors.blue1}'
+exec = ~/bin/weather
+interval = 300
+; double-click-left = ~/.config/polybar/scripts/weather -o
+;
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = " "
+format = <label>
+exec = python ~/.config/polybar/scripts/spotify -f '{artist}: {song}'
+label = %output:0:30%
 
 [module/now-playing]
 type = custom/script
@@ -258,12 +278,6 @@ monitor = ${env:PM_NAME:eDP1}
 
 bottom = true
 padding-left = 3
-
-font-3 = "Material Icons:pixelsize=17;7"
-font-4 = "icomoon:style=Regular:pixelsize=20;2"
-font-5 = "Spy Agency:pixelsize=12;4"
-font-6 = "Spy Agency Laser:pixelsize=12;4"
-font-7 = "Geforce:style=Bold:pixelsize=12;5"
 
 modules-left = gap-small bspwm gap-small uptime 
 modules-center = title
@@ -366,7 +380,7 @@ time-format = %H:%M
 
 format-charging = <animation-charging> <label-charging>
 format-charging-padding = 1
-format-charging-foreground = ${color.magenta1}
+format-charging-foreground = ${colors.magenta1}
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
@@ -374,7 +388,7 @@ animation-charging-3 = 
 
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-padding = 1
-format-discharging-foreground = ${color.magenta2}
+format-discharging-foreground = ${colors.magenta2}
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
@@ -382,7 +396,7 @@ ramp-capacity-3 = 
 ramp-capacity-4 = 
 
 label-full =  100% 
-label-full-foreground = ${color.green2}
+label-full-foreground = ${colors.green2}
 
 [module/power-menu]
 type = custom/text
@@ -454,4 +468,4 @@ screenchange-reload = true
 margin-top = 0
 margin-bottom = 0
 
-;vim:ft=dosini
+;  vim: set ft=dosini ts=4 sw=4 tw=79 et :

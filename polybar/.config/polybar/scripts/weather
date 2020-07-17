@@ -1,5 +1,18 @@
 #!/bin/bash
 . ~/.weather
+if which wedder >/dev/null; then
+    touch /tmp/wedder.log
+    echo $(date) >> /tmp/wedder.log
+    fmt="<icon> <temperature>°F in <city>"
+    wedder --weather-api-key $OPW_KEY \
+        --interval -1 \
+        --location-provider Ip \
+        --temperature-unit Fahrenheit \
+        --wind-speed-unit Mph \
+        --format "$fmt" \
+        | tee -a /tmp/wedder.log
+    echo >> /tmp/wedder.log
+else
 get_icon() {
 	case $1 in
 		01d) icon="";;
@@ -81,3 +94,5 @@ case $1 in
 	echo "Invalid parameter." && exit 1
 	;;
 esac
+fi
+exit 0

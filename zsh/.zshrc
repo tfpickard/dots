@@ -17,21 +17,12 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
 fi
 
 
-# - - - - - - - - - - - - - - - - - - - -
-# Homebrew Configuration
-# - - - - - - - - - - - - - - - - - - - -
-
 # If You Come From Bash You Might Have To Change Your $PATH.
 #   export PATH=:/usr/local/bin:/usr/local/sbin:$HOME/bin:$PATH
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 # Homebrew Requires This.
 export PATH="/usr/local/sbin:$PATH"
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Zsh Core Configuration
-# - - - - - - - - - - - - - - - - - - - -
 
 # Install Functions.
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -103,28 +94,35 @@ setopt auto_param_slash         # If Completed Parameter Is A Directory, Add A T
 
 setopt menu_complete            # Do Not Autoselect The First Completion Entry.
 unsetopt flow_control           # Disable Start/Stop Characters In Shell Editor.
-#
-# # Zstyle.
-# zstyle ':completion:*:*:*:*:*' menu select
-# zstyle ':completion:*:matches' group 'yes'
-# zstyle ':completion:*:options' description 'yes'
-# zstyle ':completion:*:options' auto-description '%d'
-# zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
-# zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
-# zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
-# zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
-# zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-# zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
-# zstyle ':completion:*' group-name ''
-# zstyle ':completion:*' verbose yes
-# zstyle ':completion::complete:*' use-cache on
-# zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
-# zstyle ':completion:*' list-colors $LS_COLORS
-# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-# zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
-# zstyle ':completion:*' rehash true
-#
+
+# Zstyle.
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+zstyle ':completion:*:corrections' format ' %F{green}-- %d (errors: %e) --%f'
+zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
+zstyle ':completion:*' list-colors $LS_COLORS
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
+zstyle ':completion:*' rehash true
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+
+
 # History.
 HISTFILE="${ZDOTDIR:-$HOME}/.zhistory"
 HISTSIZE=100000
@@ -168,110 +166,54 @@ autoload -Uz _zinit
 # Theme
 # - - - - - - - - - - - - - - - - - - - -
 
-# Most Themes Use This Option.
 setopt promptsubst
-
-# These plugins provide many aliases - atload''
-zinit wait lucid for \
-        OMZ::lib/git.zsh \
-    atload"unalias grv" \
-        OMZ::plugins/git/git.plugin.zsh
-
-# Provide A Simple Prompt Till The Theme Loads
-PS1="READY >"
-
-# - - - - - - - - - - - - - - - - - - - -
-# Annexes
-# - - - - - - - - - - - - - - - - - - - -
-
-# Load a few important annexes, without Turbo (this is currently required for annexes)
-zinit light-mode compile"handler" for \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-bin-gem-node \
-    zinit-zsh/z-a-submods \
-    zdharma/declare-zsh
-
-
-# - - - - - - - - - - - - - - - - - - - -
-# Plugins
-# - - - - - - - - - - - - - - - - - - - -
-
-      # OMZ::plugins/pyenv/pyenv.plugin.zsh \
-zinit wait lucid light-mode for \
-      OMZ::lib/compfix.zsh \
-      OMZ::lib/completion.zsh \
-      OMZ::lib/functions.zsh \
-      OMZ::lib/diagnostics.zsh \
-      OMZ::lib/git.zsh \
-      OMZ::lib/grep.zsh \
-      OMZ::lib/key-bindings.zsh \
-      OMZ::lib/misc.zsh \
-      OMZ::lib/spectrum.zsh \
-      OMZ::lib/termsupport.zsh \
-      OMZ::plugins/git-auto-fetch/git-auto-fetch.plugin.zsh \
-      OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh \
-      OMZ::plugins/docker/_docker \
-      OMZ::plugins/composer/composer.plugin.zsh \
-        djui/alias-tips \
-      OMZ::plugins/thefuck/thefuck.plugin.zsh \
-      OMZ::plugins/nmap/nmap.plugin.zsh \
-      OMZ::plugins/sudo/sudo.plugin.zsh \
-      OMZ::plugins/systemd/systemd.plugin.zsh \
-      OMZ::plugins/command-not-found/command-not-found.plugin.zsh \
-  atload"_zsh_autosuggest_start" \
-      zsh-users/zsh-autosuggestions \
-  as"completion" \
-      zdharma/fast-syntax-highlighting 
-
-zinit wait lucid atload"zicompinit; zicdreplay" blockf for \
-    zsh-users/zsh-completions
-
-      #
-      # OMZ::plugins/vi-mode/vi-mode.plugin.zsh \
-# Recommended Be Loaded Last.
-# zinit ice wait blockf lucid atpull'zinit creinstall -q .'
-# zinit load zsh-users/zsh-completions
-
-
-# pyenv
-zinit ice has'pyenv' id-as'pyenv' atpull'%atclone' \
-    atclone"pyenv init - --no-rehash > pyenv.plugin.zsh"
-# zinit load zdharma/null
-
-# Semi-graphical .zshrc editor for zinit commands
-zinit load zdharma/zui
-# zinit ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]'
-# zinit load zdharma/zplugin-crasis
-
-# - - - - - - - - - - - - - - - - - - - -
-# User Configuration
-# - - - - - - - - - - - - - - - - - - - -
-
-setopt no_beep
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# Load Custom Executable Functions
-# [[ -f "$ZSH/config/functions.zsh" ]] && source "$ZSH/config/functions.zsh"
-
-# Local Config
-# [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+PURE_PROMPT_SYMBOL=❯❯❯
+PURE_PROMPT_VICMD_SYMBOL=❮❮❮
+zstyle :prompt:pure:path color white
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit load sindresorhus/pure
+bindkey -v
+# Most Themes Use This Option.
 
 
 
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+zinit ice from"gh-r" as"program" mv"docker* -> docker-compose" bpick"*linux*"
+zinit load docker/compose
+zinit ice as"program" atclone"rm -f src/auto/config.cache; ./configure" \
+    atpull"%atclone" make pick"src/vim"
+zinit light vim/vim
+zinit ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
+zinit light tj/git-extras
+zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
+zinit light trapd00r/LS_COLORS
+zinit ice as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' src"zhook.zsh"
+zinit light direnv/direnv
+zinit ice wait"0b" lucid atload"zsh-startify"
+zinit load zdharma/zsh-startify
+zinit ice wait lucid
+zinit load hlissner/zsh-autopair
+zinit ice wait lucid
+zinit load hlissner/zsh-autopair
 
-foreach piece (
-    exports.zsh
-    node.zsh
-    aliases.zsh
-    functions.zsh
-) {
-    [[ -d $ZSH/config/$piece ]] && . $ZSH/config/$piece
-}
+zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)cra*]} ]]' lucid
+zinit load zdharma/zinit-crasis
+zinit ice wait"2" lucid
+zinit load voronkovich/gitignore.plugin.zsh
 
+zinit snippet OMZL::git.zsh
 
-# - - - - - - - - - - - - - - - - - - - -
-# cdr, persistent cd
+# C.
+zinit ice atload"unalias grv"
+zinit snippet OMZP::git
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::docker/_docker
+zinit load zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-autosuggestions
+zinit load zdharma/history-search-multi-word
+zinit ice atinit"zicompinit; zicdreplay"
+zinit light zdharma/fast-syntax-highlighting
 # - - - - - - - - - - - - - - - - - - - -
 
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
@@ -303,17 +245,6 @@ setopt pushd_minus              # This Reverts The +/- Operators.
 
 
 # - - - - - - - - - - - - - - - - - - - -
-# Theme / Prompt Customization
-# - - - - - - - - - - - - - - - - - - - -
-
-PURE_PROMPT_SYMBOL=❯❯❯
-PURE_PROMPT_VICMD_SYMBOL=❮❮❮
-zstyle :prompt:pure:path color white
-zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
-zinit light sindresorhus/pure
-bindkey -v
-
-# - - - - - - - - - - - - - - - - - - - -
 # End Profiling Script
 # - - - - - - - - - - - - - - - - - - - -
 
@@ -342,7 +273,7 @@ eval "$(fasd --init auto)"
 autoload -Uz compinit
 compinit
 zinit cdreplay -q   
-zinit cdlist
+# zinit cdlist
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
