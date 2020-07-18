@@ -45,9 +45,9 @@ fixed-center = true
 font-0 = "SFMonoPowerline:weight=Regular:size=12;4"
 font-1 = "FontAwesome5Free:style=Solid:pixelsize=12.5;3"
 font-2 = "FontAwesome5Brands:style=Solid:pixelsize=12;3"
-font-3 = "Weather Icons:size=16;3"
-; font-3 = "Cascadia Code iCursive Cg:pixelsize=12"
-; font-3 = "Material Icons:pixelsize=17;7"
+; font-3 = "Weather Icons:size=16;3"
+; font-3 = "Cascadia Code iCursive Cg:pixelsize=12;3"
+font-3 = "Material Icons:pixelsize=17;7"
 font-4 = "icomoon:style=Regular:pixelsize=20;2"
 font-5 = "Spy Agency:pixelsize=12;4"
 font-6 = "Spy Agency Laser:pixelsize=12;4"
@@ -219,7 +219,8 @@ click-left = rofi -show drun
 
 [module/news]
 type = custom/script
-label-foreground = ${colors.orange2}
+label-font = 1
+label-foreground = ${colors.foreground}
 label =   %output:0:60%...
 exec = ~/.config/polybar/scripts/news
 double-click-left = firefox https://news.ycombinator.com/
@@ -227,16 +228,17 @@ interval = 120
 
 [module/clock]
 type = custom/script
+label-font = 4
 label =   %output%
 exec = ~/.config/polybar/scripts/clock
 interval = 5
 click-left = ~/.config/polybar/scripts/calendar
 
 [module/weather]
-; label-font = 4
 type = custom/script
 ; exec = /usr/bin/wedder -k $(cat ~/.weather | grep KEY | cut -d\' -f2)
-label = %output%
+label = %output:1:40%
+label-font = 9 
 ; exec = ~/.config/polybar/scripts/weather -p '${colors.blue1}'
 exec = ~/bin/weather
 interval = 300
@@ -246,7 +248,8 @@ interval = 300
 [module/spotify]
 type = custom/script
 interval = 1
-format-prefix = " "
+label-font = 1
+format-prefix = " "
 format = <label>
 exec = python ~/.config/polybar/scripts/spotify -f '{artist}: {song}'
 label = %output:0:30%

@@ -90,9 +90,9 @@ setopt path_dirs                # Perform Path Search Even On Command Names With
 setopt auto_menu                # Show Completion Menu On A Successive Tab Press.
 setopt auto_list                # Automatically List Choices On Ambiguous Completion.
 setopt auto_param_slash         # If Completed Parameter Is A Directory, Add A Trailing Slash.
-# setopt no_complete_aliases
+setopt no_complete_aliases
 
-setopt menu_complete            # Do Not Autoselect The First Completion Entry.
+# setopt menu_complete            # Do Not Autoselect The First Completion Entry.
 unsetopt flow_control           # Disable Start/Stop Characters In Shell Editor.
 
 # Zstyle.
@@ -194,8 +194,6 @@ zinit ice wait"0b" lucid atload"zsh-startify"
 zinit load zdharma/zsh-startify
 zinit ice wait lucid
 zinit load hlissner/zsh-autopair
-zinit ice wait lucid
-zinit load hlissner/zsh-autopair
 
 zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)cra*]} ]]' lucid
 zinit load zdharma/zinit-crasis
@@ -207,8 +205,13 @@ zinit snippet OMZL::git.zsh
 # C.
 zinit ice atload"unalias grv"
 zinit snippet OMZP::git
+zinit snippet OMZP::git-autofetch
+zinit snippet OMZP::git-extras
+zinit snippet OMZP::gitfast
+zinit snippet OMZP::github
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::docker/_docker
+# zinit light Aloxaf/fzf-tab
 zinit load zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-autosuggestions
 zinit load zdharma/history-search-multi-word
@@ -270,6 +273,25 @@ done
 
 eval "$(fasd --init auto)"
 
+#
+# zstyle ':completion:complete:*:options' sort false
+# zstyle ':fzf-tab:complete:_zlua:*' query-string input
+# zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
+# zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+# zstyle ':fzf-tab:complete:cd:*' extra-opts --preview=$extract'exa -1 --color=always $realpath'
+# FZF_TAB_COMMAND=(
+#     fzf
+#     --ansi   # Enable ANSI color support, necessary for showing groups
+#     --expect='$continuous_trigger' # For continuous completion
+#     '--color=hl:$(( $#headers == 0 ? 108 : 255 ))'
+#     --nth=2,3 --delimiter='\x00'  # Don't search prefix
+#     --layout=reverse --height='${FZF_TMUX_HEIGHT:=75%}'
+#     --tiebreak=begin -m --bind=tab:down,btab:up,change:top,ctrl-space:toggle --cycle
+#     '--query=$query'   # $query will be expanded to query string at runtime.
+#     '--header-lines=$#headers' # $#headers will be expanded to lines of headers at runtime
+# )
+# zstyle ':fzf-tab:*' command $FZF_TAB_COMMAND
+#
 autoload -Uz compinit
 compinit
 zinit cdreplay -q   
