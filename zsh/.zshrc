@@ -203,11 +203,12 @@ zinit load voronkovich/gitignore.plugin.zsh
 zinit snippet OMZL::git.zsh
 
 # C.
+zinit snippet OMZP::alias-finder
 zinit ice atload"unalias grv"
 zinit snippet OMZP::git
-zinit snippet OMZP::git-autofetch
+zinit snippet OMZP::git-auto-fetch
 zinit snippet OMZP::git-extras
-zinit snippet OMZP::gitfast
+zinit snippet OMZP::gitfast/_git
 zinit snippet OMZP::github
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::docker/_docker

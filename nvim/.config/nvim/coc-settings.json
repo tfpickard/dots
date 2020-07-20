@@ -3,7 +3,6 @@
     "coc.preferences.snippets.enable": true,
     "coc.preferences.useQuickfixForLocations": true,
     "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-    "coc.source.ultisnips.priority": 9999,
     "diagnostic.virtualText": true,
     "diagnostic.virtualTextPrefix": " # ",
     "diagnostic.refreshOnInsertMode": false,
@@ -13,10 +12,8 @@
     "diagnostic.enableSign": false,
 
     "list.source.files.excludePatterns": ["**/.git/**", "**/.ccls-cache/**"],
-    "yaml.linting.enabled": true,
     "coc.preferences.colorSupport": true,
     "highlight.colors.enable": true,
-    "python.setInterpreter": "python3",
     "python.linting.enabled": true,
     "python.jediEnabled": true,
     "python.jediShortcut": "LS",
@@ -25,9 +22,6 @@
     "python.linting.mypyEnabled": true,
     "python.linting.pydocstyleEnabled": true,
     "python.formatting.provider": "autopep8",
-    "json.format.enable": true,
-    "json.enable": true,
-    "json.execArgv": ["--stdio"],
     "signature.target": "echo",
     "suggest.autoTrigger": "always",
     "suggest.triggerAfterInsertEnter": true,
@@ -52,7 +46,7 @@
         "sh": {
             "command": "bash-language-server", 
             "args": ["start"],
-            "filetypes": ["sh"],
+            "filetypes": ["sh"]
         },
         "yaml": {
             "command": "yaml-language-server",

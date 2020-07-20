@@ -1,6 +1,5 @@
 
-let g:maplocalleader = ','
-nnoremap <space> za
+ " nnoremap <space> za
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -8,6 +7,11 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <leader>% :source %<CR>
 nnoremap gev :e $MYVIMRC<CR>
 nnoremap gsv :so $MYVIMRC<CR>
+
+cnoremap WQ :SudoWrite %<CR>
+cnoremap +x :SudoChod +x<CR>
+cnoremap E  :SudoEdit
+nnoremap !  :SudoEdit %
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
@@ -53,9 +57,6 @@ nnoremap <silent> <leader>bf  :<C-u>CocList buffers<CR>
 
 
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Bslash>'<CR>
-vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Bslash>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 vnoremap < <gv
 vnoremap > >gv
 
@@ -86,9 +87,9 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to comfirm completion.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap jk <ESC>
 
-
-nmap <leader>/ :nohlsearch<CR>
+" nmap <leader>/ :nohlsearch<CR>
 " tagbar
 nmap <C-b> :TagbarToggle<CR>
 
@@ -157,7 +158,7 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 "set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 
-nmap <space>e :CocCommand explorer<CR>
+" nmap <space>e :CocCommand explorer<CR>
 
 
 " Define mappings
@@ -165,11 +166,20 @@ autocmd FileType python map <buffer> <leader>af :call Autoflake()<CR>
 
 
 " <leader>cs to force commenting of first line comment
-map  <leader>c <Plug>NERDCommenterToggle
-imap ,c        <C-o>:execute "normal \<Plug>NERDCommenterToggle"<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
             \ && b:NERDTree.isTabTree()) | q | endif
 
 map <leader>L :Prettier
+"
+" if has ('autocmd')
+"     augroup 'vimrc'
+"         echo 'heyyy! ' . @%
+"         autocmd BufWritePost keys.vim source $MYVIMRC | echom "Reloaded " . $MYVIMRC
+"                     \| call MyPlugs()
+"                     \| redraw
+"     augroup END
+" endif " has autocmd
+"
+"

@@ -2,8 +2,11 @@
 ": Plugins {{{
 " Install vim-plug if not installed
 
-set verbose=1
+set verbose=2
 set verbosefile=/tmp/nvim.log
+
+set termguicolors
+
 
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -11,154 +14,28 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall
 endif
 
-call plug#begin('~/.local/nvim/plugged')
-Plug 'vim-jp/vim-vimlparser'
-Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-eunuch'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-unimpaired'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'vim-scripts/DrawIt'
-Plug 'machakann/vim-highlightedyank'
-Plug 'Yggdroot/indentLine'
-Plug 'romainl/vim-cool'
 
-
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/gv.vim'
-Plug 'vim-scripts/Mouse-Toggle'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-Plug 'ktonga/vim-follow-my-lead'
-
-
-
-" completion/snippets/linters
-" Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'iamcco/coc-actions', {'do': 'yarn install'}
-Plug 'voldikss/coc-browser', {'do': 'yarn install --frozen-lockfile'}
-Plug 'weirongxu/coc-explorer', {'do': 'yarn install'}
-Plug 'neoclide/coc-git', {'do': 'yarn install'}
-Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install'}
-Plug 'fannheyward/coc-marketplace', {'do': 'yarn install'}
-Plug 'neoclide/coc-python', {'do': 'yarn install'}
-Plug 'fannheyward/coc-pyright', {'do': 'yarn install'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install'}
-Plug 'neoclide/coc-solargraph', {'do': 'yarn install'}
-Plug 'voldikss/coc-template', {'do': 'yarn install'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'iamcco/coc-vimlsp', {'do': 'yarn install'}
-
-Plug 'dense-analysis/ale'
-Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'tomtom/tlib_vim'
-Plug 'marcweber/vim-addon-mw-utils'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'shougo/neoyank.vim'
-Plug 'fisadev/vim-isort', {'for': 'python'}
-Plug 'tell-k/vim-autoflake', {'for': 'python'}
-Plug 'nvie/vim-flake8'
-Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
-
-" syntax
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'bfredl/nvim-ipy', {'for': 'python', 'do': ':UpdateRemotePlugins'}
-Plug 'vimjas/vim-python-pep8-indent'
-Plug 'fatih/vim-go', {'for': 'go'} ", 'do': ':GoUpdateBinaries'}
-Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
-Plug 'chrisbra/csv.vim'
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'sheerun/vim-polyglot'
-Plug 'vim-python/python-syntax'
-Plug 'xuhdev/syntax-dosini.vim'
-
-
-" sessions
-Plug 'vim-scripts/restore_view.vim'
-Plug 'gioele/vim-autoswap'
-
-
-" lint / fix / complete
-Plug 'google/yapf'
-
-" Git
-
-" Tmux
-Plug 'tmux-plugins/vim-tmux'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'edkolev/tmuxline.vim'
-Plug 'wellle/tmux-complete.vim'
-
-
-" python
-" Plug 'davidhalter/jedi-vim'
-" Plug 'jeetsukumaran/vim-pythonsense'
-Plug 'liuchengxu/vista.vim'
-Plug 'jiangmiao/auto-pairs'
-" Plug 'numirias/semshi'
-Plug 'plasticboy/vim-markdown'
-" Plug 'sbdchd/neoformat'
-Plug 'tomlion/vim-solidity'
-
-
-" utilities
-Plug 'preservim/nerdcommenter'
-Plug 'tomtom/tcomment_vim'
-Plug 'mhinz/vim-startify'
-Plug 'vimwiki/vimwiki'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'thaerkh/vim-workspace'
-Plug 'farmergreg/vim-lastplace'
-
-
-" zo： Open fold in current cursor postion
-" zO： Open fold and sub-fold in current cursor postion recursively
-" zc： Close the fold in current cursor position
-" zC： Close the fold and sub-fold in current cursor position recursively
-Plug 'mbbill/undotree'
-Plug 'fholgado/minibufexpl.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/sudo.vim'
-Plug 'roxma/nvim-yarp'
-Plug 'nailshard/eleline.vim'
-
-" appearance
-Plug 'sainnhe/gruvbox-material'
-Plug 'roman/golden-ratio'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'junegunn/rainbow_parentheses.vim'
-
-" Plug 'lilydjwg/colorizer', { 'on': 'ColorToggle' }
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'myusuf3/numbers.vim'
-Plug 'wavded/vim-stylus'
-Plug 'ryanoasis/vim-devicons'
-Plug 'chrisbra/unicode.vim'
-
-call plug#end()
-set termguicolors
-lua require'colorizer'.setup()
-
-set timeoutlen=250
+source $HOME/.config/nvim/plugs.vim
+" lua require'colorizer'.setup()
+lua << EOF
+require'colorizer'.setup(
+    {'*';},
+    { 
+        RGB      = true;         -- #RGB hex codes
+        RRGGBB   = true;         -- #RRGGBB hex codes
+        names    = true;         -- "Name" codes like Blue
+        RRGGBBAA = true;         -- #RRGGBBAA hex codes
+        rgb_fn   = true;         -- CSS rgb() and rgba() functions
+        hsl_fn   = true;         -- CSS hsl() and hsla() functions
+        css      = true;         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn   = true;         -- Enable all CSS *functions*: rgb_fn, hsl_fn
+    })
+EOF
 
 
 source $HOME/.config/nvim/keys.vim
+source $HOME/.config/nvim/vim-commentary.vim
+source $HOME/.config/nvim/which-key.vim
 
 "
 " ": directories {{{
@@ -185,7 +62,8 @@ set number
 set cursorline
 set cursorcolumn "guibg=#404040
 set relativenumber
-set cc=80
+hi! CursorLine ctermfg=blue
+set colorcolumn=80
 set splitbelow
 set splitright
 " set spelllang=en_us.utf-8
@@ -237,7 +115,8 @@ set shell=/usr/bin/bash
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
 " set completeopt=menu
-set mouse-=a
+" set mouse-=a
+set mouse=ivh
 set ignorecase
 set smartcase
 set infercase
@@ -264,9 +143,9 @@ colorscheme gruvbox-material
 
 autocmd VimEnter *
             \ call MyPlugs()
-" \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-" \|   PlugInstall --sync | q
-" \| endif
+\|  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+\|   PlugInstall --sync | q
+\| endif
 " BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
 
 function MyPlugs()
@@ -339,8 +218,6 @@ let g:ale_sign_warning = '⚠'
 " let g:ale_completion_enabled = 1
 let g:airline#extensions#ale#enabled = 0
 let g:airline#extensions#coc#enabled = 1
-" let airline#extensions#ale#error_symbol = 'e:'
-" let airline#extensions#ale#warning_symbol = 'w:'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_insert_leave = 1
 " let g:ale_echo_msg_error_str = 'e'
@@ -379,15 +256,6 @@ let g:ale_completion_symbols = {
 " vim-highlightedyank
 " hi HighlightedyankRegion cterm=reverse gui=reverse
 
-" nerdcommenter
-let g:NERDSpaceDelims            = 1  " space after comment delimiter
-let g:NERDCompactSexyComs        = 1  " prettify multi-line
-let g:NERDDefaultAlign           = 'left'
-let g:NERDCustomDelimiters       = { 'c' : { 'left' : '//', 'right' : '' } }
-let g:NERDCommentEmptyLines      = 1  " comment blank lines
-let g:NERDTrimTrailingWhitespace = 1  " trim trailing whitespace
-
-
 " nerdtree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -419,6 +287,7 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 set cmdheight=2
 set display+=lastline
 set updatetime=300
+set timeoutlen=500
 set shortmess+=c
 if has("patch-8.1.1564")
     " Recently vim can merge signcolumn and number column into one
@@ -523,6 +392,29 @@ let g:pymode_trim_whitespaces = 0
 let g:pymode_lint = 0
 let g:pymode_doc = 0
 
+  let g:coc_global_extensions = [
+    \ 'coc-snippets',
+    \ 'coc-actions',
+    \ 'coc-lists',
+    \ 'coc-emmet',
+    \ 'coc-pairs',
+    \ 'coc-tsserver',
+    \ 'coc-floaterm',
+    \ 'coc-html',
+    \ 'coc-css',
+    \ 'coc-emoji',
+    \ 'coc-cssmodules',
+    \ 'coc-yaml',
+    \ 'coc-python',
+    \ 'coc-explorer',
+    \ 'coc-svg',
+    \ 'coc-prettier',
+    \ 'coc-vimlsp',
+    \ 'coc-xml',
+    \ 'coc-yank',
+    \ 'coc-json',
+    \ 'coc-marketplace',
+    \ ]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -540,6 +432,7 @@ set cmdheight=2
 
 " Faster diagnostic messages (defaults 4000)
 set updatetime=200
+set clipboard=unnamedplus               " Copy paste between vim and everything else
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -748,4 +641,13 @@ let g:vimwiki_diary_months = {
             \ 7: 'July', 8: 'August', 9: 'September',
             \ 10: 'October', 11: 'November', 12: 'December'
             \}
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
 

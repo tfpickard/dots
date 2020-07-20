@@ -69,11 +69,11 @@ padding-right = 3
 module-margin-left  = 0
 module-margin-right = 0
 
-modules-left = weather 
+modules-left = weathericon weathertext
 modules-center = news
 modules-right = spotify clock
 
-wm-restack = bspwm
+; wm-restack = bspwm
 
 locale = en_US.UTF-8
 
@@ -204,7 +204,7 @@ padding-left = 3
 monitor = ${env:PM_NAME:eDP1}
 dpi = ${env:PM_DPI:110}
 
-modules-left = weather
+modules-left = weathericon weathertext
 modules-center = news
 modules-right = spotify gap clock
 
@@ -228,22 +228,30 @@ interval = 120
 
 [module/clock]
 type = custom/script
-label-font = 4
+label-font = 0
 label =   %output%
 exec = ~/.config/polybar/scripts/clock
 interval = 5
 click-left = ~/.config/polybar/scripts/calendar
 
-[module/weather]
+[module/weathericon]
 type = custom/script
-; exec = /usr/bin/wedder -k $(cat ~/.weather | grep KEY | cut -d\' -f2)
-label = %output:1:40%
+label = %output:1:4%
 label-font = 9 
-; exec = ~/.config/polybar/scripts/weather -p '${colors.blue1}'
+exec = ~/bin/weather -i
+interval = 300
+[module/weathertext]
+type = custom/script
+label = %output:0:40%
+label-font = 0 
 exec = ~/bin/weather
 interval = 300
-; double-click-left = ~/.config/polybar/scripts/weather -o
-;
+
+
+[module/crypto]
+type = custom/script
+interval = 300
+exec = ~/.config/polybar/crypto
 
 [module/spotify]
 type = custom/script
