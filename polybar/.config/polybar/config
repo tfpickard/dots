@@ -244,7 +244,7 @@ interval = 300
 type = custom/script
 label = %output:0:40%
 label-font = 0 
-exec = ~/bin/weather
+exec = ~/bin/weather -t
 interval = 300
 
 
