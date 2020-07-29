@@ -1,8 +1,8 @@
-function! Comment()
-  if (mode() == "n" )
-    execute "Commentary"
-  else    
-    execute "'<,'>Commentary"
-  endif
- endfunction
-vnoremap <silent> <leader>c :call Comment()
+" function! Comment()
+"   if (mode() == "n" )
+"     execute "Commentary"
+"   else
+"     execute "'<,'>Commentary"
+"   endif
+"  endfunction
+" vnoremap <silent> <leader>c :call Comment()

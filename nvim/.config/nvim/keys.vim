@@ -1,4 +1,4 @@
-
+nnoremap <leader>c call NERDCommenterToggle()
  " nnoremap <space> za
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>

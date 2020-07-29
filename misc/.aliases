@@ -11,6 +11,8 @@ alias yql="yay -Ql"
 alias yyoc="yay -S --noconfirm --overwrite \*"
 alias yyo="yay -S --overwrite \*"
 alias yyu="yay -Syyu --noconfirm --overwrite \*"
+alias yql="yay -Ql"
 
 alias gp='git add . && git commit -m "auto push" && git push'
 alias zrc='nvim ~/.zshrc'
+

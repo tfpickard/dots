@@ -35,7 +35,9 @@ EOF
 
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/vim-commentary.vim
+source $HOME/.config/nvim/nerd-commenter.vim
 source $HOME/.config/nvim/which-key.vim
+source $HOME/.config/nvim/codi.vim
 
 "
 " ": directories {{{
