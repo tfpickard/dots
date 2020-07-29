@@ -5,7 +5,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-eunuch'
 Plug 'jiangmiao/auto-pairs'
@@ -16,8 +15,7 @@ Plug 'vim-scripts/DrawIt'
 Plug 'machakann/vim-highlightedyank'
 Plug 'Yggdroot/indentLine'
 Plug 'romainl/vim-cool'
-
-
+Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -101,10 +99,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'plasticboy/vim-markdown'
 " Plug 'sbdchd/neoformat'
 Plug 'tomlion/vim-solidity'
+Plug 'metakirby5/codi.vim'
 
 
 " utilities
-Plug 'tomtom/tcomment_vim'
 Plug 'mhinz/vim-startify'
 Plug 'vimwiki/vimwiki'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
