@@ -32,13 +32,12 @@ require'colorizer'.setup(
     })
 EOF
 
-
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/vim-commentary.vim
 source $HOME/.config/nvim/nerd-commenter.vim
 source $HOME/.config/nvim/which-key.vim
 source $HOME/.config/nvim/codi.vim
-
+source $HOME/.config/nvim/indentline.vim
 "
 " ": directories {{{
 " set browsedir=buffer
@@ -62,9 +61,10 @@ set hlsearch
 set incsearch
 set number
 set cursorline
-set cursorcolumn "guibg=#404040
+set cursorcolumn  "guibg=#404040
+hi CursorColumn guibg=NONE guifg=#302e31
 set relativenumber
-hi! CursorLine ctermfg=blue
+" hi! CursorLine ctermfg=blue
 set colorcolumn=80
 set splitbelow
 set splitright
@@ -125,7 +125,8 @@ set infercase
 " }}}
 " highlight WhitespaceEOL ctermbg=red guibg=red
 " match WhitespaceEOL /\s\+$/
-let g:python3_host_prog = '/usr/bin/python3'
+" let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/home/tom/.pyenv/versions/3.9.0a4/envs/venv-3.9.0a4/bin/python'
 let g:markdown_fenced_languages = [
             \ 'vim',
             \ 'nvim',
@@ -142,7 +143,8 @@ set bg=dark
 " let g:gruvbox_material_enable_italic = 1
 " let g:gruvbox_material_enable_italic_comment = 1
 colorscheme gruvbox-material
-
+" source $HOME/.config/nvim/colors/bliss.vim
+" colorscheme bliss
 autocmd VimEnter *
             \ call MyPlugs()
 \|  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))

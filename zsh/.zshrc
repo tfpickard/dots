@@ -1,5 +1,4 @@
 #!usr/bin/env zsh
-
 [[ $HOME/.profile ]] && source $HOME/.profile
 [[ $HOME/.aliases ]] && source $HOME/.aliases
 # - - - - - - - - - - - - - - - - - - - -
@@ -208,11 +207,13 @@ zinit ice atload"unalias grv"
 zinit snippet OMZP::git
 zinit snippet OMZP::git-auto-fetch
 zinit snippet OMZP::git-extras
-zinit snippet OMZP::gitfast/_git
+# zinit snippet OMZP::gitfast/_git
 zinit snippet OMZP::github
+zinit snippet OMZP::virtualenvwrapper
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::docker/_docker
 # zinit light Aloxaf/fzf-tab
+zinit load srijanshetty/zsh-pip-completion
 zinit load zsh-users/zsh-history-substring-search
 zinit light zsh-users/zsh-autosuggestions
 zinit load zdharma/history-search-multi-word
@@ -274,6 +275,26 @@ done
 
 eval "$(fasd --init auto)"
 
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] ) )
+}
+compctl -K _pip_completion pip
+compctl -K _pip_completion pip3
+# pip zsh completion end
+
+#pipenv zsh completion start
+_pipenv() {
+  eval $(env COMMANDLINE="${words[1,$CURRENT]}" _PIPENV_COMPLETE=complete-zsh  pipenv)
+}
+if [[ "$(basename -- ${(%):-%x})" != "_pipenv" ]]; then
+  autoload -U compinit && compinit
+  compdef _pipenv pipenv
+fi
 #
 # zstyle ':completion:complete:*:options' sort false
 # zstyle ':fzf-tab:complete:_zlua:*' query-string input
@@ -297,6 +318,5 @@ autoload -Uz compinit
 compinit
 zinit cdreplay -q   
 # zinit cdlist
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

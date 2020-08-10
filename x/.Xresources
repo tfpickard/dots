@@ -1,3 +1,4 @@
+! #include ".Xresources.d/bliss"
 #include ".Xresources.d/gruvbox"
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault

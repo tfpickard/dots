@@ -1,4 +1,5 @@
 nnoremap <leader>c call NERDCommenterToggle()
+map cc <plug>NERDCommenterToggle()
  " nnoremap <space> za
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -79,8 +80,8 @@ noremap <silent> <m-l> :TmuxNavigateRight<cr>
 noremap <silent> <C-_> :<c-u> call vista#finder#fzf#Run() <CR>
 
 " Use tab to trigger completion and navigate.
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " ctrl-space to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()

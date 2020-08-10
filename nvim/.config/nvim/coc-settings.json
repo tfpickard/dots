@@ -15,7 +15,7 @@
     "coc.preferences.colorSupport": true,
     "highlight.colors.enable": true,
     "python.linting.enabled": true,
-    "python.jediEnabled": true,
+    "python.jediEnabled": false,
     "python.jediShortcut": "LS",
     "python.analysis.openFilesOnly": false,
     "python.linting.flake8Enabled": true,

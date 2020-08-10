@@ -22,7 +22,8 @@ white1 = ${xrdb:color7:#a89984}
 white2 = ${xrdb:color15:#ebdbb2}
 orange1 = #d65d0e
 orange2 = #fe8019
-background = ${xrdb:background:#282828}
+background = #aa282828 
+;${xrdb:background:#7e282828}
 foreground = ${xrdb:foreground:#ebdbb2}
 background-alt = ${xrdb:background-alt:#32302f}
 foreground-alt = ${xrdb:foreground-alt:#a89984}
@@ -38,7 +39,7 @@ width = ${env:PM_BAR_WIDTH:99%}
 height = ${env:PM_BAR_HEIGHT:3%}
 offset-x = 0.5%
 offset-y = 0.5%
-radius = 8
+radius = 0
 fixed-center = true
 
 ; font-0 = "IBM Plex Sans:weight=Regular:size=12;4"
@@ -71,7 +72,7 @@ module-margin-right = 0
 
 modules-left = weathericon weathertext
 modules-center = crypto
-modules-right = spotify clock
+modules-right = clock
 
 wm-restack = bspwm
 
@@ -201,12 +202,12 @@ inherit = common/bar
 
 padding-left = 3
 
-monitor = ${env:PM_NAME:eDP1}
+monitor = ${env:PM_NAME:eDP-1}
 dpi = ${env:PM_DPI:110}
 
 modules-left = weathericon weathertext
 modules-center = crypto
-modules-right = spotify gap clock
+modules-right = gap clock
 
 
 [module/apps]
@@ -288,7 +289,7 @@ tray-padding = 3
 tray-maxsize = 22
 fixed-center = true
 enable-ipc = true
-monitor = ${env:PM_NAME:eDP1}
+monitor = ${env:PM_NAME:eDP-1}
 ; dpi = ${env:PM_DPI:110}
 
 bottom = true
@@ -345,7 +346,7 @@ label-unmounted-foreground = ${colors.red2}
 
 [module/network]
 type = internal/network
-interface = wlp107s0
+interface = wlp2s0
 
 interval = 5
 ping-interval = 0
@@ -388,8 +389,8 @@ click-left = ~/.config/polybar/scripts/updates -g
 type = internal/battery
 
 full-at = 99
-battery = BAT1
-adapter = ACAD
+battery = BAT0
+adapter = AC
 poll-interval = 2
 time-format = %H:%M
 
@@ -424,7 +425,7 @@ click-right = mygtkmenu ~/.config/mygtkmenu/power-menu
 ;--------------------------------------------------------------------;
 
 [bar/tray]
-monitor = ${env:PM_NAME:eDP1}
+monitor = ${env:PM_NAME:eDP-1}
 dpi = ${env:PM_DPI:110}
 bottom = true
 background = ${colors.background}
@@ -450,7 +451,7 @@ tray-maxsize = 22
 [bar/left]
 inherit = common/bar-secondary
 
-monitor = ${env:LM_NAME:eDP1}
+monitor = ${env:LM_NAME:eDP-1}
 dpi = ${env:LM_DPI:110}
 
 height = ${env:LM_BAR_HEIGHT:2.75%}
@@ -462,7 +463,7 @@ height = ${env:LM_BAR_HEIGHT:2.75%}
 [bar/right]
 inherit = common/bar-secondary
 
-monitor = ${env:RM_NAME:eDP1}
+monitor = ${env:RM_NAME:eDP-1}
 dpi = ${env:RM_DPI:110}
 
 height = ${env:RM_BAR_HEIGHT:2.75%}
