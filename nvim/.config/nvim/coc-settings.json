@@ -19,7 +19,7 @@
     "python.jediShortcut": "LS",
     "python.analysis.openFilesOnly": false,
     "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": true,
+    "python.linting.mypyEnabled": false,
     "python.linting.pydocstyleEnabled": true,
     "python.formatting.provider": "autopep8",
     "signature.target": "echo",
