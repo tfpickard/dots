@@ -2,8 +2,8 @@
 ": Plugins {{{
 " Install vim-plug if not installed
 
-set verbose=2
-set verbosefile=/tmp/nvim.log
+" set verbose=2
+" set verbosefile=/tmp/nvim.log
 
 set termguicolors
 
@@ -126,7 +126,8 @@ set infercase
 " highlight WhitespaceEOL ctermbg=red guibg=red
 " match WhitespaceEOL /\s\+$/
 " let g:python3_host_prog = '/usr/bin/python3'
-let g:python3_host_prog = '/home/tom/.pyenv/versions/3.9.0a4/envs/venv-3.9.0a4/bin/python'
+let g:python3_host_prog = '/home/tom/.pyenv/versions/neovim3/bin/python'
+let g:python_host_prog = '/home/tom/.pyenv/versions/neovim2/bin/python'
 let g:markdown_fenced_languages = [
             \ 'vim',
             \ 'nvim',
