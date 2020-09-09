@@ -1,25 +1,26 @@
-#!/usr/bin/zsh
-
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
-which colorls >/dev/null && zpm load gretzky/auto-color-ls \
-    || echo "install colorls"
+source ~/.zinit/bin/zinit.zsh
+zmodload zsh/curses
+zinit ice from'gh-r' as'program'
+zinit light sei40kr/fast-alias-tips-bin
+zinit light sei40kr/zsh-fast-alias-tips
 
+zinit light-mode for \
+    webyneter/docker-aliases \
+    greymd/docker-zsh-completion \
+    littleq0903/gcloud-zsh-completion \
+    petervanderdoes/git-flow-completion
+# zinit ice atload"init.sh"
+zinit load avivl/gcloud-project
+zinit ice atload"zpcdreplay" atclone'./zplug.zsh'
+zinit light g-plane/zsh-yarn-autocompletions
 
-if [[ ! -f ~/.zpm/zpm.zsh ]]; then
-  git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
-fi
-source ~/.zpm/zpm.zsh
-
-zpm load zpm-zsh/colors
-zpm load zpm-zsh/autoenv
-zpm load zsh-users/zsh-history-substring-search
-zpm load Tarrasch/zsh-bd
-zpm load zpm-zsh/check-deps
-zpm load sei40kr/fast-alias-tips-bin #, from:gh-r, as:command, rename-to:def-matcher
-zpm load sei40kr/zsh-fast-alias-tips
-
+zinit load srijanshetty/zsh-pip-completion
+zinit load  zdharma/zui
+zinit wait lucid for zinit-zsh/zinit-console
+zinit load softmoth/zsh-vim-mode
+zinit load csurfer/tmuxrepl
+zinit load torin-asakura/zsh-theia-dev-tools
 
 
 # Source Prezto.
@@ -27,19 +28,41 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+
+setopt COMPLETE_ALIASES
+zstyle ':completion::complete:*' gain-privileges 1
+autoload -Uz compinit
+compinit
+
 # Customize to your needs...
-#!/usr/bin/zsh
-bindkey -v 
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+# pyenv
+source <(pyenv init -)
+source <(pyenv virtualenv-init -)
+source /usr/share/zsh/site-functions/_pyenv
+pyenv virtualenvwrapper_lazy
+
+# extensions
+source <(fasd --init auto)
+source <(direnv hook zsh)
+#source <(rbenv init -)
+#source <(jenv init -)
+
+# completion
+source "/usr/share/fzf/completion.zsh"
+source "/usr/share/fzf/key-bindings.zsh"
+# source "${GOOGLE_CLOUD_SDK}/path.zsh.inc"
+# source "${GOOGLE_CLOUD_SDK}/completion.zsh.inc"
+#
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
-n=$(( $(tmux list-sessions | \
-    grep -oE 'ssh-[0-9]*' | \
-    tail -n1 | cut -d'-' -f2)+1))
-# tmux new -s "ssh-$n"
-[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-source /usr/share/nvm/nvm.sh
-source /usr/share/nvm/bash_completion
-source /usr/share/nvm/install-nvm-exec
+which pmy >/dev/null || go get -v -u github.com/relastle/pmy
+[[ -d ~/.pmy ]] || \
+    git clone https://github.com/relastle/pmy-config $HOME/.pmy
+eval "$(pmy init)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
