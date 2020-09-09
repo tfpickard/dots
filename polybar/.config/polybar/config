@@ -49,7 +49,7 @@ font-2 = "FontAwesome5Brands:style=Solid:pixelsize=12;3"
 ; font-3 = "Weather Icons:size=16;3"
 ; font-3 = "Cascadia Code iCursive Cg:pixelsize=12;3"
 font-3 = "Material Icons:pixelsize=17;7"
-font-4 = "icomoon:style=Regular:pixelsize=20;2"
+font-4 = "Ionicons:style=Regular:pixelsize=20;2"
 font-5 = "Spy Agency:pixelsize=12;4"
 font-6 = "Spy Agency Laser:pixelsize=12;4"
 font-7 = "Geforce:style=Bold:pixelsize=12;5"
@@ -175,8 +175,10 @@ content = "  "
 type = custom/text
 content = "     "
 
-[common/pulseaudio]
+[module/pulseaudio]
 type = internal/pulseaudio
+
+
 
 use-ui-max = false
 label-volume = %percentage%%
@@ -202,8 +204,8 @@ inherit = common/bar
 
 padding-left = 3
 
-monitor = ${env:PM_NAME:eDP-1}
-dpi = ${env:PM_DPI:110}
+monitor = ${env:MON:eDP-1}
+;dpi = ${env:PM_DPI:110}
 
 modules-left = weathericon weathertext
 modules-center = crypto
@@ -289,7 +291,7 @@ tray-padding = 3
 tray-maxsize = 22
 fixed-center = true
 enable-ipc = true
-monitor = ${env:PM_NAME:eDP-1}
+monitor = ${env:MON:eDP-1}
 ; dpi = ${env:PM_DPI:110}
 
 bottom = true
@@ -346,7 +348,7 @@ label-unmounted-foreground = ${colors.red2}
 
 [module/network]
 type = internal/network
-interface = wlp2s0
+interface = ${env:WLAN} 
 
 interval = 5
 ping-interval = 0
@@ -367,9 +369,9 @@ ramp-signal-2 = %{T5}%{T-}
 ramp-signal-3 = %{T5}%{T-}
 ramp-signal-4 = %{T5}%{T-}
 
-[module/usb-audio]
-inherit = common/pulseaudio
-sink = alsa_output.usb-Focusrite_Scarlett_2i2_USB-00.analog-stereo
+; [module/usb-audio]
+; inherit = common/pulseaudio
+; sink = alsa_output.usb-Focusrite_Scarlett_2i2_USB-00.analog-stereo
 
 [module/redshift]
 type = custom/script
@@ -389,8 +391,8 @@ click-left = ~/.config/polybar/scripts/updates -g
 type = internal/battery
 
 full-at = 99
-battery = BAT0
-adapter = AC
+battery = ${env:$BAT:BAT0}
+adapter = ${env:$ACAD:AC}
 poll-interval = 2
 time-format = %H:%M
 

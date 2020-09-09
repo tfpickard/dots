@@ -1,1 +1,11 @@
-/home/tom/.config/systemd/user/firefox-profile@.service
+ [Unit]
+ Description=Firefox profile memory cache
+
+ [Install]
+ WantedBy=default.target
+
+ [Service]
+ Type=oneshot
+ RemainAfterExit=yes
+ ExecStart=/home/tom/.local/bin/firefox-sync %i
+ ExecStop=/home/tom/.local/bin/firefox-sync %i

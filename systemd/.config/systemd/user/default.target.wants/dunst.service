@@ -1,1 +1,7 @@
-/home/tom/.config/systemd/user/dunst.service
+[Unit]
+Description=display dope-ass messages
+[Service]
+ExecStart=/usr/bin/dunst
+[Install]
+WantedBy=default.target
+

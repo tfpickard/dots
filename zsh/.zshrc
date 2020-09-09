@@ -11,6 +11,7 @@ zinit light-mode for \
     littleq0903/gcloud-zsh-completion \
     petervanderdoes/git-flow-completion
 # zinit ice atload"init.sh"
+zinit ice atload"init.sh" 
 zinit load avivl/gcloud-project
 zinit ice atload"zpcdreplay" atclone'./zplug.zsh'
 zinit light g-plane/zsh-yarn-autocompletions
