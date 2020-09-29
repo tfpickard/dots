@@ -9,9 +9,10 @@ nnoremap <leader>% :source %<CR>
 nnoremap gev :e $MYVIMRC<CR>
 nnoremap gsv :so $MYVIMRC<CR>
 
-cnoremap WQ :SudoWrite %<CR>
-cnoremap +x :SudoChod +x<CR>
-cnoremap E  :SudoEdit
+cnoremap \WQ :SudoWrite %<CR>:q<CR>
+cnoremap \W :SudoWrite %<CR>
+cnoremap \X :SudoChod +x<CR>
+cnoremap \E  :SudoEdit
 nnoremap !  :SudoEdit %
 
 autocmd FileType denite call s:denite_my_settings()

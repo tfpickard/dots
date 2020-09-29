@@ -23,8 +23,8 @@ export BAT=$(find /sys/class/power_supply/  | grep -oE 'BAT.*$')
 export ACAD=$(find /sys/class/power_supply/  | grep -oE 'AC.*$')
 for i in $(seq 1 3); do
     echo $WLAN
-    MON=DP-1.$i WLAN=$WLAN BAT=$BAT ACAD=$ACAD polybar --reload top &
-    MON=DP-1.$i WLAN=$WLAN BAT=$BAT ACAD=$ACAD polybar --reload bottom &
+    MON=DP-1-1.$i WLAN=$WLAN BAT=$BAT ACAD=$ACAD polybar --reload top &
+    MON=DP-1-1.$i WLAN=$WLAN BAT=$BAT ACAD=$ACAD polybar --reload bottom &
 done
 # [ ! -z "$LM_NAME" ] && polybar --reload left &
 # [ ! -z "$RM_NAME" ] && polybar --reload right &
