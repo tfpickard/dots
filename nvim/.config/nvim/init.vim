@@ -32,12 +32,16 @@ require'colorizer'.setup(
     })
 EOF
 
+source $HOME/.config/nvim/auto.vim
 source $HOME/.config/nvim/keys.vim
 source $HOME/.config/nvim/vim-commentary.vim
 source $HOME/.config/nvim/nerd-commenter.vim
+source $HOME/.config/nvim/nerd-tree.vim
 source $HOME/.config/nvim/which-key.vim
 source $HOME/.config/nvim/codi.vim
 source $HOME/.config/nvim/indentline.vim
+source $HOME/.config/nvim/vim-emoji.vim
+
 "
 " ": directories {{{
 " set browsedir=buffer
@@ -125,9 +129,9 @@ set infercase
 " }}}
 " highlight WhitespaceEOL ctermbg=red guibg=red
 " match WhitespaceEOL /\s\+$/
-" let g:python3_host_prog = '/usr/bin/python3'
-let g:python3_host_prog = '/home/tom/.pyenv/versions/neovim3/bin/python'
-let g:python_host_prog = '/home/tom/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+"let g:python3_host_prog = '/home/tom/.pyenv/versions/neovim3/bin/python'
+"let g:python_host_prog = '/home/tom/.pyenv/versions/neovim2/bin/python'
 let g:markdown_fenced_languages = [
             \ 'vim',
             \ 'nvim',
@@ -135,6 +139,8 @@ let g:markdown_fenced_languages = [
             \]
 
 set pastetoggle=<F3>
+set completeopt=menuone,preview
+set complete-=i
 
 
 set bg=dark
@@ -262,12 +268,12 @@ let g:ale_completion_symbols = {
 " hi HighlightedyankRegion cterm=reverse gui=reverse
 
 " nerdtree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in")
-            \ && v:this_session == "" | NERDTree | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in")
+"             \ && v:this_session == "" | NERDTree | endif
 
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0])
@@ -275,11 +281,6 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in")
 "                 \ | exe 'cd '.argv()[0] | endif
 
 
-let NERDTreeShowHidden=1
-let NERDTreeMinimalUI=1
-let NERDTreeCascadeSingleChildDir=0
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
 
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
@@ -515,6 +516,11 @@ function! Fzf_dev()
                 \ 'options': '-m -x +s',
                 \ 'down':    '40%' })
 endfunction
+
+command! -nargs=? -complete=dir AF
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \ })))
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
 " define less filetype

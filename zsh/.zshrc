@@ -32,6 +32,7 @@ fi
 
 setopt COMPLETE_ALIASES
 zstyle ':completion::complete:*' gain-privileges 1
+zstyle ':completion:*' rehash true
 autoload -Uz compinit
 compinit
 

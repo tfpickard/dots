@@ -57,34 +57,36 @@ key=os.getenv('OPW_KEY')
 owm = OWM(key)
 #  mgr = owm.w
 #  obs = mgr.weather_at_place("Boulder,US")
-w = owm.weather_manager().weather_at_place(f"{city},{region},{country}")
+#  wm = owm.weather_manager()
+wm = owm.weather_manager() #_at_place
+w = wm.weather_at_place(f"{city},{region},{country}").weather
 #.get_weather()
-clouds = w.get_clouds()
+clouds = w.clouds
 #  print(f"clouds: {clouds}")
-dstatus = w.get_detailed_status()
-dewpoint = w.get_dewpoint()
-heatex = w.get_heat_index()
-humidex = w.get_humidex()
-humidity = w.get_humidity()
-pressure = w.get_pressure()
+dstatus = w.detailed_status
+dewpoint = w.dewpoint
+heatex = w.heat_index
+humidex = w.humidex
+humidity = w.humidity
+pressure = w.pressure
 #  print(f"pressure: {pressure}")
-rain = w.get_rain()
+rain = w.rain
 #  print(f"rain: {rain}")
-snow = w.get_snow()
+snow = w.snow
 #  print(f"snow :{snow}")
-status = w.get_status()
+status = w.status
 #  print(f"stats: {status}")
-sunrise = w.get_sunrise_time()
-sunset = w.get_sunset_time()
-temperature = w.get_temperature('fahrenheit')
-visibility = w.get_visibility_distance()
-wcode = w.get_weather_code()
+sunrise = w.sunrise_time
+sunset = w.sunset_time
+temperature = w.temperature('fahrenheit')
+visibility = w.visibility_distance
+wcode = w.weather_code
 #  print(f"wcode: {wcode}")
-icon_name = w.get_weather_icon_name()
+icon_name = w.weather_icon_name
 #  print(f"icon name: {icon_name}")
-icon_url = w.get_weather_icon_url()
+icon_url = w.weather_icon_url
 #  print(f"icon url: {icon_url}")
-wind = w.get_wind("miles_hour")
+wind = w.wind("miles_hour")
 #  print(f"wind: {wind}")
 icon = get_icon(icon_name)
 

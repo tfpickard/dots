@@ -25,7 +25,9 @@
     /* Universal */
     background-color: @invisible;
     border-color: @default-border;
-    font: "Fira Code 9";
+    /* font: "Hurmit Nerd Font Mono 10"; */
+    font: "OverpassMono Nerd Font 12";
+    /* "Fira Code 9"; */
     text-color: @default-foreground;
 }
 

@@ -1,5 +1,5 @@
 nnoremap <leader>c call NERDCommenterToggle()
-map cc <plug>NERDCommenterToggle()
+nmap cc <plug>NERDCommenterToggle()
  " nnoremap <space> za
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -65,20 +65,33 @@ vnoremap > >gv
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-nnoremap <C-p> :Files<ENTER>
-if has('nvim')
-  aug fzf_setup
-    au!
-    au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
-  aug END
-end
+" nnoremap <C-p> :Files<ENTER>
+" if has('nvim')
+"   aug fzf_setup
+"     au!
+"     au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+"   aug END
+" end
 "
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
+
 "split navigations
 noremap <silent> <m-h> :TmuxNavigateLeft<cr>
 noremap <silent> <m-j> :TmuxNavigateDown<cr>
 noremap <silent> <m-k> :TmuxNavigateUp<cr>
 noremap <silent> <m-l> :TmuxNavigateRight<cr>
 noremap <silent> <C-_> :<c-u> call vista#finder#fzf#Run() <CR>
+inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+inoremap <expr> <c-x><c-d> fzf#vim#complete#path('blsd')
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Use tab to trigger completion and navigate.
 " inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
@@ -169,7 +182,7 @@ autocmd FileType python map <buffer> <leader>af :call Autoflake()<CR>
 
 " <leader>cs to force commenting of first line comment
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-b> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
             \ && b:NERDTree.isTabTree()) | q | endif
 
@@ -185,3 +198,59 @@ map <leader>L :Prettier
 " endif " has autocmd
 "
 "
+
+" ----------------------------------------------------------------------------
+" vim-plug extension
+" ----------------------------------------------------------------------------
+function! s:plug_gx()
+  let line = getline('.')
+  let sha  = matchstr(line, '^  \X*\zs\x\{7,9}\ze ')
+  let name = empty(sha) ? matchstr(line, '^[-x+] \zs[^:]\+\ze:')
+                      \ : getline(search('^- .*:$', 'bn'))[2:-2]
+  let uri  = get(get(g:plugs, name, {}), 'uri', '')
+  if uri !~ 'github.com'
+    return
+  endif
+  let repo = matchstr(uri, '[^:/]*/'.name)
+  let url  = empty(sha) ? 'https://github.com/'.repo
+                      \ : printf('https://github.com/%s/commit/%s', repo, sha)
+  call netrw#BrowseX(url, 0)
+endfunction
+
+function! s:scroll_preview(down)
+  silent! wincmd P
+  if &previewwindow
+    execute 'normal!' a:down ? "\<c-e>" : "\<c-y>"
+    wincmd p
+  endif
+endfunction
+
+function! s:plug_doc()
+  let name = matchstr(getline('.'), '^- \zs\S\+\ze:')
+  if has_key(g:plugs, name)
+    for doc in split(globpath(g:plugs[name].dir, 'doc/*.txt'), '\n')
+      execute 'tabe' doc
+    endfor
+  endif
+endfunction
+
+function! s:setup_extra_keys()
+  " PlugDiff
+  nnoremap <silent> <buffer> J :call <sid>scroll_preview(1)<cr>
+  nnoremap <silent> <buffer> K :call <sid>scroll_preview(0)<cr>
+  nnoremap <silent> <buffer> <c-n> :call search('^  \X*\zs\x')<cr>
+  nnoremap <silent> <buffer> <c-p> :call search('^  \X*\zs\x', 'b')<cr>
+  nmap <silent> <buffer> <c-j> <c-n>o
+  nmap <silent> <buffer> <c-k> <c-p>o
+
+  " gx
+  nnoremap <buffer> <silent> gx :call <sid>plug_gx()<cr>
+
+  " helpdoc
+  nnoremap <buffer> <silent> H  :call <sid>plug_doc()<cr>
+endfunction
+
+autocmd vimrc FileType vim-plug call s:setup_extra_keys()
+
+let g:plug_window = '-tabnew'
+let g:plug_pwindow = 'vertical rightbelow new'

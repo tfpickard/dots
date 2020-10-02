@@ -58,6 +58,8 @@ Plug 'fisadev/vim-isort', {'for': 'python'}
 Plug 'tell-k/vim-autoflake', {'for': 'python'}
 Plug 'nvie/vim-flake8'
 Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'fszymanski/deoplete-emoji'
 
 " syntax
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -81,7 +83,8 @@ Plug 'gioele/vim-autoswap'
 Plug 'google/yapf'
 
 " Git
-
+Plug 'junegunn/vim-github-dashboard'
+  let g:github_dashboard = { 'username': 'nailshard' }
 " Tmux
 Plug 'tmux-plugins/vim-tmux'
 Plug 'edkolev/tmuxline.vim'
@@ -134,6 +137,10 @@ Plug 'sainnhe/gruvbox-material'
 " Plug 'roman/golden-ratio'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-emoji'
+    command! -range EmojiReplace 
+        \<line1>,<line2>s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g
+
 
 " Plug 'lilydjwg/colorizer', { 'on': 'ColorToggle' }
 Plug 'norcalli/nvim-colorizer.lua'
