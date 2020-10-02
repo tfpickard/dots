@@ -81,7 +81,7 @@ Plug 'gioele/vim-autoswap'
 Plug 'google/yapf'
 
 " Git
-
+Plug 'peterhurford/send.vim'
 " Tmux
 Plug 'tmux-plugins/vim-tmux'
 Plug 'edkolev/tmuxline.vim'
