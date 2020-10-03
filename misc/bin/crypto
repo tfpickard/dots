@@ -1,6 +1,10 @@
 #!/bin/bash
 fatal() {
-    echo "fatal: $@"
+    if [[ $# -eq 0 ]]; then
+        [[ -e ~/bin/easter ]] && ~/bin/easter  || echo "¯\_(ツ)_/¯"
+    else
+        echo "fatal: $@"
+    fi
     exit 1
 }
 [[ -f ~/.ethermine ]] || fatal "nope"
@@ -12,6 +16,7 @@ status=$(echo $stats | jq '.status')
 data=$(curl -s $api/miner/$miner/currentStats)
 status=$(echo $data | jq '.status')
 [[ "$status" =~ "OK" ]] || fatal $status
+[[ '"NO DATA"' == "$(echo $data | jq '.data')" ]] && fatal
 hrr=$(echo $data | jq '.data.reportedHashrate' | awk '{printf "%.1f",$1*1E-6}') #'*1e-6}')
 hra=$(echo $data | jq '.data.averageHashrate' | awk '{printf "%.1f",$1*1E-6}')
 hrc=$(echo $data | jq '.data.currentHashrate' | awk '{printf "%.1f",$1*1E-6}')
