@@ -1,6 +1,7 @@
-nnoremap <leader>c call NERDCommenterToggle()
-map cc <plug>NERDCommenterToggle()
- " nnoremap <space> za
+" nnoremap <leader>c call NERDCommenterToggle()
+" map cc <plug>NERDCommenterToggle()
+nmap cc gcc
+" nnoremap <space> za
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>

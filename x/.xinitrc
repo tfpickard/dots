@@ -6,7 +6,7 @@
 lfile="/tmp/xinit.log"
 touch $lfile
 
-sudo chown -R tom:tom /sys/class/backlight/intel_backlight/*
+# sudo chown -R tom:tom /sys/class/backlight/intel_backlight/*
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
@@ -14,7 +14,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   done
   unset f
 fi
-. ~/.profile
+# . ~/.profile
 
 
 #~/bin/kb
@@ -44,8 +44,9 @@ xsetroot -cursor_name left_ptr >> $lfile 2>&1
 #autorandr --force -c
 # exec spectrwm | tee /tmp/spectrwm.log 2>&1
 # xrandr --output eDP-1 --mode 2048x1152
-/home/tom/bin/screens
- exec bspwm | tee /tmp/bspwm.log 2>&1
+# /home/tom/bin/screens
+~/.screenlayout/$(hostname).sh
+exec bspwm | tee /tmp/bspwm.log 2>&1
 # exec openbox
 #exec wingo --log-level="4" > /tmp/wingo.log 2>&1
 #exec xmonad > /tmp/xmonad.log 2>&1
