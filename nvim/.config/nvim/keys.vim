@@ -1,6 +1,8 @@
 " nnoremap <leader>c call NERDCommenterToggle()
 " map cc <plug>NERDCommenterToggle()
 nmap cc gcc
+" let g:AutoPairsShortcutFastWrap = 'C-e'
+
 " nnoremap <space> za
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -84,6 +86,16 @@ noremap <silent> <C-_> :<c-u> call vista#finder#fzf#Run() <CR>
 " Use tab to trigger completion and navigate.
 " inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : coc#refresh()
 " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
 
 " ctrl-space to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()

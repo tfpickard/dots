@@ -125,9 +125,9 @@ set infercase
 " }}}
 " highlight WhitespaceEOL ctermbg=red guibg=red
 " match WhitespaceEOL /\s\+$/
-" let g:python3_host_prog = '/usr/bin/python3'
-let g:python3_host_prog = '/home/tom/.pyenv/versions/neovim3/bin/python'
-let g:python_host_prog = '/home/tom/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+" let g:python3_host_prog = '/home/tom/.pyenv/versions/neovim3/bin/python'
+" let g:python_host_prog = '/home/tom/.pyenv/versions/neovim2/bin/python'
 let g:markdown_fenced_languages = [
             \ 'vim',
             \ 'nvim',

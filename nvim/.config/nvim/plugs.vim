@@ -37,15 +37,17 @@ Plug 'voldikss/coc-browser', {'do': 'yarn install --frozen-lockfile'}
 Plug 'weirongxu/coc-explorer', {'do': 'yarn install'}
 Plug 'neoclide/coc-git', {'do': 'yarn install'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install'}
-Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install'}
-Plug 'fannheyward/coc-marketplace', {'do': 'yarn install'}
-Plug 'neoclide/coc-python', {'do': 'yarn install'}
-Plug 'fannheyward/coc-pyright', {'do': 'yarn install'}
+" Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install'}
+" Plug 'fannheyward/coc-marketplace', {'do': 'yarn install'}
+" Plug 'neoclide/coc-python', {'do': 'yarn install'}
+" Plug 'fannheyward/coc-pyright', {'do': 'yarn install'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install'}
-Plug 'neoclide/coc-solargraph', {'do': 'yarn install'}
+" Plug 'neoclide/coc-solargraph', {'do': 'yarn install'}
 Plug 'voldikss/coc-template', {'do': 'yarn install'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install'}
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
+
 
 Plug 'dense-analysis/ale'
 Plug 'honza/vim-snippets'
@@ -55,15 +57,15 @@ Plug 'marcweber/vim-addon-mw-utils'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Shougo/denite.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'shougo/neoyank.vim'
-Plug 'fisadev/vim-isort', {'for': 'python'}
-Plug 'tell-k/vim-autoflake', {'for': 'python'}
-Plug 'nvie/vim-flake8'
+" Plug 'fisadev/vim-isort', {'for': 'python'}
+" Plug 'tell-k/vim-autoflake', {'for': 'python'}
+" Plug 'nvie/vim-flake8'
 Plug 'rhysd/vim-clang-format', {'for': 'cpp'}
 
 " syntax
 Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'bfredl/nvim-ipy', {'for': 'python', 'do': ':UpdateRemotePlugins'}
-Plug 'vimjas/vim-python-pep8-indent'
+" Plug 'bfredl/nvim-ipy', {'for': 'python', 'do': ':UpdateRemotePlugins'}
+" Plug 'vimjas/vim-python-pep8-indent'
 Plug 'fatih/vim-go', {'for': 'go'} ", 'do': ':GoUpdateBinaries'}
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
 Plug 'chrisbra/csv.vim'
@@ -92,7 +94,7 @@ Plug 'sunaku/tmux-navigate'
 
 
 " python
-" Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 " Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'liuchengxu/vista.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -105,8 +107,8 @@ Plug 'metakirby5/codi.vim'
 
 " utilities
 Plug 'mhinz/vim-startify'
-Plug 'vimwiki/vimwiki'
-Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+" Plug 'vimwiki/vimwiki'
+" Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
     Plug 'voldikss/vim-floaterm'
     Plug 'junegunn/gv.vim'

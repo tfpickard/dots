@@ -18,9 +18,18 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 export LM_NAME=DP-1-1.1
 export RM_NAME=DP-1-1.3
 export PM_NAME=DP-1-1.2
-export WLAN=wlp0s20f3
+export WLAN=wlan0
 export BAT=$(find /sys/class/power_supply/  | grep -oE 'BAT.*$')
 export ACAD=$(find /sys/class/power_supply/  | grep -oE 'AC.*$')
+let i=0
+for m in $(polybar -m | awk '{print substr($1,1,length($1)-1)}'); do
+    (sleep $i ; MON=$m WLAN=$WLAN BAT=$BAT ACAD=$ACAD polybar --reload top) &
+    (sleep $(( i+1 )) ; \
+        MON=$m WLAN=$WLAN BAT=$BAT ACAD=$ACAD polybar --reload bottom) &
+    let i=$(( i+2 ))
+    
+done
+exit 0
 for i in $(seq 1 3); do
     echo $WLAN
     MON=DP-1-1.$i WLAN=$WLAN BAT=$BAT ACAD=$ACAD polybar --reload top &
