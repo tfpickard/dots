@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. ~/.p/airnow || exit 1
+DATE=$(date "+%Y-%m-%d")
+ZIP=80026
+FORMAT="application/json"
+url='https://www.airnowapi.org/aq/observation/zipCode/current/'
+url="$url?format=$FORMAT&zipCode=$ZIP&API_KEY=$AIRNOW_API_KEY"
+# echo $url
+curl -s $url | jq '.[] | .AQI' | sort -n | tail -n1
